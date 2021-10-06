@@ -10,12 +10,12 @@ function App() {
   //const roomRef = ref(database, 'rooms');
 
   async function teste() {
-    const firebaseRoom = await set(ref(database, 'users/1'), {
-      title: 'luquinhas'
+    const firebaseRoom = await set(ref(database, 'users'), {
+      title: 'tapejara'
     });
     console.log(firebaseRoom);
   }
-
+  console.log("eh pra vir")
   teste();
   return (
     <div className="App">
