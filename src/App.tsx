@@ -17,6 +17,7 @@ function App() {
   }
 
   teste();
+  // teste
   return (
     <div className="App">
       <header className="App-header">
