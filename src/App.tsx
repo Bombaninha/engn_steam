@@ -11,7 +11,7 @@ function App() {
 
   async function teste() {
     const firebaseRoom = await set(ref(database, 'users'), {
-      title: 'xesque'
+      title: 'tapejara'
     });
     console.log(firebaseRoom);
   }
