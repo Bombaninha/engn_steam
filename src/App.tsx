@@ -10,8 +10,8 @@ function App() {
   //const roomRef = ref(database, 'rooms');
 
   async function teste() {
-    const firebaseRoom = await set(ref(database, 'users/1'), {
-      title: 'luquinhas'
+    const firebaseRoom = await set(ref(database, 'users'), {
+      title: 'xesque'
     });
     console.log(firebaseRoom);
   }
@@ -21,7 +21,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
