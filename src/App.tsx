@@ -1,13 +1,28 @@
+//import { useHistory } from 'react-router-dom';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import { database, ref, set } from './services/firebase';
+
 function App() {
+  //const history = useHistory();
+  //const roomRef = ref(database, 'rooms');
+
+  async function teste() {
+    const firebaseRoom = await set(ref(database, 'users/1'), {
+      title: 'luquinhas'
+    });
+    console.log(firebaseRoom);
+  }
+
+  teste();
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <a
           className="App-link"
