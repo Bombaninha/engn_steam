@@ -18,10 +18,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install and build
+    - run: npm install -g yarn
+    - name: yarn install, build and test
       run: |
-        npm install
-        npm run build
+        yarn install
+        yarn build
     - name: Archive Build
       uses: actions/upload-artifact@v2
       with:
@@ -39,7 +40,7 @@ jobs:
         with:
           name: build
           path: build
-      - name: Depoy to Firebase
+      - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
