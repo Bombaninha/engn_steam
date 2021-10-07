@@ -1,40 +1,38 @@
 //import { useHistory } from 'react-router-dom';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+//import logo from './logo.svg';
+//import { database, ref, set } from './services/firebase';
 
-import { database, ref, set } from './services/firebase';
+import GlobalStyles from './styles/GlobalStyles';
 
-function App() {
+import { ThemeProvider } from 'styled-components';
+//import Dashboard from './pages/Dashboard';
+import Layout from './components/Layout';
+
+import standard from './styles/themes/standard';
+
+const App: React.FC = () => {
+  return (
+    <ThemeProvider theme={standard}>
+      <GlobalStyles />
+      <Layout />
+    </ThemeProvider>
+  );
+}
+
+//function App() {
   //const history = useHistory();
   //const roomRef = ref(database, 'rooms');
 
-  async function teste() {
-    const firebaseRoom = await set(ref(database, 'users'), {
-      title: 'tapejara'
-    });
-    console.log(firebaseRoom);
-  }
+  //async function teste() {
+  //  const firebaseRoom = await set(ref(database, 'users'), {
+  //    title: 'tapejara'
+  //  });
+  //  console.log(firebaseRoom);
+  //}
 
-  teste();
+  //teste();
   // teste
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+//}
 
 export default App;
