@@ -1,5 +1,4 @@
 import React from 'react'
-import LateralMenu from '../../components/lateral_menu'
 
 const Store: React.FC = () => {
     return (
@@ -8,5 +7,4 @@ const Store: React.FC = () => {
         </div>
     )
 }
-
 export default Store
