@@ -3,6 +3,11 @@
     flex-direction: column;
     background-color: var(--light-gray);
     height: 100vh;
+    width: 25vw;
+    min-width: 200px;
+    max-width: 500px;
+    padding: 2rem 0.5rem;
+    margin-right: 1rem;
 }
 
 .lateral-menu button {
@@ -10,4 +15,5 @@
     background-color: transparent;
     border: none;
     font-size: 2rem;
+    margin-bottom: 1rem;
 }
