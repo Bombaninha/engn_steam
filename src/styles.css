@@ -1,0 +1,23 @@
+:root {
+    --base-font-color: #FAFAFA;
+    --light-gray: #393E46;
+    --dark-gray: #222831;
+    --yellow: #FFD369;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--dark-gray);
+    color: var(--base-font-color);
+}
+
+.app {
+    display: flex;
+}

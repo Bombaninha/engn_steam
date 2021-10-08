@@ -1,0 +1,13 @@
+.lateral-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-gray);
+    height: 100vh;
+}
+
+.lateral-menu button {
+    color: var(--base-font-color);
+    background-color: transparent;
+    border: none;
+    font-size: 2rem;
+}
