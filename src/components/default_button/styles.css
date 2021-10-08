@@ -3,8 +3,9 @@
     background-color: transparent;
     color: var(--yellow);
     text-align: center;
-    padding: 0.3rem 0.5rem;
+    padding: 0.4rem 0.6rem;
     border-radius: 0.15rem;
+    font-size: 1rem;
 }
 
 .primary {
@@ -15,6 +16,6 @@
 
 .secondary {
     background-color: var(--light-gray);
-    color: var(--black);
+    color: var(--base-font-color);
     border: none;
 }

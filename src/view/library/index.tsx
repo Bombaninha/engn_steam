@@ -2,7 +2,7 @@ import React from 'react'
 
 const Library: React.FC = () => {
     return (
-        <h1>Library</h1>
+        <h1 className="page-title">Library</h1>
     )
 }
 

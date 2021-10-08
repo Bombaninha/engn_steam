@@ -1,3 +1,13 @@
+.select-box-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.select-box-wrapper label {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
 .select-box {
     background-color: var(--light-gray);
     color: var(--base-font-color);
