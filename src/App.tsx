@@ -40,14 +40,18 @@ const App: React.FC = () => {
   });
   */
 
-  /*
+
  const db = getDatabase();
  const gameRef = ref(db, 'games');
  
-  push(gameRef, {
-    name: 'Jogo 1'
+  /*
+  const firebaseGame = push(gameRef, {
+    name: 'JOGAOOOO'
   });
 
+  console.log(firebaseGame.key)
+  */
+  /*
   push(gameRef, {
     name: 'Jogo 2'
   });
