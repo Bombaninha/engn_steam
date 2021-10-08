@@ -1,0 +1,14 @@
+.game-list-box {
+    padding: 0 1.5rem 0 0.5rem;
+    width: 75vw;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.header-wrapper form {
+    margin-bottom: 1rem;
+}

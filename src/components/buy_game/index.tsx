@@ -7,7 +7,7 @@ import DefaultButton from '../default_button'
 
 export interface BuyGameProps {
     onCancel: (value: string) => void
-    onGameBought: (value: boolean) => void
+    onGameBought: () => void
 }
 
 const BuyGame: React.FC<BuyGameProps> = ({onCancel, onGameBought}) => {
@@ -16,12 +16,10 @@ const BuyGame: React.FC<BuyGameProps> = ({onCancel, onGameBought}) => {
     const [select, setSelect] = useState('manga')
 
     const handleCancelPurchase = () => {
-        console.log('cancelei')
         onCancel('')
     }
     const handleBuyGame = () => {
-        console.log('comprei')
-        onGameBought(true)
+        onGameBought()
     }
 
     return (

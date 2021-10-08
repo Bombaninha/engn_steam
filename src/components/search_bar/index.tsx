@@ -1,25 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './styles.css'
 
 export interface SearchBarProps {
 	placeholder: string
-    onSubmit: () => void
+    onChange: (value: string) => void
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({placeholder, onSubmit}) => {
-    const handleClick = (
-		event: React.FormEvent<HTMLFormElement>,
+const SearchBar: React.FC<SearchBarProps> = ({placeholder, onChange}) => {
+    const [value, setValue] = useState('')
+
+    const handleChange = (
+		event: React.ChangeEvent<HTMLInputElement>,
 	) => {
         event.preventDefault()
-		onSubmit()
+		onChange(event.target.value)
 	}
 
     return (
-        <form onSubmit={handleClick}>
+        <form>
             <div className='search-bar-wrapper'>
                 <input
                     type="text"
-                    placeholder={placeholder} 
+                    placeholder={placeholder}
+                    onChange={handleChange} 
                 />
                 <button>
                     <i className="fas fa-search"></i>
