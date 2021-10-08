@@ -1,0 +1,25 @@
+.filter-by-category-wrapper {
+    border: solid var(--yellow) 1px;
+    height: fit-content;
+}
+
+.filter-by-category-wrapper h2 {
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: var(--black);
+    background-color: var(--yellow);
+}
+
+.filter-by-category-wrapper form {
+    padding: 0.5rem;
+}
+
+.filter-by-category-wrapper .input-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0.3rem 0;
+}
+
+.filter-by-category-wrapper .input-wrapper input {
+    margin-right: 0.5rem;
+}
