@@ -1,8 +1,10 @@
 :root {
     --base-font-color: #FAFAFA;
-    --light-gray: #393E46;
+    --medium-gray: #393E46;
     --dark-gray: #222831;
     --yellow: #FFD369;
+    --light-gray: #999;
+    --black: #121212;
 }
 
 * {
@@ -20,4 +22,9 @@ body {
 
 .app {
     display: flex;
+}
+
+.page-title {
+    font-size: 2rem;
+    margin: 2rem 0 1rem;
 }

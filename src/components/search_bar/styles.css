@@ -1,0 +1,17 @@
+.search-bar-wrapper {
+    border: solid var(--base-font-color) 1px;
+    border-radius: 1rem;
+    padding: 0.3rem 0.5rem;
+}
+
+.search-bar-wrapper input {
+    color: var(--base-font-color);
+    border: none;
+    background-color: transparent;
+}
+
+.search-bar-wrapper button {
+    color: var(--base-font-color);
+    border: none;
+    background-color: transparent;
+}
