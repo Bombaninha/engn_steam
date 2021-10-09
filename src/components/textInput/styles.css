@@ -5,4 +5,18 @@
     background-color: transparent;
     color: var(--base-font-color);
     font-size: 1rem;
+    width: -webkit-fill-available;
 }
+
+.text-input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.text-input-wrapper label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 1rem;
+    text-align: right;
+    min-width: 10rem;
+} 

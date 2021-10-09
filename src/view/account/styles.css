@@ -1,0 +1,26 @@
+.account-wrapper {
+    width: 70vw;
+    min-height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-wrapper .button-wrapper {
+    display: flex;
+}
+
+.account-wrapper .show-display-button {
+    color: var(--yellow);
+    text-decoration: underline;
+    background-color: transparent;
+    border: none;
+    text-align: right;
+    cursor: pointer;
+    width: fit-content;
+    align-self: flex-end;
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+.account-wrapper .text-input-wrapper {
+    margin: 0.5rem 0;
+}

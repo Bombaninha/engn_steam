@@ -4,32 +4,37 @@ import './styles.css'
 export interface TextInputProps {
 	onChange: (value: string) => void
 	value: string
-	placeholder: string
+	text: string
+	hasLabel?: boolean
 	password?: boolean
 	uniqueKey?: string
 }
 
 const TextInput: React.FC<TextInputProps> = ({
-	placeholder,
+	text,
 	value,
 	onChange,
 	password,
 	uniqueKey,
+	hasLabel
 }) => {
 	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(event.target.value)
 	}
 
 	return (
-        <input
-            type={password ? 'password' : 'text'}
-            id={`input-field-${uniqueKey ?? ''}`}
-            aria-labelledby={`input-label-${uniqueKey ?? ''}`}
-            onChange={handleOnChange}
-            value={value}
-            placeholder={placeholder}
-            className="default-text-input"
-        />
+		<div className="text-input-wrapper">
+			{hasLabel ? <label>{text}</label> : <></>}
+			<input
+				type={password ? 'password' : 'text'}
+				id={`input-field-${uniqueKey ?? ''}`}
+				aria-labelledby={`input-label-${uniqueKey ?? ''}`}
+				onChange={handleOnChange}
+				value={value}
+				placeholder={hasLabel ? '' : text}
+				className="default-text-input"
+			/>
+		</div>
 	)
 }
 export default TextInput
