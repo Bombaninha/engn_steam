@@ -6,7 +6,7 @@ const Library: React.FC = () => {
     return (
         <>
             <h1 className="page-title">Library</h1>
-            <FilterByCategory categories={[{id: 'c1', label: 'categoria 1'}, {id: 'c2', label: 'categoria 2'}]} onChange={newList => {setCurrentCategories(newList)}}/>
+            <FilterByCategory categories={[{id: 'c1', label: 'categoria 1'}, {id: 'c2', label: 'categoria 2'}]} onChange={newList => {console.log(currentCategories); setCurrentCategories(newList)}}/>
         </>
     )
 }

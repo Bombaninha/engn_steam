@@ -8,7 +8,7 @@ const GameList: React.FC = () => {
         <div className="game-list-box">
             <div className="header-wrapper">
                 <h1 className="page-title">Loja</h1>
-                <SearchBar placeholder="Busque jogos..." onChange={value => {setSearchText(value)}}/>
+                <SearchBar placeholder="Busque jogos..." onChange={value => {console.log(searchText); setSearchText(value)}}/>
             </div>
             <p>Sou uma lista de jogos</p>
         </div>

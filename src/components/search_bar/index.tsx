@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './styles.css'
 
 export interface SearchBarProps {
@@ -7,8 +7,6 @@ export interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({placeholder, onChange}) => {
-    const [value, setValue] = useState('')
-
     const handleChange = (
 		event: React.ChangeEvent<HTMLInputElement>,
 	) => {

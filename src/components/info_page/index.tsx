@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import DefaultButton from '../default_button'
 import './styles.css'
 
@@ -9,10 +9,6 @@ export interface InfoPageProps {
 }
 
 const InfoPage: React.FC<InfoPageProps> = ({infoText, buttonText, onClick}) => {
-    const [input, setInput] = useState('')
-    const [checkbox, setCheckbox] = useState(false)
-    const [select, setSelect] = useState('manga')
-
     const handleClick = () => {
         onClick(false)
     }
