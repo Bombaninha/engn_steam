@@ -21,6 +21,9 @@ const LateralMenu: React.FC = () => {
             <button onClick={() => handleClick(Path.FRIENDS)}>
                 Amigos
             </button>
+            <button onClick={() => handleClick(Path.ACCOUNT)}>
+                Conta
+            </button>
             <button onClick={() => handleClick(Path.SUPPORT)}>
                 Suporte
             </button>

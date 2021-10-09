@@ -4,6 +4,7 @@ class Path {
 	// REGISTER = `/register`
 	MENU = `/`
 	LIBRARY = `/library`
+	ACCOUNT = '/account'
 	FRIENDS = `/friends`
 	SUPPORT = `/support`
 }
