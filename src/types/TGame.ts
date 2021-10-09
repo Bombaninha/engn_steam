@@ -1,7 +1,8 @@
 
 export type TGame = {
     title: string;
+    categories: string[],
     description: string;
     price: number;
-    img: string;
+    developer: string;
 }

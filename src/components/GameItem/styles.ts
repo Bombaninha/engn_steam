@@ -7,10 +7,9 @@ export const Container = styled.div`
 
     border-style: solid;
     border-width: 1px;
-    border-color: var(--medium-gray);
-    border-radius: 10px;
+    border-color: var(--light-gray);
+    border-radius: 6px;
 
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
     transition: 0.3s;
 
     margin: 20px;
@@ -52,9 +51,19 @@ export const Title = styled.span`
     font-size: 35px;
 `;
 
-export const Description = styled.div`
+export const Categories = styled.div`
     color:  var(--light-gray);
-    font-size: 15px;
+    font-size: 16px;
+    margin-top: 10px;
+    
+    text-align: justify;
+    text-justify: inter-word;
+`;
+
+export const Developer = styled.div`
+    color:  var(--light-gray);
+    font-size: 14px;
+    margin-top: 10px;
     
     text-align: justify;
     text-justify: inter-word;

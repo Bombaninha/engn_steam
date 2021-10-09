@@ -3,13 +3,12 @@ import { TGame } from '../../types/TGame'
 
 import {
     Container,
-    ImageContainer,
     InfoContainer,
     ActionContainer,
     TitleContainer,
-    Image,
     Title,
-    Description,
+    Categories,
+    Developer,
     Price,
     BuyButton,
 } from './styles';
@@ -24,14 +23,11 @@ const GameItem: React.FC<GameProps> = (props: GameProps) => {
         <Container>
 
             <InfoContainer>
-                <ImageContainer>
-                    <Image src={props.game.img} alt={props.game.title}></Image>
-                </ImageContainer>
-
                 <TitleContainer>
                     <Title>{props.game.title}</Title>
                     <br />
-                    <Description>{props.game.description}</Description>
+                    <Categories>{props.game.categories.join(', ')}</Categories>
+                    <Developer>{props.game.developer}</Developer>
                 </TitleContainer>
             </InfoContainer>
 
