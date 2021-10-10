@@ -21,10 +21,8 @@ const BuyGame: React.FC<BuyGameProps> = ({gameInfo, onCancel, onGameBought}) => 
     const [select, setSelect] = useState('manga')
 
     const isValidUsername = () => {
-        console.log(input)
         if(!input) {
             setIsWrongInput(true)
-            console.log('usuario vazio')
             return false
         } else {
             return true
@@ -64,7 +62,7 @@ const BuyGame: React.FC<BuyGameProps> = ({gameInfo, onCancel, onGameBought}) => 
 
     const handleBuyGame = () => {
         checkbox ? handleBuyAsGift() : handleBuyToSelf()
-        // onGameBought()
+        onGameBought()
     }
 
     return (
