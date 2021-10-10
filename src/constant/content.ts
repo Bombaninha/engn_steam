@@ -1,5 +1,5 @@
 
-import { TGame } from "../types/TGame"
+import { TGame, TPurchasedGame } from "../types/TGame"
 
 export const gamesListPopulate: TGame[] = [
     {
@@ -29,8 +29,20 @@ export const gamesListPopulate: TGame[] = [
         categories: ["2D", "Aventura"],
         description: "Super Meat Boy Forever traz de volta a jogabilidade desafiadora do jogo original, bem como o principal vilão Dr. Fetus. Nugget filha de Meat Boy e Bandage Girl foi raptada pelo Dr. Fetus e o casal deve trabalhar em conjunto para resgatá-la. Ambos os personagens podem chutar/socar os seus inimigos e devem evitar obstáculos mortais para encontrar Nugget. O esquema de controle utiliza apenas dois botões. Os níveis são gerados aleatoriamente com base no nível de habilidade do jogador.",
         price: 1.99,
-        developer: "Edmund McMillen e Tommy Refenes"
+        developer: "Edmund McMillen e Tommy Refenes",
     },
-
-
 ]
+
+export const purchasedGamesListPopulate: TPurchasedGame[] = [
+    {
+        game: gamesListPopulate[0],
+        purchasedAt: new Date("01/10/1998"),
+    },
+    {
+        game: gamesListPopulate[1],
+        purchasedAt: new Date("10/03/2016"),
+    },
+    {
+        game: gamesListPopulate[3],
+        purchasedAt: new Date("03/07/2021"),
+    },]

@@ -17,9 +17,9 @@ const GameList: React.FC = () => {
             </div>
 
             <div>
-                {games.map(game => <GameItem game={game} withButton={true}> </GameItem>)}
+                {games.map(game => <GameItem game={game} withButton />)}
             </div>
-        </div>
+        </div >
     )
 }
 export default GameList
