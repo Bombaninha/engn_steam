@@ -7,7 +7,8 @@ import GameItem from '../GameItem'
 import { TGame } from '../../types/TGame'
 import './styles.css'
 
-export interface BuyGameProps {
+
+interface BuyGameProps {
     gameInfo: TGame
     onCancel: (value: TGame | null) => void
     onGameBought: () => void
@@ -15,45 +16,65 @@ export interface BuyGameProps {
 
 const BuyGame: React.FC<BuyGameProps> = ({gameInfo, onCancel, onGameBought}) => {
     const [input, setInput] = useState('')
+    const [isWrongInput, setIsWrongInput] = useState(false)
     const [checkbox, setCheckbox] = useState(false)
     const [select, setSelect] = useState('manga')
 
+    const isValidUsername = () => {
+        console.log(input)
+        if(!input) {
+            setIsWrongInput(true)
+            console.log('usuario vazio')
+            return false
+        } else {
+            return true
+        }
+    }
+
+    const handleBuyAsGift = () => {
+        if (!isValidUsername()) {
+            return
+        }
+        let newList: {user: string, gameTitle: string}[]
+        const giftsForFriends = localStorage.getItem('gifts-bought')
+        if(giftsForFriends) {
+            const currentGiftList = JSON.parse(giftsForFriends)
+            newList = [...currentGiftList, {user: input , gameTitle: gameInfo.title}]
+        } else {
+            newList = [{user: input , gameTitle: gameInfo.title}]
+        }
+        localStorage.setItem('gifts-bought', JSON.stringify(newList))
+    }
+    
+    const handleBuyToSelf = () => {
+        const gamesBought = localStorage.getItem('games-bought')
+        let newList: string[]
+        if (gamesBought) {
+            const currentGameList = JSON.parse(gamesBought)
+            newList = [...currentGameList, gameInfo.title]
+        } else {
+            newList = [gameInfo.title]
+        }
+        localStorage.setItem('games-bought', JSON.stringify(newList))
+    }
+    
     const handleCancelPurchase = () => {
         onCancel(null)
     }
+
     const handleBuyGame = () => {
-        if(checkbox) {
-            if (!input) {
-                console.log('sem user no input')
-            }
-            const giftsForFriends = localStorage.getItem('gifts-bought')
-            if(giftsForFriends) {
-                const currentGiftList = JSON.parse(giftsForFriends)
-                localStorage.setItem('gifts-bought', JSON.stringify([...currentGiftList, {user: input , game: gameInfo.title}]))
-            } else {
-                localStorage.setItem('gifts-bought', JSON.stringify({user: input , game: gameInfo.title}))
-            }
-            
-        } else{
-            const gamesBought = localStorage.getItem('games-bought')
-            if (gamesBought) {
-                const currentGameList = JSON.parse(gamesBought)
-                localStorage.setItem('games-bought', JSON.stringify([...currentGameList, gameInfo.title]))
-            } else {
-                localStorage.setItem('games-bought', JSON.stringify([gameInfo.title]))
-            }
-        }
-        onGameBought()
+        checkbox ? handleBuyAsGift() : handleBuyToSelf()
+        // onGameBought()
     }
 
     return (
-        <>
+        <div className="buy-game-wrapper">
             <h1 className="page-title">Comprar jogo</h1>
             <GameItem game={gameInfo} withButton={false} onClick={() => {}}/>
             <form>
                 <div className="gift-to-friend-wrapper">
                     <CheckboxInput textLabel='Comprar para um amigo' identification='test' onChange={checked => setCheckbox(checked)}/>
-                    {checkbox ? <TextInput placeholder='Informe o usuário do amigo' value={input} onChange={input => setInput(input)} /> : <></>}
+                    {checkbox ? <TextInput placeholder='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => {setIsWrongInput(false); setInput(input)}} /> : <></>}
                 </div>
                 <SelectInput value={select} label='Método de pagamento' identification='payment-method' options={[{value: 'laranja', label: 'Laranja'}, {value: 'limao', label: 'Limão'}, {value: 'coco', label: 'Coco'}, {value: 'manga', label: 'Manga'}]} onChange={select => setSelect(select)} />
                 <div className="button-wrapper">
@@ -61,7 +82,7 @@ const BuyGame: React.FC<BuyGameProps> = ({gameInfo, onCancel, onGameBought}) => 
                     <DefaultButton text="Confirmar compra" colorClass="primary" onClick={handleBuyGame}/>
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 export default BuyGame

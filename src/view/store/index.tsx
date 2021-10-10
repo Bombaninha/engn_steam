@@ -4,7 +4,6 @@ import GameList from '../../components/game_list'
 import InfoPage from '../../components/info_page'
 import { TGame } from '../../types/TGame'
 
-
 const Store: React.FC = () => {
     const [successfulPurchase, setSuccessfulPurchase] = useState(false)
     const [gameToBuy, setGameToBuy] = useState<TGame | null>(null)

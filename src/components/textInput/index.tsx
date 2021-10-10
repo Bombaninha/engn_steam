@@ -7,6 +7,7 @@ export interface TextInputProps {
 	placeholder: string
 	password?: boolean
 	uniqueKey?: string
+	wrongInput?: boolean
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -15,6 +16,7 @@ const TextInput: React.FC<TextInputProps> = ({
 	onChange,
 	password,
 	uniqueKey,
+	wrongInput
 }) => {
 	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(event.target.value)
@@ -28,7 +30,7 @@ const TextInput: React.FC<TextInputProps> = ({
             onChange={handleOnChange}
             value={value}
             placeholder={placeholder}
-            className="default-text-input"
+            className={`default-text-input ${wrongInput? "wrong-input" : ""}`}
         />
 	)
 }

@@ -12,7 +12,7 @@ export const Container = styled.div`
 
     transition: 0.3s;
 
-    margin: 20px;
+    margin: 20px 0;
     padding: 10px;
 
     background-color: var(--dark-gray);
