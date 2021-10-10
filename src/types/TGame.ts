@@ -6,3 +6,8 @@ export type TGame = {
     price: number;
     developer: string;
 }
+
+export type TPurchasedGame = {
+    game: TGame;
+    purchasedAt: Date;
+}

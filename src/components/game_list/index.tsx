@@ -32,9 +32,9 @@ const GameList: React.FC<GameListProps> = ({onClick}) => {
                 <SearchBar placeholder="Busque jogos..." onChange={value => setSearchText(value.toLowerCase())} />
             </div>
             <div>
-                {games.filter(game => game.title.toLowerCase().includes(searchText)).map(game => <GameItem game={game} withButton={true} onClick={handleClick} />)}
+                {games.filter(game => game.title.toLowerCase().includes(searchText)).map(game => <GameItem game={game} withButton onClick={handleClick} />)}
             </div>
-        </div>
+        </div >
     )
 }
 export default GameList

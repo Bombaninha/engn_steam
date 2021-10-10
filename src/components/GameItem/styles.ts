@@ -79,6 +79,16 @@ export const Price = styled.span`
     }
 `;
 
+export const Purchased = styled.span`
+    color: var(--base-font-color);
+    font-size: 20px;
+
+    &::before{
+        content: "Adquirido em ";
+        color: var(--light-gray);
+    }
+`;
+
 export const Image = styled.img`
     width: 150px;
     height: 150px;
