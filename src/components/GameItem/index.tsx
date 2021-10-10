@@ -17,14 +17,16 @@ import {
 
 interface GameProps {
     game: TGame;
-    onClick: (value: TGame | null) => void
+    onClick?: (value: TGame | null) => void
     withButton?: boolean;
     purchasedAt?: Date | null;
 }
 
 const GameItem: React.FC<GameProps> = (props: GameProps) => {
     const handleClick = () => {
-		props.onClick(props.game)
+        if (props.onClick) {
+            props.onClick(props.game)
+        }
 	}
 
     return (
