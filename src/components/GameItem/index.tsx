@@ -10,12 +10,14 @@ import {
     Categories,
     Developer,
     Price,
+    Purchased,
     BuyButton,
 } from './styles';
 
 interface GameProps {
     game: TGame;
-    withButton: boolean;
+    withButton?: boolean;
+    purchasedAt?: Date | null;
 }
 
 const GameItem: React.FC<GameProps> = (props: GameProps) => {
@@ -32,9 +34,15 @@ const GameItem: React.FC<GameProps> = (props: GameProps) => {
             </InfoContainer>
 
             <ActionContainer>
-                <Price> {props.game.price.toFixed(2)} </Price>
-                <br />
-                {props.withButton ? <BuyButton>Comprar</BuyButton> : ""}
+                {props.purchasedAt ?
+                    <Purchased> {props.purchasedAt.toLocaleDateString()} </Purchased>
+                    :
+                    (<>
+                        <Price> {props.game.price.toFixed(2)} </Price>
+                        <br />
+                        {props.withButton ? <BuyButton>Comprar</BuyButton> : ""}
+                    </>)
+                }
             </ActionContainer>
 
         </Container >
