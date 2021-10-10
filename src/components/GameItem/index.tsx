@@ -1,5 +1,6 @@
 import React from 'react';
 import { TGame } from '../../types/TGame'
+import DefaultButton from '../default_button';
 
 import {
     Container,
@@ -10,18 +11,24 @@ import {
     Categories,
     Developer,
     Price,
-    BuyButton,
 } from './styles';
 
 interface GameProps {
     game: TGame;
     withButton: boolean;
+    onClick: (value: TGame | null) => void
 }
 
 const GameItem: React.FC<GameProps> = (props: GameProps) => {
+    const handleClick = (
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+	) => {
+		event.preventDefault()
+		props.onClick(props.game)
+	}
+
     return (
         <Container>
-
             <InfoContainer>
                 <TitleContainer>
                     <Title>{props.game.title}</Title>
@@ -34,9 +41,8 @@ const GameItem: React.FC<GameProps> = (props: GameProps) => {
             <ActionContainer>
                 <Price> {props.game.price.toFixed(2)} </Price>
                 <br />
-                {props.withButton ? <BuyButton>Comprar</BuyButton> : ""}
+                {props.withButton ? <button onClick={handleClick}>Comprar</button> : ""}
             </ActionContainer>
-
         </Container >
     );
 }
