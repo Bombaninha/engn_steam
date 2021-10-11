@@ -9,6 +9,8 @@ import Friends from './friends'
 import NotFound from './not_found'
 import LateralMenu from '../components/lateral_menu'
 
+import { BuyGame } from './store/buy';
+
 const Main: React.FC = () => {
 	return (
 		<div className="app">
@@ -19,6 +21,7 @@ const Main: React.FC = () => {
 					<Route exact path={Path.LIBRARY} component={Library} />
 					<Route exact path={Path.FRIENDS} component={Friends} />
 					<Route exact path={Path.SUPPORT} component={Support} />
+					<Route exact path='/games/:id/buy' component={BuyGame} />
 					<Route path={'/'} component={NotFound} />
 				</Switch>
 			</Router>

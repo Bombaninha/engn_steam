@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import LateralMenu from '../../components/lateral_menu'
 import axios from 'axios'
 
-
-
 const Store: React.FC = () => {
     interface ServerResponse {
         data: ServerData
@@ -41,7 +39,7 @@ const Store: React.FC = () => {
             email: emailLogin,
             password: passwordLogin,
         }).then((response) => {
-            //setLoginStatus(respose);
+            setLoginStatus('teste');
             /*
             if(response.data.message) {
                 setLoginStatus(response.data.message);
