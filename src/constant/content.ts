@@ -1,4 +1,3 @@
-
 import { TGame, TPurchasedGame } from "../types/TGame"
 
 export const gamesListPopulate: TGame[] = [
@@ -45,4 +44,5 @@ export const purchasedGamesListPopulate: TPurchasedGame[] = [
     {
         game: gamesListPopulate[3],
         purchasedAt: new Date("03/07/2021"),
-    },]
+    },
+]

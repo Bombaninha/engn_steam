@@ -1,4 +1,3 @@
-
 export type TGame = {
     title: string;
     categories: string[],
