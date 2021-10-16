@@ -7,5 +7,7 @@ class Path {
 	ACCOUNT = '/account'
 	FRIENDS = `/friends`
 	SUPPORT = `/support`
+	REQUEST = `/request`
+	TICKETS = `/tickets`
 }
 export default new Path()

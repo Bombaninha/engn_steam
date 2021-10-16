@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Router, Switch, Route } from 'react-router-dom'
 import Path from '../../constant/Path'
 import HistoryService from '../../services/history/HistoryService'
 import NotFound from '../../view//not_found'
-import LateralMenu from '../../components/lateral_menu'
 import Statistics from '../../view/statistics'
+import StaffLateralMenu from '../../components/lateral_menu/staff_lateral_menu'
+import PermissionsEnum from '../../types/PermissionEnum'
+import Tickets from '../../view/tickets'
+import Requests from '../../view/requests'
 
 const StaffPath: React.FC = () => {
 	return (
 		<>
-			<LateralMenu />
+			<StaffLateralMenu role={PermissionsEnum.STAFF}/>
 			<Router history={HistoryService}>
 				<Switch>
 					<Route exact path={Path.MENU} component={Statistics} />
+					<Route exact path={Path.TICKETS} component={Tickets} />
+					<Route exact path={Path.REQUEST} component={Requests} />
 					<Route path={'/'} component={NotFound} />
 				</Switch>
 			</Router>

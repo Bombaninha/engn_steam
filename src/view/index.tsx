@@ -3,13 +3,7 @@ import AdministratorPath from '../paths/administrator'
 import StaffPath from '../paths/staff'
 import DeveloperPath from '../paths/developer'
 import UserPath from '../paths/user'
-
-enum PermissionsEnum {
-	USER,
-	DEVELOPER,
-	STAFF,
-	ADMINISTRATOR
-}
+import PermissionsEnum from '../types/PermissionEnum'
 
 const Main: React.FC = () => {
 	const [role, setRole] = useState<PermissionsEnum>(PermissionsEnum.USER)
