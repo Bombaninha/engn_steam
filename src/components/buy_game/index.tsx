@@ -72,7 +72,7 @@ const BuyGame: React.FC<BuyGameProps> = ({gameInfo, onCancel, onGameBought}) => 
             <form>
                 <div className="gift-to-friend-wrapper">
                     <CheckboxInput textLabel='Comprar para um amigo' identification='test' onChange={checked => setCheckbox(checked)}/>
-                    {checkbox ? <TextInput placeholder='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => {setIsWrongInput(false); setInput(input)}} /> : <></>}
+                    {checkbox ? <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => {setIsWrongInput(false); setInput(input)}} /> : <></>}
                 </div>
                 <SelectInput value={select} label='Método de pagamento' identification='payment-method' options={[{value: 'laranja', label: 'Laranja'}, {value: 'limao', label: 'Limão'}, {value: 'coco', label: 'Coco'}, {value: 'manga', label: 'Manga'}]} onChange={select => setSelect(select)} />
                 <div className="button-wrapper">

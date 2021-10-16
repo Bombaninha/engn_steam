@@ -17,7 +17,7 @@ const TextInput: React.FC<TextInputProps> = ({
 	onChange,
 	password,
 	uniqueKey,
-	hasLabel
+	hasLabel,
 	wrongInput
 }) => {
 	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,9 +34,9 @@ const TextInput: React.FC<TextInputProps> = ({
 				onChange={handleOnChange}
 				value={value}
 				placeholder={hasLabel ? '' : text}
+            	className={`default-text-input ${wrongInput? "wrong-input" : ""}`}
 			/>
 		</div>
-            className={`default-text-input ${wrongInput? "wrong-input" : ""}`}
 	)
 }
 export default TextInput
