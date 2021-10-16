@@ -5,6 +5,7 @@
     --yellow: #FFD369;
     --light-gray: #999;
     --black: #121212;
+    --red: #FD5757;
 }
 
 * {
@@ -13,6 +14,7 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
+    font-family: "Roboto" sans-serif;
 }
 
 body {

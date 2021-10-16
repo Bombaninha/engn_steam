@@ -1,4 +1,9 @@
-.gift-to-friend-wrapper {
+.buy-game-wrapper {
+    padding: 0 1.5rem 0 0.5rem;
+    width: 75vw;
+}
+
+.buy-game-wrapper .gift-to-friend-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,12 +12,12 @@
     min-height: 2rem;
 }
 
-.button-wrapper {
+.buy-game-wrapper .button-wrapper {
     display: flex;
     justify-content: flex-end;
     margin-top: 4rem;
 }
 
-.button-wrapper button {
+.buy-game-wrapper .button-wrapper button {
     margin-left: 1.5rem;
 }

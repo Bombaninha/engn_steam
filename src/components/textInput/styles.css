@@ -20,3 +20,16 @@
     text-align: right;
     min-width: 10rem;
 } 
+
+.default-text-input::placeholder {
+    color: var(--base-font-color);
+    opacity: 0.5;
+}
+
+.default-text-input.wrong-input {
+    border: solid var(--red) 1px;
+}
+
+.default-text-input.wrong-input::placeholder {
+    color: var(--red);
+}
