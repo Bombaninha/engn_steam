@@ -9,6 +9,7 @@ export interface TextInputProps {
 	password?: boolean
 	uniqueKey?: string
 	wrongInput?: boolean
+	errorMessage?: string
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -18,7 +19,8 @@ const TextInput: React.FC<TextInputProps> = ({
 	password,
 	uniqueKey,
 	hasLabel,
-	wrongInput
+	wrongInput,
+	errorMessage
 }) => {
 	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(event.target.value)
@@ -26,16 +28,19 @@ const TextInput: React.FC<TextInputProps> = ({
 
 	return (
 		<div className="text-input-wrapper">
-			{hasLabel ? <label>{text}</label> : <></>}
-			<input
-				type={password ? 'password' : 'text'}
-				id={`input-field-${uniqueKey ?? ''}`}
-				aria-labelledby={`input-label-${uniqueKey ?? ''}`}
-				onChange={handleOnChange}
-				value={value}
-				placeholder={hasLabel ? '' : text}
-            	className={`default-text-input ${wrongInput? "wrong-input" : ""}`}
-			/>
+			<div className="text-input-field">
+				{hasLabel ? <label>{text}</label> : <></>}
+				<input
+					type={password ? 'password' : 'text'}
+					id={`input-field-${uniqueKey ?? ''}`}
+					aria-labelledby={`input-label-${uniqueKey ?? ''}`}
+					onChange={handleOnChange}
+					value={value}
+					placeholder={hasLabel ? '' : text}
+					className={`default-text-input ${wrongInput? "wrong-input" : ""}`}
+				/>
+			</div>
+			{wrongInput ? <span className="error-message">{errorMessage}</span> : <></>}
 		</div>
 	)
 }

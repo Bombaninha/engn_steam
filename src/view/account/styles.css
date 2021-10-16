@@ -7,6 +7,12 @@
 
 .account-wrapper .button-wrapper {
     display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+}
+
+.account-wrapper .button-wrapper .button {
+    margin-left: 1rem;
 }
 
 .account-wrapper .show-display-button {

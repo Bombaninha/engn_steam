@@ -1,14 +1,18 @@
 .default-text-input {
+    width: -webkit-fill-available;
     border: solid var(--base-font-color) 1px;
     border-radius: 0.2rem;
     padding: 0.3rem 0.5rem;
     background-color: transparent;
     color: var(--base-font-color);
     font-size: 1rem;
-    width: -webkit-fill-available;
 }
 
 .text-input-wrapper {
+    text-align: right;
+}
+
+.text-input-field {
     display: flex;
     align-items: center;
 }
@@ -31,5 +35,9 @@
 }
 
 .default-text-input.wrong-input::placeholder {
+    color: var(--red);
+}
+
+.text-input-wrapper .error-message {
     color: var(--red);
 }
