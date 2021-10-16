@@ -1,29 +1,29 @@
-import React from 'react'
-import { Router, Switch, Route } from 'react-router-dom'
-import Path from '../constant/Path'
-import HistoryService from '../services/history/HistoryService'
-import Library from './library'
-import Store from './store'
-import Support from './support'
-import Account from './account'
-import Friends from './friends'
-import NotFound from './not_found'
-import LateralMenu from '../components/lateral_menu'
+import React, { useState } from 'react'
+import AdministratorPath from '../paths/administrator'
+import StaffPath from '../paths/staff'
+import DeveloperPath from '../paths/developer'
+import UserPath from '../paths/user'
+
+enum PermissionsEnum {
+	USER,
+	DEVELOPER,
+	STAFF,
+	ADMINISTRATOR
+}
 
 const Main: React.FC = () => {
+	const [role, setRole] = useState<PermissionsEnum>(PermissionsEnum.USER)
 	return (
 		<div className="app">
-			<LateralMenu />
-			<Router history={HistoryService}>
-				<Switch>
-					<Route exact path={Path.MENU} component={Store} />
-					<Route exact path={Path.LIBRARY} component={Library} />
-					<Route exact path={Path.FRIENDS} component={Friends} />
-					<Route exact path={Path.ACCOUNT} component={Account} />
-					<Route exact path={Path.SUPPORT} component={Support} />
-					<Route path={'/'} component={NotFound} />
-				</Switch>
-			</Router>
+			{role === PermissionsEnum.ADMINISTRATOR ? 
+				<AdministratorPath />
+			: role === PermissionsEnum.STAFF ?
+				<StaffPath />
+			: role === PermissionsEnum.DEVELOPER ?
+				<DeveloperPath />
+			:
+				<UserPath />
+			}
 		</div>
 	)
 }
