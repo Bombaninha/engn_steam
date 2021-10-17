@@ -6,7 +6,7 @@ import UserPath from '../paths/user'
 import PermissionsEnum from '../types/PermissionEnum'
 
 const Main: React.FC = () => {
-	const [role, setRole] = useState<PermissionsEnum>(PermissionsEnum.USER)
+	const [role] = useState<PermissionsEnum>(PermissionsEnum.ADMINISTRATOR)
 	return (
 		<div className="app">
 			{role === PermissionsEnum.ADMINISTRATOR ? 
