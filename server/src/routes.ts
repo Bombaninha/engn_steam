@@ -4,28 +4,36 @@ import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 
 import { CreateRoleController } from "./controllers/CreateRoleController";
 import { CreateUserController } from "./controllers/CreateUserController";
+import { CreateCardController } from "./controllers/CreateCardController";
 
 import { AuthenticateUserController } from "./controllers/AuthenticateUserController";
 
 import { ListRolesController } from "./controllers/ListRolesController";
 import { ListUsersController } from "./controllers/ListUsersController";
+import { ListCardsController } from "./controllers/ListCardsController";
 
 const router = Router();
 
 const createRoleController = new CreateRoleController();
 const createUserController = new CreateUserController();
+const createCardController = new CreateCardController();
 
 const authenticateUserController = new AuthenticateUserController();
 
 const listRolesController = new ListRolesController();
 const listUsersController = new ListUsersController();
+const listCardsController = new ListCardsController();
 
+router.get("/roles", listRolesController.handle);
 router.post("/roles", createRoleController.handle);
-router.get("/roles", ensureAuthenticated, listRolesController.handle);
+//router.get("/roles", ensureAuthenticated, listRolesController.handle);
 
 router.post("/authenticate", authenticateUserController.handle);
 
-router.post("/users", createUserController.handle);
 router.get("/users", listUsersController.handle);
+router.post("/users", createUserController.handle);
+
+router.get("/cards", listCardsController.handle);
+router.post("/cards", createCardController.handle);
 
 export { router }
