@@ -1,5 +1,5 @@
 import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne } from "typeorm";
-import { Exclude } from "class-transformer";
+import { Exclude, Expose } from "class-transformer";
 import { v4 as uuid } from "uuid";
 import { User } from "./User";
 
@@ -43,6 +43,13 @@ class Card {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    /*
+    @Expose({number: 'number_hidden'})
+    numberHidden(): string {
+        return `#${this.number}`;
+    }
+    */
 
     constructor() {
         if(!this.id) {
