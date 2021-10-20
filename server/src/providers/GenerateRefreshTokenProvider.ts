@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 import { CreateRefreshTokenService } from '../services/CreateRefreshTokenService';
 
-class GenerateRefreshToken {
+class GenerateRefreshTokenProvider {
 
     async execute(user_id: string) {
         console.log("me chamou");
@@ -15,4 +15,4 @@ class GenerateRefreshToken {
     } 
 }
 
-export { GenerateRefreshToken }
+export { GenerateRefreshTokenProvider }

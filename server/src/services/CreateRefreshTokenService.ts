@@ -8,6 +8,7 @@ interface ICreateRefreshTokenRequest {
 }
 
 class CreateRefreshTokenService {
+
     async execute({ user_id, expiresIn } : ICreateRefreshTokenRequest) {
         const userRepository = getCustomRepository(UsersRepositories);
         const refreshTokenRepository = getCustomRepository(RefreshTokenRepositories);
@@ -39,6 +40,7 @@ class CreateRefreshTokenService {
 
         return refreshToken;
     }
+    
 }
 
 export { CreateRefreshTokenService }

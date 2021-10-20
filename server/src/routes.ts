@@ -12,6 +12,8 @@ import { ListRolesController } from "./controllers/ListRolesController";
 import { ListUsersController } from "./controllers/ListUsersController";
 import { ListCardsController } from "./controllers/ListCardsController";
 
+import { RefreshTokenUserController } from "./controllers/RefreshTokenUserController";
+
 const router = Router();
 
 const createRoleController = new CreateRoleController();
@@ -19,6 +21,8 @@ const createUserController = new CreateUserController();
 const createCardController = new CreateCardController();
 
 const authenticateUserController = new AuthenticateUserController();
+
+const refreshTokenUserController = new RefreshTokenUserController();
 
 const listRolesController = new ListRolesController();
 const listUsersController = new ListUsersController();
@@ -35,5 +39,7 @@ router.post("/users", createUserController.handle);
 
 router.get("/cards", listCardsController.handle);
 router.post("/cards", createCardController.handle);
+
+router.post("/refresh-token", refreshTokenUserController.handle);
 
 export { router }
