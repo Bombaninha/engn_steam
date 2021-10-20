@@ -3,17 +3,11 @@ import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 
-import './database/';
-
 import { router }  from './routes';
 
 import cors from "cors";
 
 const app = express();
-
-app.get('/', (request: Request, response: Response) => {
-    response.send({ message: "aaa" });
-});
 
 app.use(cors());
 
