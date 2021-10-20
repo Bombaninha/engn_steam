@@ -3,9 +3,13 @@ import React from 'react';
 import Main from './view';
 import './styles.css'
 
+import { AuthProvider } from './contexts/AuthContext';
+
 const App: React.FC = () => {
   return (
-    <Main />
+    <AuthProvider>
+      <Main />
+    </AuthProvider>
   )
 }
 export default App

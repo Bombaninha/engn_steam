@@ -8,6 +8,7 @@ import PermissionsEnum from '../../types/PermissionEnum'
 import Statistics from '../../view/statistics'
 import Tickets from '../../view/tickets'
 import Requests from '../../view/requests'
+import Login from '../../view/login'
 
 const AdministratorPath: React.FC = () => {
 	return (
@@ -15,6 +16,7 @@ const AdministratorPath: React.FC = () => {
 			<StaffLateralMenu role={PermissionsEnum.ADMINISTRATOR}/>
 			<Router history={HistoryService}>
 				<Switch>
+					<Route exact path={Path.LOGIN} component={Login} />
 					<Route exact path={Path.MENU} component={Statistics} />
 					<Route exact path={Path.TICKETS} component={Tickets} />
 					<Route exact path={Path.REQUEST} component={Requests} />

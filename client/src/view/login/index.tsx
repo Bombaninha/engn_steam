@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
+import { Context } from '../../contexts/AuthContext'
 
 const SignIn: React.FC = () => {
+    const { authenticated, handleLogin, handleLogout } = useContext(Context);
+    console.log('Login', authenticated);    
     return (
-        <h1>SignIn</h1>
+        <div>
+            <button type="button" onClick={ handleLogin }>Entrar</button>
+            <button type="button" onClick={ handleLogout }>Sair</button>
+        </div>
     )
 }
 
