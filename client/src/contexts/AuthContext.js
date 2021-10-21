@@ -21,7 +21,7 @@ function AuthProvider({ children }) {
     }, []);
 
     async function handleLogin() {
-        const { data : { token } } = await axios.post('http://localhost:4000/authenticate', {
+        const { data : { token } } = await axios.post('http://localhost:4000/v1/authenticate', {
             email: 'admin@gmail.com',
             password: 'pikachu$5'
         });

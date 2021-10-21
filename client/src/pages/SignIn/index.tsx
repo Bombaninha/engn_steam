@@ -1,7 +1,5 @@
 import { FormEvent, useState } from 'react';
 
-import { getDatabase, ref, push } from 'firebase/database';
-
 const SignIn: React.FC = () => {
     const [newRoom, setNewRoom] = useState('');
 

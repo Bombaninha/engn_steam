@@ -1,5 +1,5 @@
-import React from 'react'
-import { Router, Switch, Route } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Router, Switch, Route, Redirect } from 'react-router-dom'
 import StaffLateralMenu from '../../components/lateral_menu/staff_lateral_menu'
 import Path from '../../constant/Path'
 import HistoryService from '../../services/history/HistoryService'
@@ -9,6 +9,24 @@ import Statistics from '../../view/statistics'
 import Tickets from '../../view/tickets'
 import Requests from '../../view/requests'
 import Login from '../../view/login'
+import { Context } from '../../contexts/AuthContext'
+
+interface ICustomRouteType {
+	isPrivate?: boolean;
+	exact?: boolean;
+	path: string;
+	component: React.FC
+}
+
+function CustomRoute({ isPrivate, ...rest } : ICustomRouteType) {
+	const { authenticated } = useContext(Context);
+
+	if (isPrivate && !authenticated) {
+		return <Redirect to="/login" />
+	}
+
+	return <Route {...rest} />
+}
 
 const AdministratorPath: React.FC = () => {
 	return (
@@ -18,7 +36,7 @@ const AdministratorPath: React.FC = () => {
 				<Switch>
 					<Route exact path={Path.LOGIN} component={Login} />
 					<Route exact path={Path.MENU} component={Statistics} />
-					<Route exact path={Path.TICKETS} component={Tickets} />
+					<CustomRoute isPrivate exact path={Path.TICKETS} component={Tickets} />
 					<Route exact path={Path.REQUEST} component={Requests} />
 					<Route path={'/'} component={NotFound} />
 				</Switch>
