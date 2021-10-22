@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateRolesTable1633986999247 implements MigrationInterface {
+export class CreateCard1634862642756 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-
+        
         await queryRunner.createTable(
             new Table({
-                name: 'roles',
+                name: "cards",
                 columns: [
                     {
                         name: "id",
@@ -21,8 +21,28 @@ export class CreateRolesTable1633986999247 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
-                        name: "label",
+                        name: "number",
                         type: "varchar"
+                    },
+                    {
+                        name: "security_code",
+                        type: "varchar"
+                    },
+                    {
+                        name: "validity_month",
+                        type: "varchar"
+                    },
+                    {
+                        name: "validity_year",
+                        type: "varchar"
+                    },
+                    {
+                        name: "is_credit_card",
+                        type: "boolean"
+                    },
+                    {
+                        name: "userId",
+                        type: "uuid"
                     },
                     {
                         name: "created_at",
@@ -35,12 +55,22 @@ export class CreateRolesTable1633986999247 implements MigrationInterface {
                         default: "NOW()"
                     }
                 ],
+                foreignKeys: [
+                    {
+                      name: "userCard",
+                      referencedTableName: "users",
+                      referencedColumnNames: ["id"],
+                      columnNames: ["userId"],
+                      onDelete: "CASCADE",
+                      onUpdate: "CASCADE"
+                    }
+                ]
             })
-        );  
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("roles");
+        await queryRunner.dropTable("cards");
         await queryRunner.query('DROP EXTENSION "uuid-ossp"');
     }
 

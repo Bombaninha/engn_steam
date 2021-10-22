@@ -5,7 +5,6 @@ import { CreateRefreshTokenService } from '../services/CreateRefreshTokenService
 class GenerateRefreshTokenProvider {
 
     async execute(user_id: string) {
-        console.log("me chamou");
         const createRefreshTokenService = new CreateRefreshTokenService();
 
         const expiresIn = dayjs().add(15, "second").unix();

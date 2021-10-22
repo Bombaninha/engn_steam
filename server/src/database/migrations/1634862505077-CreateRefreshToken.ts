@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateRefreshTokenTable1634005386118 implements MigrationInterface {
+export class CreateRefreshToken1634862505077 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
@@ -19,29 +19,26 @@ export class CreateRefreshTokenTable1634005386118 implements MigrationInterface 
                         type: "int"
                     },
                     {
-                        name: "user_id",
+                        name: "userId",
                         type: "uuid"
                     },
                 ],
                 foreignKeys: [
                     {
-                        name: "FKUserRefreshToken",
-                        referencedTableName: "users",
-                        referencedColumnNames: ["id"],
-                        columnNames: ["user_id"],
-                        onDelete: "SET NULL",
-                        onUpdate: "SET NULL"
+                      name: "userRefreshToken",
+                      referencedTableName: "users",
+                      referencedColumnNames: ["id"],
+                      columnNames: ["userId"],
+                      onDelete: "CASCADE",
+                      onUpdate: "CASCADE"
                     }
-                ],
+                ]
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        const table = await queryRunner.getTable("refresh_token");        
-        const foreignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf("user_id") !== -1);
-        await queryRunner.dropForeignKey("FKUserRefreshToken", foreignKey);
-        await queryRunner.dropTable("users");
+        await queryRunner.dropTable("refresh_token");
         await queryRunner.query('DROP EXTENSION "uuid-ossp"');
     }
 

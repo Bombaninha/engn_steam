@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateCardsTable1634664423828 implements MigrationInterface {
+export class CreateUser1634862395081 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
         
         await queryRunner.createTable(
             new Table({
-                name: "cards",
+                name: "users",
                 columns: [
                     {
                         name: "id",
@@ -21,27 +21,26 @@ export class CreateCardsTable1634664423828 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
-                        name: "number",
+                        name: "email",
+                        type: "varchar",
+                        isUnique: true
+                    },
+                    {
+                        name: "password",
                         type: "varchar"
                     },
                     {
-                        name: "security_code",
-                        type: "varchar"
+                        name: "pending_password",
+                        type: "varchar",
+                        isNullable: true
                     },
                     {
-                        name: "validity_month",
-                        type: "varchar"
+                        name: "redefine_password_token",
+                        type: "varchar",
+                        isNullable: true
                     },
                     {
-                        name: "validity_year",
-                        type: "varchar"
-                    },
-                    {
-                        name: "is_credit_card",
-                        type: "boolean"
-                    },
-                    {
-                        name: "user_id",
+                        name: "roleId",
                         type: "uuid"
                     },
                     {
@@ -57,24 +56,21 @@ export class CreateCardsTable1634664423828 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        name: "FKUserCards",
-                        referencedTableName: "users",
-                        referencedColumnNames: ["id"],
-                        columnNames: ["user_id"],
-                        onDelete: "SET NULL",
-                        onUpdate: "SET NULL"
+                      name: "roleUser",
+                      referencedTableName: "roles",
+                      referencedColumnNames: ["id"],
+                      columnNames: ["roleId"],
+                      onDelete: "CASCADE",
+                      onUpdate: "CASCADE"
                     }
-                ],
+                ]
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        const table = await queryRunner.getTable("cards");        
-        const foreignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf("user_id") !== -1);
-        await queryRunner.dropForeignKey("FKUserCards", foreignKey);
-        await queryRunner.dropTable("cards");
-        await queryRunner.query('DROP EXTENSION "uuid-ossp"');
+        await queryRunner.dropTable("users");
+        await queryRunner.query('DROP EXTENSION "uuid-ossp"');        
     }
 
 }

@@ -5,7 +5,7 @@ class GenerateTokenProvider {
         const token = sign(
             { id: userId }, 
             process.env.SECRET_KEY, 
-            { expiresIn: '20s' }
+            { expiresIn: '1d' }
         );
 
         return token;

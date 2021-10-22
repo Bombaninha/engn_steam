@@ -1,28 +1,22 @@
-import { Entity, PrimaryColumn, Column, JoinColumn, OneToOne } from "typeorm";
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { User } from "./User";
 
 @Entity("refresh_token")
 class RefreshToken {
 
-    @PrimaryColumn()
-    readonly id: string;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column()
     expires_in: string;
 
-    @JoinColumn({ name: 'user_id' })
-    @OneToOne(() => User)
-    user: User;
-
     @Column()
-    user_id: string;
+    userId: string;
 
-    constructor() {
-        if(!this.id) {
-            this.id = uuid()
-        }
-    }
+    @OneToOne(() => User, user => user.refreshToken, { onDelete: 'CASCADE' })
+    @JoinColumn()
+    user: User;
 }
 
 export { RefreshToken };

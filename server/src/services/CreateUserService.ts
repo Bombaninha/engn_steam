@@ -9,12 +9,12 @@ interface ICreateUserRequest {
     name: string;
     email: string;
     password: string;
-    role_id: string;
+    roleId: string;
 }
 
 class CreateUserService {
     
-    async execute({ name, email, password, role_id } : ICreateUserRequest) {
+    async execute({ name, email, password, roleId } : ICreateUserRequest) {
         const rolesRepositories = getCustomRepository(RolesRepositories)
         const usersRepositories = getCustomRepository(UsersRepositories);
 
@@ -31,7 +31,7 @@ class CreateUserService {
             throw new Error("Incorrect Password");
         }
 
-        if(!role_id) {
+        if(!roleId) {
             throw new Error("Incorrect RoleId");
         }
 
@@ -45,7 +45,7 @@ class CreateUserService {
         }
 
         // Validação: Verificando se a role indicada existe
-        const userRoleExists = await rolesRepositories.findOne(role_id);
+        const userRoleExists = await rolesRepositories.findOne(roleId);
 
         if(!userRoleExists) {
             throw new Error("User Role does not exists!");
@@ -57,7 +57,7 @@ class CreateUserService {
             name, 
             email, 
             password: passwordHash, 
-            role_id
+            role: userRoleExists
         });
 
         await usersRepositories.save(user);
