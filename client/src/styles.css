@@ -14,12 +14,16 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
-    font-family: "Roboto" sans-serif;
 }
 
 body {
     background-color: var(--dark-gray);
     color: var(--base-font-color);
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
 }
 
 .app {
