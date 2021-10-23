@@ -1,0 +1,35 @@
+.dev-game-card-wrapper {
+    display: flex;
+    justify-content: space-between;
+    border: solid 1px #f5f5f5;
+    padding: 0.5rem 1rem;
+    width: 70vw;
+}
+
+.dev-game-card-wrapper .game-status-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dev-game-card-wrapper .game-status-wrapper span {
+    margin: 0 0.3rem;
+}
+
+.dev-game-card-wrapper h3 {
+    font-size: 1.7rem;
+    margin-bottom: 0.5rem;
+}
+
+.dev-game-card-wrapper .game-info-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.dev-game-card-wrapper .button-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.dev-game-card-wrapper .button-wrapper .button {
+    margin: 0.3rem;
+}
