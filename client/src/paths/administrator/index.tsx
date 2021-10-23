@@ -44,4 +44,5 @@ const AdministratorPath: React.FC = () => {
 		</>
 	)
 }
+
 export default AdministratorPath

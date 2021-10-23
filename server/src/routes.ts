@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
+import { CheckPermission } from "./middlewares/ensureHasPermission";
 
 import { CreateRoleController } from './controllers/CreateRoleController';
 import { CreateUserController } from './controllers/CreateUserController';
@@ -36,8 +37,7 @@ const listPermissionsController = new ListPermissionsController();
 
 const viewRoleController = new ViewRoleController();
 
-//router.get('/roles', ensureAuthenticated, listRolesController.handle);
-router.get('/roles', listRolesController.handle);
+router.get('/roles', ensureAuthenticated, CheckPermission.ensureHasPermission('can-list-roles'), listRolesController.handle);
 router.get('/roles/:id', viewRoleController.handle);
 router.post('/roles', createRoleController.handle);
 
