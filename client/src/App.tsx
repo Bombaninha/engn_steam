@@ -5,10 +5,14 @@ import './styles.css'
 
 import { AuthProvider } from './contexts/AuthContext';
 
+import { HasPermissionProvider } from './contexts/HasPermissionContext';
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <Main />
+      <HasPermissionProvider>
+        <Main />
+      </HasPermissionProvider>
     </AuthProvider>
   )
 }

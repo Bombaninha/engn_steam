@@ -1,20 +1,18 @@
-/*
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 //import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { Context } from '../../contexts/AuthContext'
+import { Context } from './AuthContext'
 
 const PermissionContext = createContext();
 
 function HasPermissionProvider({ children }) {
-    const [ hasPermission, setHasPermission ] = useState(false);
+    const [ hasPermission, setHasPermission ] = useState(0);
     const [ loading, setLoading ] = useState(true);
+    const { authenticated } = useContext(Context);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-
-        if(token) {
-            axios.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`; 
+        if(authenticated) {
+            console.log("Autenticado");
         }
 
         setLoading(false);
@@ -22,16 +20,20 @@ function HasPermissionProvider({ children }) {
 
 
     async function handleHasPermission() {
-        const { data : { token } } = await axios.post('http://localhost:4000/v1/authenticate', {
-            email: 'admin@gmail.com',
-            password: 'pikachu$5'
+        const { data } = await axios.post('http://localhost:4000/v1/users/view', {
+            user_id: 'a524f1b9-1646-4c7d-9250-48e753f72497'
         });
 
-        localStorage.setItem('token', JSON.stringify(token));
+        //axios.defaults.headers.Authorization = `Bearer ${token}`;
+        let valor = 0;
+        if(data.role.label === 'admin') {
+            valor = 3
+        }
 
-        axios.defaults.headers.Authorization = `Bearer ${token}`;
+        localStorage.setItem('role_enum', JSON.stringify(valor));
 
-        setAuthenticated(true);
+
+        setHasPermission(valor);
         //history.push('/');
         //console.log(history);
         console.log("Logado com sucesso!");
@@ -49,4 +51,3 @@ function HasPermissionProvider({ children }) {
 }
 
 export { PermissionContext, HasPermissionProvider }
-*/

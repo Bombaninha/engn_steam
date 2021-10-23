@@ -16,6 +16,7 @@ import { ListCardsController } from "./controllers/ListCardsController";
 import { ListPermissionsController } from "./controllers/ListPermissionsController";
 
 import { ViewRoleController } from "./controllers/ViewRoleController";
+import { ViewUserController } from "./controllers/ViewUserController";
 
 import { RefreshTokenUserController } from "./controllers/RefreshTokenUserController";
 
@@ -36,6 +37,7 @@ const listUsersController = new ListUsersController();
 const listPermissionsController = new ListPermissionsController();
 
 const viewRoleController = new ViewRoleController();
+const viewUserController = new ViewUserController();
 
 router.get('/roles', ensureAuthenticated, CheckPermission.ensureHasPermission('can-list-roles'), listRolesController.handle);
 router.get('/roles/:id', viewRoleController.handle);
@@ -43,6 +45,7 @@ router.post('/roles', createRoleController.handle);
 
 router.get('/users', listUsersController.handle);
 router.post('/users', createUserController.handle);
+router.post('/users/view', viewUserController.handle);
 
 router.get('/cards', listCardsController.handle);
 router.post('/cards', createCardController.handle);

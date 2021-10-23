@@ -47,8 +47,11 @@ class AuthenticateUserService {
         const generateRefreshToken = new GenerateRefreshTokenProvider();
         const refreshToken = await generateRefreshToken.execute(user.id);
 
-        // 01:03:15
-        return { token, refreshToken };
+        const role = await usersRepositories.findOne({
+            id: user.id 
+        }, { relations: ["role"] });
+
+        return { token, refreshToken, role : role.role.label };
     }
 }
 
