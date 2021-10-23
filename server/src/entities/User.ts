@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { Exclude } from "class-transformer";
 import { Role } from "./Role";
 import { Card } from "./Card";
@@ -35,13 +35,22 @@ class User {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @OneToOne(() => RefreshToken, refreshToken => refreshToken.user)
+    // Refresh Token Relationship
+    @Exclude()
+    @Column({ nullable: true })
+    refresh_token: string;
+
+    @OneToOne(() => RefreshToken, refreshToken => refreshToken.user) 
     refreshToken: RefreshToken;
 
+    // Card Relationship
     @OneToMany(() => Card, card => card.user)    
     cards: Card[];
 
+    @Column()
+    role_id: string
     @ManyToOne(() => Role, role => role.users)
+    @JoinColumn({ name: 'role_id' })
     role: Role;
 
     constructor() {

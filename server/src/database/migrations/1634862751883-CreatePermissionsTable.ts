@@ -1,13 +1,13 @@
-import { MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateRole1634862219892 implements MigrationInterface {
+export class CreatePermissionsTable1634862751883 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-        
+
         await queryRunner.createTable(
             new Table({
-                name: 'roles',
+                name: "permissions",
                 columns: [
                     {
                         name: "id",
@@ -21,10 +21,6 @@ export class CreateRole1634862219892 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
-                        name: "label",
-                        type: "varchar"
-                    },
-                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "NOW()"
@@ -34,13 +30,13 @@ export class CreateRole1634862219892 implements MigrationInterface {
                         type: "timestamp",
                         default: "NOW()"
                     }
-                ],
+                ]
             })
-        ); 
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("roles");
+        await queryRunner.dropTable("permissions");
         await queryRunner.query('DROP EXTENSION "uuid-ossp"');
     }
 

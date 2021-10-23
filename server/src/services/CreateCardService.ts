@@ -3,6 +3,8 @@ import { getCustomRepository } from "typeorm";
 import { UsersRepositories } from "../repositories/UsersRepositories";
 import { CardsRepositories } from "../repositories/CardsRepositories";
 
+import { classToPlain } from 'class-transformer';
+
 interface ICreateCardRequest {
     name: string;
     number: string;
@@ -55,13 +57,14 @@ class CreateCardService {
             security_code, 
             validity_month, 
             validity_year, 
-            is_credit_card, 
+            is_credit_card,
             user_id
         });
 
         await cardsRepositories.save(card);
 
-        return card;
+        return classToPlain(card);
+
     }
 }
 

@@ -5,16 +5,18 @@ import { RolesRepositories } from "../repositories/RolesRepositories";
 
 import { hash } from "bcryptjs";
 
+import { classToPlain } from 'class-transformer';
+
 interface ICreateUserRequest {
     name: string;
     email: string;
     password: string;
-    roleId: string;
+    role_id: string;
 }
 
 class CreateUserService {
     
-    async execute({ name, email, password, roleId } : ICreateUserRequest) {
+    async execute({ name, email, password, role_id } : ICreateUserRequest) {
         const rolesRepositories = getCustomRepository(RolesRepositories)
         const usersRepositories = getCustomRepository(UsersRepositories);
 
@@ -31,7 +33,7 @@ class CreateUserService {
             throw new Error("Incorrect Password");
         }
 
-        if(!roleId) {
+        if(!role_id) {
             throw new Error("Incorrect RoleId");
         }
 
@@ -45,7 +47,7 @@ class CreateUserService {
         }
 
         // Validação: Verificando se a role indicada existe
-        const userRoleExists = await rolesRepositories.findOne(roleId);
+        const userRoleExists = await rolesRepositories.findOne(role_id);
 
         if(!userRoleExists) {
             throw new Error("User Role does not exists!");
@@ -56,13 +58,13 @@ class CreateUserService {
         const user = usersRepositories.create({
             name, 
             email, 
-            password: passwordHash, 
-            role: userRoleExists
+            password: passwordHash,
+            role_id
         });
 
         await usersRepositories.save(user);
 
-        return user;
+        return classToPlain(user);
 
     }
 }

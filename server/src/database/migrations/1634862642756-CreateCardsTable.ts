@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateCard1634862642756 implements MigrationInterface {
+export class CreateCardsTable1634862642756 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
@@ -41,7 +41,7 @@ export class CreateCard1634862642756 implements MigrationInterface {
                         type: "boolean"
                     },
                     {
-                        name: "userId",
+                        name: "user_id",
                         type: "uuid"
                     },
                     {
@@ -57,12 +57,12 @@ export class CreateCard1634862642756 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                      name: "userCard",
-                      referencedTableName: "users",
-                      referencedColumnNames: ["id"],
-                      columnNames: ["userId"],
-                      onDelete: "CASCADE",
-                      onUpdate: "CASCADE"
+                        name: "FKUserCards",
+                        referencedTableName: "users",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["user_id"],
+                        onDelete: "CASCADE",
+                        onUpdate: "CASCADE"
                     }
                 ]
             })

@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateUser1634862395081 implements MigrationInterface {
+export class CreateUsersTable1634862395081 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
@@ -40,8 +40,13 @@ export class CreateUser1634862395081 implements MigrationInterface {
                         isNullable: true
                     },
                     {
-                        name: "roleId",
+                        name: "role_id",
                         type: "uuid"
+                    },
+                    {
+                        name: "refresh_token",
+                        type: "varchar",
+                        isNullable: true
                     },
                     {
                         name: "created_at",
@@ -56,12 +61,12 @@ export class CreateUser1634862395081 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                      name: "roleUser",
-                      referencedTableName: "roles",
-                      referencedColumnNames: ["id"],
-                      columnNames: ["roleId"],
-                      onDelete: "CASCADE",
-                      onUpdate: "CASCADE"
+                        name: "FKRoleUsers",
+                        referencedTableName: "roles",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["role_id"],
+                        onDelete: "SET NULL",
+                        onUpdate: "SET NULL"
                     }
                 ]
             })

@@ -1,11 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany } from "typeorm";
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinColumn } from "typeorm";
 import { Role } from "./Role";
+import { v4 as uuid } from "uuid";
 
 @Entity("permissions")
 class Permission {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryColumn()
+    readonly id: string;
 
     @Column()
     name: string;
@@ -17,7 +18,14 @@ class Permission {
     updated_at: Date;
 
     @ManyToMany(() => Role, role => role.permissions)
+    @JoinColumn({ name: 'role_id' })
     roles: Role[];
+
+    constructor() {
+        if(!this.id) {
+            this.id = uuid()
+        }
+    }
 }
 
 export { Permission };

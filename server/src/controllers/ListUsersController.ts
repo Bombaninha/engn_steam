@@ -7,7 +7,6 @@ class ListUsersController {
 
         const users = await listUsersService.execute();
 
-        console.log(users[0].refreshToken);
         return response.json(users);
     }
 }

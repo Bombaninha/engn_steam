@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateRefreshToken1634862505077 implements MigrationInterface {
+export class CreateRefreshTokenTable1634862505077 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
@@ -19,18 +19,18 @@ export class CreateRefreshToken1634862505077 implements MigrationInterface {
                         type: "int"
                     },
                     {
-                        name: "userId",
+                        name: "user_id",
                         type: "uuid"
                     },
                 ],
                 foreignKeys: [
                     {
-                      name: "userRefreshToken",
-                      referencedTableName: "users",
-                      referencedColumnNames: ["id"],
-                      columnNames: ["userId"],
-                      onDelete: "CASCADE",
-                      onUpdate: "CASCADE"
+                        name: "FKUserRefreshToken",
+                        referencedTableName: "users",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["user_id"],
+                        onDelete: "CASCADE",
+                        onUpdate: "CASCADE"
                     }
                 ]
             })

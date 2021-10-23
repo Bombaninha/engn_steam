@@ -1,13 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Exclude, Expose } from "class-transformer";
 import { User } from "./User";
+import { v4 as uuid } from "uuid";
 
 @Entity("cards")
-
 class Card {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryColumn()
+    readonly id: string;
 
     @Column()
     name: string;
@@ -36,14 +36,18 @@ class Card {
     @UpdateDateColumn()
     updated_at: Date;
 
+    @Column()
+    user_id: string;
+
     @ManyToOne(() => User, user => user.cards, { onDelete: 'SET NULL'})
+    @JoinColumn({ name: 'user_id' })
     user: User;
-    /*
-    @Expose({number: 'number_hidden'})
-    numberHidden(): string {
-        return `#${this.number}`;
+
+    constructor() {
+        if(!this.id) {
+            this.id = uuid()
+        }
     }
-    */
 }
 
 export { Card };

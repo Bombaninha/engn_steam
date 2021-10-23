@@ -1,12 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, JoinTable, JoinColumn } from "typeorm";
 import { Permission } from "./Permission";
 import { User } from "./User";
+import { v4 as uuid } from "uuid";
 
 @Entity("roles")
 class Role {
 
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryColumn()
+    readonly id: string;
 
     @Column({ unique: true })
     name: string;
@@ -25,16 +26,14 @@ class Role {
 
     @ManyToMany(() => Permission, permission => permission.roles)
     @JoinTable()
+    @JoinColumn({ name: 'permission_id' })
     permissions: Permission[];
     
-    /*
-    addPermission(permission: Permission) {
-        if(this.permissions == null) {
-            this.permissions = new Array<Permission>();
+    constructor() {
+        if(!this.id) {
+            this.id = uuid()
         }
-        this.permissions.push(permission);
     }
-    */
 }
 
 export { Role };
