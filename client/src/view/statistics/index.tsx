@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from '../../components/Modal/modal';
 
+import { useGame } from '../../hooks/useGames';
+
 const Container = styled.div`
     display: flex;
     justify-content: center;
@@ -23,12 +25,18 @@ const Button = styled.button`
 const Statistics: React.FC = () => {
     const [ showModal, setShowModal ] = useState(false);
 
+    const games = useGame();
+    console.log(games);
+
     const openModal = () => {
         setShowModal(prev => !prev);
     }
 
     return (
         <>
+        <div>
+            { games }
+        </div>
             <Container>
                 <Button onClick={openModal}>I'm a modal</Button>
                 <Modal showModal={showModal} setShowModal={setShowModal}/>

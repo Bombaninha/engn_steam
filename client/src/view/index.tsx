@@ -23,9 +23,9 @@ const Main: React.FC = () => {
 		<div className="app">
 			{localStorage.getItem('role') === '"admin"' ? 
 				<AdministratorPath />
-			: localStorage.getItem('role') === 'staff' ?
+			: localStorage.getItem('role') === '"staff"' ?
 				<StaffPath />
-			: localStorage.getItem('role') === 'dev' ?
+			: localStorage.getItem('role') === '"dev"' ?
 				<DeveloperPath />
 			:
 				<UserPath />
