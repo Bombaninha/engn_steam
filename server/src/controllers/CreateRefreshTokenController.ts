@@ -7,7 +7,7 @@ class CreateRefreshTokenController {
 
         const createRefreshTokenService = new CreateRefreshTokenService();
 
-        const refreshToken = await createRefreshTokenService.execute({ user_id });
+        const refreshToken = await createRefreshTokenService.execute(user_id);
 
         return response.json(refreshToken);
     }

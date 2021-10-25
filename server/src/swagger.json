@@ -1,0 +1,143 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Steam",
+        "description": "API do trabalho final de Engenharia de Software",
+        "termsOfService": "http://localhost:4000/terms",
+        "contact": {
+            "email": "lucasspagnolobombana@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:4000/v1",
+            "description": "API de teste"
+        },
+        {
+            "url": "http://www.google.com",
+            "description": "API de produção"
+        }
+    ],
+    "paths": {
+        "/roles": {
+            "post": {
+                "summary": "Cadastro de Role",
+                "description": "Essa rota será responsável por cadastrar uma nova Role",
+                "tags": ["Roles"],
+                "security": [{"bearerAuth": []}],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Role"
+                            },
+                            "examples": {
+                                "role": {
+                                    "value": {
+                                        "name": "Administrador",
+                                        "label": "admin"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Role Already exists"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }, 
+            "get": {
+                "summary": "Busca de todas as Roles cadastradas",
+                "description": "Busca de todas as Roles cadastradas",
+                "tags": ["Roles"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/roles/{id}": {
+            "get": {
+                "summary": "Busca de Role pelo Id",
+                "description": "Busca de Role pelo Id",
+                "tags": ["Roles"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id da Role para busca",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#components/schemas/Role"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Role": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }                
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

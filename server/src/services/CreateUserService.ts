@@ -5,6 +5,8 @@ import { RolesRepositories } from "../repositories/RolesRepositories";
 
 import { hash } from "bcryptjs";
 
+import { classToPlain } from 'class-transformer';
+
 interface ICreateUserRequest {
     name: string;
     email: string;
@@ -56,13 +58,13 @@ class CreateUserService {
         const user = usersRepositories.create({
             name, 
             email, 
-            password: passwordHash, 
+            password: passwordHash,
             role_id
         });
 
         await usersRepositories.save(user);
 
-        return user;
+        return classToPlain(user);
 
     }
 }

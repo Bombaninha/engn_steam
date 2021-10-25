@@ -1,19 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import AdministratorPath from '../paths/administrator'
 import StaffPath from '../paths/staff'
 import DeveloperPath from '../paths/developer'
 import UserPath from '../paths/user'
 import PermissionsEnum from '../types/PermissionEnum'
 
+import { Context } from '../contexts/AuthContext';
+
 const Main: React.FC = () => {
-	const [role] = useState<PermissionsEnum>(PermissionsEnum.ADMINISTRATOR)
+	const [role, setRole] = useState<PermissionsEnum>(PermissionsEnum.USER)
+	//const { authenticated, handleLogin, handleLogout } = useContext(Context);
+	
+	/*
+	const roleStorage = localStorage.getItem('role');
+	if(roleStorage === 'admin') {
+		setRole(PermissionsEnum.ADMINISTRATOR);
+	} else {
+		setRole(PermissionsEnum.USER);
+	} 
+	*/
 	return (
 		<div className="app">
-			{role === PermissionsEnum.ADMINISTRATOR ? 
+			{localStorage.getItem('role') === '"admin"' ? 
 				<AdministratorPath />
-			: role === PermissionsEnum.STAFF ?
+			: localStorage.getItem('role') === 'staff' ?
 				<StaffPath />
-			: role === PermissionsEnum.DEVELOPER ?
+			: localStorage.getItem('role') === 'dev' ?
 				<DeveloperPath />
 			:
 				<UserPath />

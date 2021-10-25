@@ -20,11 +20,20 @@ class CreateRoleService {
         }
 
         // Validação: Verificando se existe alguma role com o mesmo nome
-        const roleAlreadyExists = await rolesRepository.findOne({
+        const roleAlreadyExistsName = await rolesRepository.findOne({
             name
         });
 
-        if(roleAlreadyExists) {
+        if(roleAlreadyExistsName) {
+            throw new Error("Role already exists");
+        }
+
+        // Validação: Verificando se existe alguma role com o mesmo nome
+        const roleAlreadyExistsLabel = await rolesRepository.findOne({
+            label
+        });
+
+        if(roleAlreadyExistsLabel) {
             throw new Error("Role already exists");
         }
 

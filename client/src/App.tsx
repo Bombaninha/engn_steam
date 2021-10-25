@@ -3,9 +3,17 @@ import React from 'react';
 import Main from './view';
 import './styles.css'
 
+import { AuthProvider } from './contexts/AuthContext';
+
+import { HasPermissionProvider } from './contexts/HasPermissionContext';
+
 const App: React.FC = () => {
   return (
-    <Main />
+    <AuthProvider>
+      <HasPermissionProvider>
+        <Main />
+      </HasPermissionProvider>
+    </AuthProvider>
   )
 }
 export default App

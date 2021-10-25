@@ -7,9 +7,9 @@ class ListUsersService {
     async execute() {
         const usersRepositories = getCustomRepository(UsersRepositories);
 
+        //const questions = await questionRepository.find({ relations: ["categories"] });
+        //const users = await usersRepositories.find( { relations: ["role"] });
         const users = await usersRepositories.find();
-        // colocar info fora do banco
-        //tags = tags.map((tag) => ({ ...tag, nameCustom: `#${tag.name}`}))
 
         return classToPlain(users);
     }
