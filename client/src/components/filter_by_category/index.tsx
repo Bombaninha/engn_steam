@@ -2,21 +2,23 @@ import React, { useState } from 'react'
 import './styles.css'
 
 export interface FilterByCategoryProps {
-    categories: {id: string, label: string}[]
-	onChange: (value: string[]) => void
+    categories: string[]
+    onChange: (value: string[]) => void
 }
 
-const FilterByCategory: React.FC<FilterByCategoryProps> = ({categories, onChange}) => {
+const FilterByCategory: React.FC<FilterByCategoryProps> = ({ categories, onChange }) => {
     const [selectedCheckbox, setSelectedCheckbox] = useState<string[]>([])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (event.target.checked) {
-            setSelectedCheckbox([...selectedCheckbox, event.target.name])
+        let newSelectedCheckbox;
+        if (event.target.checked) {
+            newSelectedCheckbox = [...selectedCheckbox, event.target.name];
         } else {
-            setSelectedCheckbox(selectedCheckbox.filter(item => item !== event.target.name))
+            newSelectedCheckbox = selectedCheckbox.filter(item => item !== event.target.name);
         }
-        onChange(selectedCheckbox)
-	}
+        setSelectedCheckbox(newSelectedCheckbox);
+        onChange(newSelectedCheckbox);
+    }
 
     return (
         <div className="filter-by-category-wrapper">
@@ -25,14 +27,14 @@ const FilterByCategory: React.FC<FilterByCategoryProps> = ({categories, onChange
                 {categories.map((item) => {
                     return (
                         <div className="input-wrapper">
-                            <input 
-                                type="checkbox" 
-                                name={item.id} 
-                                onChange={handleChange} 
+                            <input
+                                type="checkbox"
+                                name={item}
+                                onChange={handleChange}
                             />
-                            <label htmlFor={item.id}>{item.label}</label>
+                            <label htmlFor={item}>{item}</label>
                         </div>
-                    ) 
+                    )
                 })}
             </form>
         </div>
