@@ -8,13 +8,14 @@ import StaffLateralMenu from '../../components/lateral_menu/staff_lateral_menu'
 import PermissionsEnum from '../../types/PermissionEnum'
 import Tickets from '../../view/tickets'
 import Requests from '../../view/requests'
-
+import Login from '../../view/login'
 const StaffPath: React.FC = () => {
 	return (
 		<>
 			<StaffLateralMenu role={PermissionsEnum.STAFF}/>
 			<Router history={HistoryService}>
 				<Switch>
+					<Route exact path={Path.LOGIN} component={Login} />
 					<Route exact path={Path.MENU} component={Statistics} />
 					<Route exact path={Path.TICKETS} component={Tickets} />
 					<Route exact path={Path.REQUEST} component={Requests} />
