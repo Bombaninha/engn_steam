@@ -1,0 +1,20 @@
+.dev_game_management__statistics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dev_game_management__statistics .button {
+    margin: 1rem 0;
+}
+
+.dev_game_management__game_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dev_game_management__game_list .dev-game-card-wrapper,
+.dev_game_management__game_list .button {
+    margin: 0.5rem 0;
+}

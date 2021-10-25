@@ -16,12 +16,12 @@ const Store: React.FC = () => {
     return (
         <div>
             {successfulPurchase ?
-                <InfoPage infoText="Sua compra foi concluída com sucesso" buttonText="Voltar a loja" onClick={value => setSuccessfulPurchase(value)} />
+                <InfoPage infoText="Sua compra foi concluída com sucesso" buttonText="Voltar a loja" onClick={() => setSuccessfulPurchase(false)} />
                 :
                 gameToBuy ?
                     <BuyGame gameInfo={gameToBuy} onCancel={value => setGameToBuy(value)} onGameBought={handleGamePurchase} />
                     :
-                    <GameList onClick={value => {setGameToBuy(value)}}/>}
+                    <GameList onClick={value => { setGameToBuy(value) }} />}
         </div>
     )
 }

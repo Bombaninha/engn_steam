@@ -1,3 +1,8 @@
+.text-highlight {
+    color: var(--yellow);
+    font-weight: 600;
+}
+
 .info-wrapper {
     width: 75vw;
     height: 100vh;
@@ -7,26 +12,14 @@
     justify-content: center;
 }
 
-.info-wrapper .main-info {
-    width: 100%;
+.main-info {
     border: solid var(--base-font-color) 1px;
     padding: 4rem;
     text-align: center;
     margin-bottom: 3rem;
 }
 
-.info-wrapper .button-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.info-wrapper .button-wrapper.with-cancel-button {
-    justify-content: flex-end;
-}
-
-.info-wrapper .button {
+.info-wrapper button {
     min-width: 40%;
     max-width: 60%;
-    margin-left: 1.5rem;
 }

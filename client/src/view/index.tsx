@@ -10,7 +10,7 @@ import { Context } from '../contexts/AuthContext';
 const Main: React.FC = () => {
 	const [role] = useState<PermissionsEnum>(PermissionsEnum.DEVELOPER)
 	//const { authenticated, handleLogin, handleLogout } = useContext(Context);
-	
+
 	/*
 	const roleStorage = localStorage.getItem('role');
 	if(roleStorage === 'admin') {
@@ -20,6 +20,7 @@ const Main: React.FC = () => {
 	} 
 	*/
 	return (
+		/*
 		<div className="app">
 			{localStorage.getItem('role') === '"admin"' ? 
 				<AdministratorPath />
@@ -30,6 +31,10 @@ const Main: React.FC = () => {
 			:
 				<UserPath />
 			}
+		</div>
+		*/
+		<div className="app">
+			<DeveloperPath />
 		</div>
 	)
 }
