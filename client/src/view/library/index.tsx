@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 import FilterByCategory from '../../components/filter_by_category'
 import GameItem from '../../components/GameItem';
-import { purchasedGamesListPopulate } from '../../constant/content'
 import { TPurchasedGame } from '../../types/TGame';
 
+function loadGamesBoughtFromLocalStorage(): TPurchasedGame[] {
+    const gamesBoughtFromStorage = localStorage.getItem('games-bought')
+    let gamesBought = [];
+    if (gamesBoughtFromStorage)
+        gamesBought = JSON.parse(gamesBoughtFromStorage);
+    return gamesBought;
+}
+
 const Library: React.FC = () => {
-    const [games] = useState<TPurchasedGame[]>(purchasedGamesListPopulate);
+    const [games] = useState<TPurchasedGame[]>(loadGamesBoughtFromLocalStorage());
     const [currentCategories, setCurrentCategories] = useState<string[]>([])
 
     return (
