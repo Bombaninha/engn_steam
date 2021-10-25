@@ -9,5 +9,6 @@ class Path {
 	SUPPORT = `/support`
 	REQUEST = `/request`
 	TICKETS = `/tickets`
+	LOGIN = `/login`
 }
 export default new Path()

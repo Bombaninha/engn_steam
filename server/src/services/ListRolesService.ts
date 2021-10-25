@@ -8,8 +8,6 @@ class ListRolesService {
         const rolesRepositories = getCustomRepository(RolesRepositories);
 
         const roles = await rolesRepositories.find();
-        // colocar info fora do banco
-        //tags = tags.map((tag) => ({ ...tag, nameCustom: `#${tag.name}`}))
 
         return classToPlain(roles);
     }

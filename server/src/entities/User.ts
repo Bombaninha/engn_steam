@@ -1,7 +1,9 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { Exclude } from "class-transformer";
-import { v4 as uuid } from "uuid";
 import { Role } from "./Role";
+import { Card } from "./Card";
+import { RefreshToken } from "./RefreshToken";
+import { v4 as uuid } from "uuid";
 
 @Entity("users")
 class User {
@@ -12,7 +14,7 @@ class User {
     @Column()
     name: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
     @Exclude()
@@ -20,25 +22,36 @@ class User {
     password: string;
 
     @Exclude()
-    @Column()
+    @Column({ nullable: true })
     pending_password: string;
 
     @Exclude()
-    @Column()
+    @Column({ nullable: true })
     redefine_password_token: string;
-
-    @JoinColumn({ name: 'role_id' })
-    @ManyToOne(() => Role)
-    role: Role;
-
-    @Column()
-    role_id: string;
 
     @CreateDateColumn()
     created_at: Date;
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    // Refresh Token Relationship
+    @Exclude()
+    @Column({ nullable: true })
+    refresh_token: string;
+
+    @OneToOne(() => RefreshToken, refreshToken => refreshToken.user) 
+    refreshToken: RefreshToken;
+
+    // Card Relationship
+    @OneToMany(() => Card, card => card.user)    
+    cards: Card[];
+
+    @Column()
+    role_id: string
+    @ManyToOne(() => Role, role => role.users)
+    @JoinColumn({ name: 'role_id' })
+    role: Role;
 
     constructor() {
         if(!this.id) {

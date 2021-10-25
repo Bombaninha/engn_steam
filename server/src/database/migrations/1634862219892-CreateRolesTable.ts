@@ -1,10 +1,10 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateRolesTable1633986999247 implements MigrationInterface {
+export class CreateRolesTable1634862219892 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-
+        
         await queryRunner.createTable(
             new Table({
                 name: 'roles',
@@ -36,7 +36,7 @@ export class CreateRolesTable1633986999247 implements MigrationInterface {
                     }
                 ],
             })
-        );  
+        ); 
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

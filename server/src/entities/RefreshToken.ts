@@ -11,12 +11,12 @@ class RefreshToken {
     @Column()
     expires_in: string;
 
-    @JoinColumn({ name: 'user_id' })
-    @OneToOne(() => User)
-    user: User;
-
     @Column()
     user_id: string;
+
+    @OneToOne(() => User, user => user.refreshToken)
+    @JoinColumn({ name: 'user_id' })
+    user: User;
 
     constructor() {
         if(!this.id) {

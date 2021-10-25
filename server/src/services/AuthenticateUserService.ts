@@ -1,21 +1,23 @@
 import { getCustomRepository } from 'typeorm';
+
 import { UsersRepositories } from "../repositories/UsersRepositories";
+import { RefreshTokenRepositories } from "../repositories/RefreshTokenRepositories";
+
 import { compare } from 'bcryptjs';
-import { sign } from "jsonwebtoken";
-import { GenerateRefreshToken } from '../providers/GenerateRefreshToken';
+
+import { GenerateRefreshTokenProvider } from '../providers/GenerateRefreshTokenProvider';
+import { GenerateTokenProvider } from '../providers/GenerateTokenProvider';
+
 
 interface IAuthenticateUserRequest {
     email: string;
     password: string;
 }
 
-interface ICreateRefreshTokenRequest {
-    user_id: string;
-}
-
 class AuthenticateUserService {
 
     async execute({ email, password } : IAuthenticateUserRequest) {
+        const refreshTokenRepository = getCustomRepository(RefreshTokenRepositories);
         const usersRepositories = getCustomRepository(UsersRepositories)
 
         // Verificar se email existe
@@ -35,13 +37,21 @@ class AuthenticateUserService {
         }
 
         // Gerar token
-        const token = sign({ id: user.id }, process.env.SECRET_KEY , { expiresIn: '20s' });
+        const generateTokenProvider = new GenerateTokenProvider();
+        const token = await generateTokenProvider.execute(user.id);
 
-        const generateRefreshToken = new GenerateRefreshToken();
+        await refreshTokenRepository.delete({
+            user_id: user.id
+        });
+
+        const generateRefreshToken = new GenerateRefreshTokenProvider();
         const refreshToken = await generateRefreshToken.execute(user.id);
 
-        // 01:03:15
-        return { token, refreshToken };
+        const role = await usersRepositories.findOne({
+            id: user.id 
+        }, { relations: ["role"] });
+
+        return { token, refreshToken, role : role.role.label };
     }
 }
 

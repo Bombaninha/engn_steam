@@ -4,4 +4,5 @@ enum PermissionsEnum {
 	STAFF,
 	ADMINISTRATOR
 }
+
 export default PermissionsEnum
