@@ -27,7 +27,7 @@ const GameItem: React.FC<GameProps> = (props: GameProps) => {
         if (props.onClick) {
             props.onClick(props.game)
         }
-	}
+    }
 
     return (
         <Container className="game-item-wrapper">
@@ -42,12 +42,12 @@ const GameItem: React.FC<GameProps> = (props: GameProps) => {
 
             <ActionContainer>
                 {props.purchasedAt ?
-                    <Purchased> {props.purchasedAt.toLocaleDateString()} </Purchased>
+                    <Purchased> {new Date(props.purchasedAt).toLocaleDateString('en-GB')} </Purchased>
                     :
                     (<>
                         <Price> {props.game.price.toFixed(2)} </Price>
                         <br />
-                        {props.withButton ? <DefaultButton text="Comprar" colorClass="primary" onClick={handleClick}/> : <></>}
+                        {props.withButton ? <DefaultButton text="Comprar" colorClass="primary" onClick={handleClick} /> : <></>}
                     </>)
                 }
             </ActionContainer>
