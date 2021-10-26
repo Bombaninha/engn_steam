@@ -1,7 +1,8 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm";
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { User } from "./User";
 import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
+import { Buy } from "./Buy";
 
 @Entity("games")
 class Game {
@@ -49,6 +50,9 @@ class Game {
     })
     users: User[];
     
+    @OneToMany(() => Buy, buy => buy.game)    
+    buys: Buy[];
+
     constructor() {
         if(!this.id) {
             this.id = uuid()
