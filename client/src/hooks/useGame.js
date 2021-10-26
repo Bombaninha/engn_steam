@@ -3,6 +3,21 @@ import GameItem from '../components/GameItem';
 
 import axios from "axios";
 
+/*
+type QuestionType = {
+    id: string;
+    author: {
+        name: string;
+        avatar: string;
+    }
+    content: string;
+    isAnswered: boolean;
+    isHighlighted: boolean; 
+    likeCount: number;
+    likeId: string | undefined;
+}
+*/
+
 export function useGame() {
     const [ games, setGames ] = useState([]);
 

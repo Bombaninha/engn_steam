@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Modal } from '../../components/Modal/modal';
 
-import { useGame } from '../../hooks/useGames';
+import { useGame } from '../../hooks/useGame';
 
 const Container = styled.div`
     display: flex;
