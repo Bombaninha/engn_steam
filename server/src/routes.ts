@@ -9,6 +9,8 @@ import { CreateCardController } from "./controllers/CreateCardController";
 import { CreatePermissionController } from './controllers/CreatePermissionController';
 import { CreateCategoryController } from './controllers/CreateCategoryController';
 import { CreateGameController } from './controllers/CreateGameController';
+import { CreateBuyTypeController } from './controllers/CreateBuyTypeController';
+import { CreateBuyController } from './controllers/CreateBuyController';
 
 import { AuthenticateUserController } from "./controllers/AuthenticateUserController";
 
@@ -18,6 +20,8 @@ import { ListCardsController } from "./controllers/ListCardsController";
 import { ListPermissionsController } from "./controllers/ListPermissionsController";
 import { ListCategoriesController } from "./controllers/ListCategoriesController";
 import { ListGamesController } from "./controllers/ListGamesController";
+import { ListBuyTypesController } from './controllers/ListBuyTypesController';
+import { ListBuysController } from './controllers/ListBuysController';
 
 import { ViewRoleController } from "./controllers/ViewRoleController";
 import { ViewUserController } from "./controllers/ViewUserController";
@@ -32,6 +36,8 @@ const createCardController = new CreateCardController();
 const createPermissionController = new CreatePermissionController();
 const createCategoryController = new CreateCategoryController();
 const createGameController = new CreateGameController();
+const createBuyTypeController = new CreateBuyTypeController();
+const createBuyController = new CreateBuyController();
 
 const authenticateUserController = new AuthenticateUserController();
 
@@ -43,7 +49,8 @@ const listUsersController = new ListUsersController();
 const listPermissionsController = new ListPermissionsController();
 const listCategoriesController = new ListCategoriesController();
 const listGamesController = new ListGamesController();
-
+const listBuyTypesController = new ListBuyTypesController();
+const listBuysController = new ListBuysController();
 
 const viewRoleController = new ViewRoleController();
 const viewUserController = new ViewUserController();
@@ -71,5 +78,11 @@ router.post('/permissions', createPermissionController.handle);
 router.post('/authenticate', authenticateUserController.handle);
 
 router.post('/refresh-token', refreshTokenUserController.handle);
+
+router.get('/buy-types', listBuyTypesController.handle);
+router.post('/buy-types', createBuyTypeController.handle);
+
+router.get('/buys', listBuysController.handle);
+router.post('/buys', createBuyController.handle);
 
 export { router }
