@@ -32,6 +32,8 @@ import { RefreshTokenUserController } from "./controllers/RefreshTokenUserContro
 
 import { ForgotPasswordUserController } from "./controllers/ForgotPasswordUserController";
 
+import { ChangePasswordUserController } from "./controllers/ChangePasswordUserController";
+
 const router = Router();
 
 const createRoleController = new CreateRoleController();
@@ -48,6 +50,8 @@ const authenticateUserController = new AuthenticateUserController();
 const refreshTokenUserController = new RefreshTokenUserController();
 
 const forgotPasswordUserController = new ForgotPasswordUserController();
+const changePasswordUserController = new ChangePasswordUserController();
+
 
 const listCardsController = new ListCardsController();
 const listRolesController = new ListRolesController();
@@ -96,5 +100,7 @@ router.get('/buys', listBuysController.handle);
 router.post('/buys', createBuyController.handle);
 
 router.post('/forgot-password', forgotPasswordUserController.handle);
+
+router.post('/change-password', changePasswordUserController.handle);
 
 export { router }

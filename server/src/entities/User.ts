@@ -25,10 +25,6 @@ class User {
 
     @Exclude()
     @Column({ nullable: true })
-    pending_password: string;
-
-    @Exclude()
-    @Column({ nullable: true })
     redefine_password_token: string;
 
     @CreateDateColumn()
