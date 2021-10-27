@@ -4,11 +4,11 @@ import { ListGamesService } from '../services/ListGamesService';
 
 class ListGamesController {
     async handle(request: Request, response: Response) {
-        const { name } = request.query;
+        const { name, category } = request.query;
 
         const listGamesService = new ListGamesService();
 
-        const game = await listGamesService.execute({ name });
+        const game = await listGamesService.execute({ name, category });
         
         return response.json(game);
     }
