@@ -26,6 +26,8 @@ import { ListBuysController } from './controllers/ListBuysController';
 import { ViewRoleController } from "./controllers/ViewRoleController";
 import { ViewUserController } from "./controllers/ViewUserController";
 
+import { DeleteGameController } from "./controllers/DeleteGameController";
+
 import { RefreshTokenUserController } from "./controllers/RefreshTokenUserController";
 
 const router = Router();
@@ -55,6 +57,8 @@ const listBuysController = new ListBuysController();
 const viewRoleController = new ViewRoleController();
 const viewUserController = new ViewUserController();
 
+const deleteGameController = new DeleteGameController();
+
 //router.get('/roles', ensureAuthenticated, CheckPermission.ensureHasPermission('can-list-roles'), listRolesController.handle);
 router.get('/roles', ensureAuthenticated, listRolesController.handle);
 router.get('/roles/:id', viewRoleController.handle);
@@ -69,6 +73,7 @@ router.post('/categories', createCategoryController.handle);
 
 router.get('/games', listGamesController.handle);
 router.post('/games', createGameController.handle);
+router.delete('/games/:id', deleteGameController.handle);
 
 router.get('/cards', listCardsController.handle);
 router.post('/cards', createCardController.handle);
