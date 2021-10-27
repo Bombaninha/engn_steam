@@ -8,24 +8,19 @@ import PermissionsEnum from '../types/PermissionEnum'
 import { Context } from '../contexts/AuthContext';
 
 const Main: React.FC = () => {
-	const [role, setRole] = useState<PermissionsEnum>(PermissionsEnum.USER)
+	const [role, setRole] = useState<PermissionsEnum>(PermissionsEnum.USER);
+
 	//const { authenticated, handleLogin, handleLogout } = useContext(Context);
 	
-	/*
-	const roleStorage = localStorage.getItem('role');
-	if(roleStorage === 'admin') {
-		setRole(PermissionsEnum.ADMINISTRATOR);
-	} else {
-		setRole(PermissionsEnum.USER);
-	} 
-	*/
+	const userRole = JSON.parse(localStorage.getItem('role') || '{}');
+
 	return (
 		<div className="app">
-			{localStorage.getItem('role') === '"admin"' ? 
+			{ userRole === PermissionsEnum.ADMINISTRATOR ? 
 				<AdministratorPath />
-			: localStorage.getItem('role') === '"staff"' ?
+			: userRole === PermissionsEnum.STAFF ?
 				<StaffPath />
-			: localStorage.getItem('role') === '"dev"' ?
+			: userRole === PermissionsEnum.DEVELOPER ?
 				<DeveloperPath />
 			:
 				<UserPath />

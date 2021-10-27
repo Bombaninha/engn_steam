@@ -13,8 +13,14 @@ class Card {
     @Column()
     name: string;
 
+    @Exclude()
     @Column()
     number: string;
+
+    @Expose({name: 'number_custom'})
+    numberCustom(): string {
+        return '*'.repeat((this.number.length - 4)) + this.number.substr(-4);
+    }
 
     @Exclude()
     @Column()

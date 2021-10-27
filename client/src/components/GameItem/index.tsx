@@ -33,7 +33,7 @@ const GameItem: React.FC<GameProps> = (props: GameProps) => {
         <Container className="game-item-wrapper">
             <InfoContainer>
                 <TitleContainer>
-                    <Title>{props.game.title}</Title>
+                    <Title>{props.game.name}</Title>
                     <br />
                     <Categories>{props.game.categories.join(', ')}</Categories>
                     <Developer>{props.game.developer}</Developer>

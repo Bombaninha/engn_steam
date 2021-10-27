@@ -1,4 +1,4 @@
-export const RoleSeed = [
+export const RolesDataSeed = [
     {
         name: "Administrador",
         label: "admin"

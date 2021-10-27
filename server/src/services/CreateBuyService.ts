@@ -16,7 +16,6 @@ class CreateBuyService {
     async execute({ buy_type_id, buyer_id, receiver_id, card_id, game_id } : ICreateBuyRequest) {
         const buysRepositories = getCustomRepository(BuysRepositories);
 
-        // Validação: Verificando se todos os campos foram recebidos
         if(!buy_type_id) {
             throw new Error("Incorrect Buy Type");
         }

@@ -1,6 +1,9 @@
 import React, { createContext, useState, useEffect } from 'react';
-//import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+
+import HistoryService from '../services/history/HistoryService'
+
+import Path from '../constant/Path';
 
 const Context = createContext();
 
@@ -34,9 +37,11 @@ function AuthProvider({ children }) {
             axios.defaults.headers.Authorization = `Bearer ${token}`;
     
             setAuthenticated(true);
-            //redirect
+            
+            HistoryService.push(Path.MENU);
             console.log("Logado com sucesso!");
         } else {
+            HistoryService.push(Path.MENU);
             console.log("Usuário já está logado!");
         }
     }

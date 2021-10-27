@@ -42,7 +42,7 @@ const Library: React.FC = () => {
                 {filterCategories(selectedCategories, games)
                     .map(game =>
                         <GameItem
-                            key={game.game.title}
+                            key={game.game.name}
                             game={game.game}
                             purchasedAt={game.purchasedAt}
                         />)}

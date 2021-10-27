@@ -9,6 +9,7 @@ import PermissionsEnum from '../../types/PermissionEnum'
 import Tickets from '../../view/tickets'
 import Requests from '../../view/requests'
 import Login from '../../view/login'
+
 const StaffPath: React.FC = () => {
 	return (
 		<>

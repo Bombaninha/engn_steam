@@ -55,7 +55,8 @@ const listBuysController = new ListBuysController();
 const viewRoleController = new ViewRoleController();
 const viewUserController = new ViewUserController();
 
-router.get('/roles', ensureAuthenticated, CheckPermission.ensureHasPermission('can-list-roles'), listRolesController.handle);
+//router.get('/roles', ensureAuthenticated, CheckPermission.ensureHasPermission('can-list-roles'), listRolesController.handle);
+router.get('/roles', ensureAuthenticated, listRolesController.handle);
 router.get('/roles/:id', viewRoleController.handle);
 router.post('/roles', createRoleController.handle);
 
