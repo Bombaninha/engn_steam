@@ -30,6 +30,8 @@ import { DeleteGameController } from "./controllers/DeleteGameController";
 
 import { RefreshTokenUserController } from "./controllers/RefreshTokenUserController";
 
+import { ForgotPasswordUserController } from "./controllers/ForgotPasswordUserController";
+
 const router = Router();
 
 const createRoleController = new CreateRoleController();
@@ -44,6 +46,8 @@ const createBuyController = new CreateBuyController();
 const authenticateUserController = new AuthenticateUserController();
 
 const refreshTokenUserController = new RefreshTokenUserController();
+
+const forgotPasswordUserController = new ForgotPasswordUserController();
 
 const listCardsController = new ListCardsController();
 const listRolesController = new ListRolesController();
@@ -90,5 +94,7 @@ router.post('/buy-types', createBuyTypeController.handle);
 
 router.get('/buys', listBuysController.handle);
 router.post('/buys', createBuyController.handle);
+
+router.post('/forgot-password', forgotPasswordUserController.handle);
 
 export { router }

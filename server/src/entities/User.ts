@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn, ManyToMany } from "typeorm";
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm";
 import { Exclude } from "class-transformer";
 import { Role } from "./Role";
 import { Card } from "./Card";
@@ -64,6 +64,10 @@ class User {
 
     @OneToMany(() => Buy, buy => buy.receiver)    
     buysReceiver: Buy[];
+
+    @ManyToMany(() => User, user => user.friends)
+    @JoinTable()
+    friends: User[];
 
     constructor() {
         if(!this.id) {
