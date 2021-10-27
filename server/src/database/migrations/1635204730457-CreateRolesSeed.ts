@@ -1,4 +1,4 @@
-import { getCustomRepository, MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner} from "typeorm";
 
 import { Role } from "../../entities/Role";
 
