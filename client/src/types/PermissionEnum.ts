@@ -1,8 +1,8 @@
 enum PermissionsEnum {
-	USER,
-	DEVELOPER,
-	STAFF,
-	ADMINISTRATOR
+	USER = 'user',
+	DEVELOPER = 'dev',
+	STAFF = 'staff',
+	ADMINISTRATOR = 'admin'
 }
 
 export default PermissionsEnum

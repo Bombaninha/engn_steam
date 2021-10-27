@@ -1,7 +1,9 @@
-import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn, ManyToMany } from "typeorm";
 import { Exclude } from "class-transformer";
 import { Role } from "./Role";
 import { Card } from "./Card";
+import { Game } from "./Game";
+import { Buy } from "./Buy";
 import { RefreshToken } from "./RefreshToken";
 import { v4 as uuid } from "uuid";
 
@@ -52,6 +54,16 @@ class User {
     @ManyToOne(() => Role, role => role.users)
     @JoinColumn({ name: 'role_id' })
     role: Role;
+
+    @ManyToMany(() => Game, game => game.users)
+    @JoinColumn({ name: 'game_id' })
+    games: Game[];
+
+    @OneToMany(() => Buy, buy => buy.buyer)    
+    buysBuyer: Buy[];
+
+    @OneToMany(() => Buy, buy => buy.receiver)    
+    buysReceiver: Buy[];
 
     constructor() {
         if(!this.id) {
