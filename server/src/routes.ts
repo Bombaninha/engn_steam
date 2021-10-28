@@ -12,6 +12,8 @@ import { CreateGameController } from './controllers/CreateGameController';
 import { CreateBuyTypeController } from './controllers/CreateBuyTypeController';
 import { CreateBuyController } from './controllers/CreateBuyController';
 
+import { UpdateUserController } from './controllers/UpdateUserController';
+
 import { AuthenticateUserController } from "./controllers/AuthenticateUserController";
 
 import { ListRolesController } from './controllers/ListRolesController';
@@ -27,6 +29,9 @@ import { ViewRoleController } from "./controllers/ViewRoleController";
 import { ViewUserController } from "./controllers/ViewUserController";
 
 import { DeleteGameController } from "./controllers/DeleteGameController";
+import { DeleteCardController } from "./controllers/DeleteCardController";
+
+import { BuyHistoryController } from "./controllers/BuyHistoryController";
 
 import { RefreshTokenUserController } from "./controllers/RefreshTokenUserController";
 
@@ -45,13 +50,12 @@ const createGameController = new CreateGameController();
 const createBuyTypeController = new CreateBuyTypeController();
 const createBuyController = new CreateBuyController();
 
+const updateUserController = new UpdateUserController();
+
 const authenticateUserController = new AuthenticateUserController();
-
 const refreshTokenUserController = new RefreshTokenUserController();
-
 const forgotPasswordUserController = new ForgotPasswordUserController();
 const changePasswordUserController = new ChangePasswordUserController();
-
 
 const listCardsController = new ListCardsController();
 const listRolesController = new ListRolesController();
@@ -66,15 +70,26 @@ const viewRoleController = new ViewRoleController();
 const viewUserController = new ViewUserController();
 
 const deleteGameController = new DeleteGameController();
+const deleteCardController = new DeleteCardController();
 
+const buyHistoryController = new BuyHistoryController();
 //router.get('/roles', ensureAuthenticated, CheckPermission.ensureHasPermission('can-list-roles'), listRolesController.handle);
-router.get('/roles', ensureAuthenticated, listRolesController.handle);
+router.get('/roles', listRolesController.handle);
 router.get('/roles/:id', viewRoleController.handle);
 router.post('/roles', createRoleController.handle);
 
 router.get('/users', listUsersController.handle);
+router.get('/users/:id/buy-history', buyHistoryController.handle);
+
+router.patch('/users/:id', updateUserController.handle);
+router.put('/users/:id', updateUserController.handle);
+
 router.post('/users', createUserController.handle);
 router.post('/users/view', viewUserController.handle);
+router.post('/forgot-password', forgotPasswordUserController.handle);
+router.post('/change-password', changePasswordUserController.handle);
+router.post('/authenticate', authenticateUserController.handle);
+router.post('/refresh-token', refreshTokenUserController.handle);
 
 router.get('/categories', listCategoriesController.handle);
 router.post('/categories', createCategoryController.handle);
@@ -85,22 +100,15 @@ router.delete('/games/:id', deleteGameController.handle);
 
 router.get('/cards', listCardsController.handle);
 router.post('/cards', createCardController.handle);
+router.delete('/cards/:id', deleteCardController.handle);
 
 router.get('/permissions', listPermissionsController.handle);
 router.post('/permissions', createPermissionController.handle);
-
-router.post('/authenticate', authenticateUserController.handle);
-
-router.post('/refresh-token', refreshTokenUserController.handle);
 
 router.get('/buy-types', listBuyTypesController.handle);
 router.post('/buy-types', createBuyTypeController.handle);
 
 router.get('/buys', listBuysController.handle);
 router.post('/buys', createBuyController.handle);
-
-router.post('/forgot-password', forgotPasswordUserController.handle);
-
-router.post('/change-password', changePasswordUserController.handle);
 
 export { router }

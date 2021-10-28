@@ -1,8 +1,9 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { User } from "./User";
 import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
 import { Buy } from "./Buy";
+import { Request } from "./Request";
 
 @Entity("games")
 class Game {
@@ -15,6 +16,9 @@ class Game {
 
     @Column()
     price: number;
+
+    @Column({ default: true })
+    is_pending: boolean;
 
     @CreateDateColumn()
     created_at: Date;
@@ -52,6 +56,9 @@ class Game {
     
     @OneToMany(() => Buy, buy => buy.game)    
     buys: Buy[];
+
+    @OneToOne(() => Request, request => request.game) 
+    request: Request;
 
     constructor() {
         if(!this.id) {

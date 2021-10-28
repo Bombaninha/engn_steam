@@ -13,7 +13,12 @@ class ListGamesService {
 
         const gamesRepositories = getCustomRepository(GamesRepositories);
 
-        const games = await gamesRepositories.find({ relations: ["categories", "users"]});
+        const games = await gamesRepositories.find({ 
+            relations: ["categories", "users"],
+            where: {
+                is_pending: false
+            }
+        });
 
         const gamesFilteredByName = name 
             ? games.filter(game => game.name.includes(name))
