@@ -24,7 +24,8 @@ class CreateRequestService {
         }
         
         const requestAlreadyExists = await requestsRepositories.findOne({
-            game_id: game_id
+            game_id,
+            request_type_id
         });
         
         if(requestAlreadyExists) {

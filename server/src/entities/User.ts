@@ -6,6 +6,7 @@ import { Game } from "./Game";
 import { Buy } from "./Buy";
 import { RefreshToken } from "./RefreshToken";
 import { v4 as uuid } from "uuid";
+import { Ticket } from "./Ticket";
 
 @Entity("users")
 class User {
@@ -61,8 +62,21 @@ class User {
     @OneToMany(() => Buy, buy => buy.receiver)    
     buysReceiver: Buy[];
 
+    @OneToMany(() => Ticket, ticket => ticket.user)    
+    tickets: Ticket[];
+
     @ManyToMany(() => User, user => user.friends)
-    @JoinTable()
+    @JoinTable({
+        name: "friendships",
+        joinColumn: {
+            name: "first_user_id",
+            referencedColumnName: "id"
+        },
+        inverseJoinColumn: {
+            name: "second_user_id",
+            referencedColumnName: "id"
+        }
+    })
     friends: User[];
 
     constructor() {

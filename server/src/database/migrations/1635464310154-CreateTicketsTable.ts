@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateGamesTable1635198461113 implements MigrationInterface {
+export class CreateTicketsTable1635464310154 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-
+        
         await queryRunner.createTable(
             new Table({
-                name: "games",
+                name: "tickets",
                 columns: [
                     {
                         name: "id",
@@ -17,25 +17,12 @@ export class CreateGamesTable1635198461113 implements MigrationInterface {
                         default: 'uuid_generate_v4()'
                     },
                     {
-                        name: "name",
-                        type: "varchar"
-                    },
-                    {
-                        name: "price",
-                        type: "float"
-                    },
-                    {
                         name: "description",
-                        type: "varchar"
+                        type: "name"
                     },
                     {
-                        name: "release",
-                        type: "date"
-                    },
-                    {
-                        name: "is_pending",
-                        type: "boolean",
-                        default: true
+                        name: "is_finished",
+                        type: "boolean"
                     },
                     {
                         name: "created_at",
@@ -46,15 +33,26 @@ export class CreateGamesTable1635198461113 implements MigrationInterface {
                         name: "updated_at",
                         type: "timestamp",
                         default: "NOW()"
+                    },
+                    {
+                        name: "user_id",
+                        type: "uuid"
                     }
-                ]
+                ],
+                foreignKeys: [
+                    {
+                        referencedTableName: 'users',
+                        referencedColumnNames: ['id'],
+                        columnNames: ['user_id'],
+                    }
+                ],
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("games");
-        await queryRunner.query('DROP EXTENSION "uuid-ossp"');
+        await queryRunner.dropTable("tickets");
+        await queryRunner.query('DROP EXTENSION "uuid-ossp"');        
     }
 
 }

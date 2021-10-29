@@ -20,6 +20,12 @@ class Game {
     @Column({ default: true })
     is_pending: boolean;
 
+    @Column()
+    description: string;
+    
+    @Column()
+    release: Date 
+            
     @CreateDateColumn()
     created_at: Date;
 

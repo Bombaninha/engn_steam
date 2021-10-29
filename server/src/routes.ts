@@ -11,6 +11,7 @@ import { CreateCategoryController } from './controllers/CreateCategoryController
 import { CreateGameController } from './controllers/CreateGameController';
 import { CreateBuyTypeController } from './controllers/CreateBuyTypeController';
 import { CreateBuyController } from './controllers/CreateBuyController';
+import { CreateTicketsController } from './controllers/CreateTicketsController';
 
 import { UpdateUserController } from './controllers/UpdateUserController';
 
@@ -24,6 +25,11 @@ import { ListCategoriesController } from "./controllers/ListCategoriesController
 import { ListGamesController } from "./controllers/ListGamesController";
 import { ListBuyTypesController } from './controllers/ListBuyTypesController';
 import { ListBuysController } from './controllers/ListBuysController';
+
+import { ListUserFriendsController } from './controllers/ListUserFriendsController';
+import { ListRequestsController } from './controllers/ListRequestsController';
+
+import { ListTicketsController } from './controllers/ListTicketsController';
 
 import { ViewRoleController } from "./controllers/ViewRoleController";
 import { ViewUserController } from "./controllers/ViewUserController";
@@ -39,6 +45,8 @@ import { ForgotPasswordUserController } from "./controllers/ForgotPasswordUserCo
 
 import { ChangePasswordUserController } from "./controllers/ChangePasswordUserController";
 
+//import { UpdateGameController } from "./controllers/UpdateGameController";
+
 const router = Router();
 
 const createRoleController = new CreateRoleController();
@@ -50,6 +58,7 @@ const createGameController = new CreateGameController();
 const createBuyTypeController = new CreateBuyTypeController();
 const createBuyController = new CreateBuyController();
 
+const createTicketsController = new CreateTicketsController();
 const updateUserController = new UpdateUserController();
 
 const authenticateUserController = new AuthenticateUserController();
@@ -65,6 +74,9 @@ const listCategoriesController = new ListCategoriesController();
 const listGamesController = new ListGamesController();
 const listBuyTypesController = new ListBuyTypesController();
 const listBuysController = new ListBuysController();
+const listUserFriendsController = new ListUserFriendsController();
+
+const listRequestsController = new ListRequestsController();
 
 const viewRoleController = new ViewRoleController();
 const viewUserController = new ViewUserController();
@@ -73,6 +85,11 @@ const deleteGameController = new DeleteGameController();
 const deleteCardController = new DeleteCardController();
 
 const buyHistoryController = new BuyHistoryController();
+
+const listTicketsController = new ListTicketsController();
+
+router.get('/requests', listRequestsController.handle);
+//const updateGameController = new UpdateGameController();
 //router.get('/roles', ensureAuthenticated, CheckPermission.ensureHasPermission('can-list-roles'), listRolesController.handle);
 router.get('/roles', listRolesController.handle);
 router.get('/roles/:id', viewRoleController.handle);
@@ -80,10 +97,9 @@ router.post('/roles', createRoleController.handle);
 
 router.get('/users', listUsersController.handle);
 router.get('/users/:id/buy-history', buyHistoryController.handle);
-
+router.get('/users/:id/friends', listUserFriendsController.handle);
 router.patch('/users/:id', updateUserController.handle);
 router.put('/users/:id', updateUserController.handle);
-
 router.post('/users', createUserController.handle);
 router.post('/users/view', viewUserController.handle);
 router.post('/forgot-password', forgotPasswordUserController.handle);
@@ -96,6 +112,8 @@ router.post('/categories', createCategoryController.handle);
 
 router.get('/games', listGamesController.handle);
 router.post('/games', createGameController.handle);
+//router.patch('/games/:id', updateGameController.handle);
+//router.put('/games/:id', updateGameController.handle);
 router.delete('/games/:id', deleteGameController.handle);
 
 router.get('/cards', listCardsController.handle);
@@ -110,5 +128,8 @@ router.post('/buy-types', createBuyTypeController.handle);
 
 router.get('/buys', listBuysController.handle);
 router.post('/buys', createBuyController.handle);
+
+router.get('/tickets', listTicketsController.handle);
+router.post('/tickets', createTicketsController.handle);
 
 export { router }
