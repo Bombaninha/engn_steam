@@ -1,0 +1,22 @@
+.sorter-wrapper {
+    border: solid var(--yellow) 1px;
+    height: fit-content;
+    margin: 1rem;
+}
+
+.sorter-wrapper h2 {
+    font-size: 1rem;
+    padding: 0.5rem;
+    color: var(--black);
+    background-color: var(--yellow);
+}
+
+.sorter-wrapper .sort-by-select {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    background-color:transparent;
+    color:#999999;
+    list-style:none;
+    border: 0;
+    padding: 0.5rem;
+}

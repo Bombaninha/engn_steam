@@ -10,13 +10,14 @@ import Friends from '../../view//friends'
 import NotFound from '../../view//not_found'
 import UserLateralMenu from '../../components/lateral_menu/user_lateral_menu'
 import PermissionsEnum from '../../types/PermissionEnum'
-
+import Login from '../../view/login'
 const UserPath: React.FC = () => {
 	return (
 		<>
 			<UserLateralMenu role={PermissionsEnum.USER} />
 			<Router history={HistoryService}>
 				<Switch>
+					<Route exact path={Path.LOGIN} component={Login} />
 					<Route exact path={Path.MENU} component={Store} />
 					<Route exact path={Path.LIBRARY} component={Library} />
 					<Route exact path={Path.FRIENDS} component={Friends} />

@@ -37,9 +37,9 @@ const BuyGame: React.FC<BuyGameProps> = ({ gameInfo, onCancel, onGameBought }) =
         const giftsForFriends = localStorage.getItem('gifts-bought')
         if (giftsForFriends) {
             const currentGiftList = JSON.parse(giftsForFriends)
-            newList = [...currentGiftList, { user: input, gameTitle: gameInfo.title }]
+            newList = [...currentGiftList, { user: input, gameTitle: gameInfo.name }]
         } else {
-            newList = [{ user: input, gameTitle: gameInfo.title }]
+            newList = [{ user: input, gameTitle: gameInfo.name }]
         }
         localStorage.setItem('gifts-bought', JSON.stringify(newList))
     }

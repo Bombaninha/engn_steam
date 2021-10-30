@@ -30,11 +30,6 @@ export class CreateUsersTable1634862395081 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
-                        name: "pending_password",
-                        type: "varchar",
-                        isNullable: true
-                    },
-                    {
                         name: "redefine_password_token",
                         type: "varchar",
                         isNullable: true

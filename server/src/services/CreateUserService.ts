@@ -64,7 +64,7 @@ class CreateUserService {
 
         await usersRepositories.save(user);
 
-        return classToPlain(user);
+        return classToPlain(userRoleExists);
 
     }
 }

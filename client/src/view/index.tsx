@@ -10,6 +10,9 @@ import { Context } from '../contexts/AuthContext';
 const Main: React.FC = () => {
 	const [role] = useState<PermissionsEnum>(PermissionsEnum.DEVELOPER)
 	//const { authenticated, handleLogin, handleLogout } = useContext(Context);
+	
+	const userRole = JSON.parse(localStorage.getItem('role') || '{}');
+
 
 	/*
 	const roleStorage = localStorage.getItem('role');
@@ -22,11 +25,11 @@ const Main: React.FC = () => {
 	return (
 		/*
 		<div className="app">
-			{localStorage.getItem('role') === '"admin"' ? 
+			{ userRole === PermissionsEnum.ADMINISTRATOR ? 
 				<AdministratorPath />
-			: localStorage.getItem('role') === 'staff' ?
+			: userRole === PermissionsEnum.STAFF ?
 				<StaffPath />
-			: localStorage.getItem('role') === 'dev' ?
+			: userRole === PermissionsEnum.DEVELOPER ?
 				<DeveloperPath />
 			:
 				<UserPath />
