@@ -1,8 +1,12 @@
 import React from 'react'
+import './styles.css'
 
 const Tickets: React.FC = () => {
     return (
-        <h1>Tickets</h1>
+        <div className="page">
+            <h1 className="page-title">Tickets</h1>
+
+        </div>
     )
 }
 export default Tickets

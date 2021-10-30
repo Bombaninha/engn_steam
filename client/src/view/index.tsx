@@ -8,11 +8,10 @@ import PermissionsEnum from '../types/PermissionEnum'
 import { Context } from '../contexts/AuthContext';
 
 const Main: React.FC = () => {
-	const [role, setRole] = useState<PermissionsEnum>(PermissionsEnum.USER);
+	const [userRole, setUserRole] = useState<PermissionsEnum>(PermissionsEnum.ADMINISTRATOR);
 
 	//const { authenticated, handleLogin, handleLogout } = useContext(Context);
-	
-	const userRole = JSON.parse(localStorage.getItem('role') || '{}');
+	//const userRole = JSON.parse(localStorage.getItem('role') || '{}');
 
 	return (
 		<div className="app">
