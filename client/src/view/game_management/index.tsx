@@ -51,7 +51,7 @@ const GameManagement: React.FC = () => {
                 <DeleteGame gameTitle={gameToHandle!.title} onCancel={() => setGameAction(GameAction.LIST_VIEW)} onDelete={() => onRequestOpen(gameToHandle!.title)} onReturn={() => returnToMainPage()} />
                 :
                 gameAction == GameAction.EDIT ?
-                <AddEditGame gameItem={gameToHandle} onReturn={() => returnToMainPage()}/>
+                <AddEditGame gameItem={gameToHandle} onEdit={() => onRequestOpen(gameToHandle!.title)} onReturn={() => returnToMainPage()}/>
                 :
                 gameAction == GameAction.ADD ?
                 <AddEditGame onReturn={() => returnToMainPage()}/>

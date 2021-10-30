@@ -8,10 +8,11 @@ import './styles.css'
 
 interface AddEditGameProps {
     gameItem?: TGame
+    onEdit?: () => void
     onReturn: () => void
 }
 
-const AddEditGame: React.FC<AddEditGameProps> = ({gameItem, onReturn}) => {
+const AddEditGame: React.FC<AddEditGameProps> = ({gameItem, onEdit, onReturn}) => {
     const [game, setGame] = useState(gameItem? gameItem : {
         title: '',
         description: '',
@@ -21,6 +22,11 @@ const AddEditGame: React.FC<AddEditGameProps> = ({gameItem, onReturn}) => {
     })
     const [isOperationFinnished, setIsOperationFinnished] = useState(false)
 
+    const handleAddEditGame = () => {
+        setIsOperationFinnished(true)
+        onEdit && onEdit()
+    }
+    
     return (
         <>
             {isOperationFinnished ?
@@ -33,7 +39,7 @@ const AddEditGame: React.FC<AddEditGameProps> = ({gameItem, onReturn}) => {
                     <TextInput hasLabel text="Preço" value={game.price.toString()} onChange={newPrice => setGame({...game, price: parseInt(newPrice)})} />
                     <TextInput hasLabel text="Desenvolvedor" value={game.developer} onChange={newDeveloper => setGame({...game, developer: newDeveloper})} />
                     <TextArea labelText="Descrição" value={game.description} onChange={newDescription => setGame({...game, description: newDescription})}/>
-                    <DefaultButton text="Fazer pedido de adição" colorClass="primary" onClick={() => setIsOperationFinnished(true)}/>
+                    <DefaultButton text="Fazer pedido de adição" colorClass="primary" onClick={() => handleAddEditGame()}/>
                 </div>
             }
         </>
