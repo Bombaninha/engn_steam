@@ -1,0 +1,21 @@
+.textarea-wrapper {
+    display: flex;
+}
+
+.textarea-wrapper label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 1rem;
+    text-align: right;
+    min-width: 10rem;
+}
+
+.textarea {
+    width: -webkit-fill-available;
+    border: solid var(--base-font-color) 1px;
+    border-radius: 0.2rem;
+    padding: 0.3rem 0.5rem;
+    background-color: transparent;
+    color: var(--base-font-color);
+    font-size: 1rem;
+}
