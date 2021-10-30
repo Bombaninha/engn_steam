@@ -48,10 +48,10 @@ const GameManagement: React.FC = () => {
     return (
         <div className="page dev_game_management">
             {gameAction == GameAction.DELETE ?
-                <DeleteGame gameTitle={gameToHandle!.title} onCancel={() => setGameAction(GameAction.LIST_VIEW)} onDelete={() => onRequestOpen(gameToHandle!.title)} onReturn={() => returnToMainPage()} />
+                <DeleteGame gameTitle={gameToHandle!.name} onCancel={() => setGameAction(GameAction.LIST_VIEW)} onDelete={() => onRequestOpen(gameToHandle!.name)} onReturn={() => returnToMainPage()} />
                 :
                 gameAction == GameAction.EDIT ?
-                <AddEditGame gameItem={gameToHandle} onEdit={() => onRequestOpen(gameToHandle!.title)} onReturn={() => returnToMainPage()}/>
+                <AddEditGame gameItem={gameToHandle} onEdit={() => onRequestOpen(gameToHandle!.name)} onReturn={() => returnToMainPage()}/>
                 :
                 gameAction == GameAction.ADD ?
                 <AddEditGame onReturn={() => returnToMainPage()}/>
@@ -66,7 +66,7 @@ const GameManagement: React.FC = () => {
                     </div>
                     <h2 className="page-subtitle">Meus Jogos</h2>
                     <div className="dev_game_management__game_list">
-                        {gamesListPopulate.map((game, index) => <DevGameCard key={index} game={game} handleEditGame={() => handleEditGame(game)} handleDeleteGame={() => handleDeleteGame(game)} handleRenovateGame={() => handleRenovateGame()} onRequest={gamesOnRequest.includes(game.title)} />)}
+                        {gamesListPopulate.map((game, index) => <DevGameCard key={index} game={game} handleEditGame={() => handleEditGame(game)} handleDeleteGame={() => handleDeleteGame(game)} handleRenovateGame={() => handleRenovateGame()} onRequest={gamesOnRequest.includes(game.name)} />)}
                         <DefaultButton text="Adicionar jogo" colorClass="primary" onClick={() => setGameAction(GameAction.ADD)} />
                     </div>
                 </>

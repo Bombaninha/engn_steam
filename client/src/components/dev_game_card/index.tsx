@@ -20,7 +20,7 @@ const DevGameCard: React.FC<DevGameCardProps> = ({ game, onRequest, handleEditGa
             </div>
             <div className="dev-game-card-wrapper">
                 <div className="game-info-wrapper">
-                    <h3>{game.title}</h3>
+                    <h3>{game.name}</h3>
                     <div className="game-status-wrapper">
                         {game.categories.map((item, index) => <span key={index}>{item}</span>)}
                     </div>
