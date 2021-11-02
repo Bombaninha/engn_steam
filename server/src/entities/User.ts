@@ -8,12 +8,10 @@ import { RefreshToken } from "./RefreshToken";
 import { v4 as uuid } from "uuid";
 import { Ticket } from "./Ticket";
 
+import { BaseEntity } from "./BaseEntity";
+
 @Entity("users")
-class User {
-
-    @PrimaryColumn()
-    readonly id: string;
-
+class User extends BaseEntity {
     @Column()
     name: string;
 
@@ -27,12 +25,6 @@ class User {
     @Exclude()
     @Column({ nullable: true })
     redefine_password_token: string;
-
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
 
     // Refresh Token Relationship
     @Exclude()
@@ -78,12 +70,6 @@ class User {
         }
     })
     friends: User[];
-
-    constructor() {
-        if(!this.id) {
-            this.id = uuid()
-        }
-    }
 }
 
 export { User };

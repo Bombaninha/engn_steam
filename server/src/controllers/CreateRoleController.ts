@@ -7,9 +7,9 @@ class CreateRoleController {
 
         const createRoleService = new CreateRoleService();
 
-        const role = await createRoleService.execute({ name, label });
+        const result = await createRoleService.execute({ name, label });
 
-        return response.json(role);
+        return response.json(result);
     }
 }
 

@@ -15,11 +15,78 @@
             "description": "API de teste"
         },
         {
-            "url": "http://www.google.com",
+            "url": "#",
             "description": "API de produção"
         }
     ],
     "paths": {
+        "/users": {
+            "get": {
+                "summary": "Busca de todas os Usuários cadastradas",
+                "description": "Busca de todas os Usuários cadastradas",
+                "tags": ["Users"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Cadastro de User",
+                "description": "Essa rota será responsável por cadastrar um novo User",
+                "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": { 	
+                                "user": {
+                                    "value": {
+                                        "name": "Administrador",
+                                        "email": "adminobrabo@gmail.com",
+                                        "password": "pikachu$5",
+                                        "role_id": "44e1f104-2ecc-4fcc-bcd1-9db10493aa0f"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Role Already exists"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#components/schemas/Role"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/roles": {
             "post": {
                 "summary": "Cadastro de Role",
@@ -113,24 +180,211 @@
                     }
                 }
             }
+        },
+        "/categories": {
+            "post": {
+                "summary": "Cadastro de Category",
+                "description": "Essa rota será responsável por cadastrar uma nova Category",
+                "tags": ["Categories"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Category"
+                            },
+                            "examples": {
+                                "category": {
+                                    "value": {
+                                        "name": "MMO RPG"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Role Already exists"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#components/schemas/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }, 
+            "get": {
+                "summary": "Busca de todas as Categories cadastradas",
+                "description": "Busca de todas as Categories cadastradas",
+                "tags": ["Categories"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#components/schemas/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/buy-types": {
+            "post": {
+                "summary": "Cadastro de Buy Type",
+                "description": "Essa rota será responsável por cadastrar uma nova Buy Type",
+                "tags": ["Buy Types"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Buy Types"
+                            },
+                            "examples": {
+                                "category": {
+                                    "value": {
+                                        "name": "MMO RPG"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "400": {
+                        "description": "Role Already exists"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Buy Type"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }, 
+            "get": {
+                "summary": "Busca de todas as Buy Types cadastradas",
+                "description": "Busca de todas as Buy Types cadastradas",
+                "tags": ["Buy Types"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#components/schemas/Buy Type"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    }, 
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    } ,
+                    "role_id": {
+                        "type": "string"
+                    }              
+                }
+            },
             "Role": {
                 "type": "object",
                 "properties": {
+                    "id": {
+                        "type": "string"
+                    },  
                     "name": {
                         "type": "string"
                     },
                     "label": {
                         "type": "string"
-                    },
+                    }
+                }
+            },
+            "Category": {
+                "type": "object",
+                "properties": {
                     "id": {
                         "type": "string"
-                    }                
-                }
-            }
+                    },  
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+              
+                }                
+            },
+            "Buy Type": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },  
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+              
+                }                
+            }            
         },
         "securitySchemes": {
             "bearerAuth": {

@@ -1,22 +1,14 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany, ManyToMany, ManyToOne, JoinTable, JoinColumn } from "typeorm";
-import { v4 as uuid } from "uuid";
+import { Entity, Column, OneToOne, ManyToOne, JoinColumn } from "typeorm";
 import { Game } from "./Game";
 import { RequestType } from "./RequestType";
 
-@Entity("requests")
-class Request {
+import { BaseEntity } from "./BaseEntity";
 
-    @PrimaryColumn()
-    readonly id: string;
+@Entity("requests")
+class Request extends BaseEntity {
 
     @Column()
     request_type_id: string
-
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
     
     @ManyToOne(() => RequestType, requestType => requestType.requests)
     @JoinColumn({ name: 'request_type_id' })
@@ -27,12 +19,7 @@ class Request {
     @OneToOne(() => Game, game => game.request) 
     @JoinColumn({ name: 'game_id' })
     game: Game;
-    
-    constructor() {
-        if(!this.id) {
-            this.id = uuid()
-        }
-    }
+
 }
 
 export { Request };

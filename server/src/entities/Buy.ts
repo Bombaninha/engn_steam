@@ -1,22 +1,14 @@
-import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, JoinTable, JoinColumn, ManyToOne } from "typeorm";
-import { v4 as uuid } from "uuid";
+import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
+
 import { BuyType } from "./BuyType";
 import { Card } from "./Card";
 import { Game } from "./Game";
 import { User } from "./User";
 
+import { BaseEntity } from "./BaseEntity";
+
 @Entity("buys")
-class Buy {
-
-    @PrimaryColumn()
-    readonly id: string;
-
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
-    
+class Buy extends BaseEntity {
     @Column()
     buy_type_id: string
     @ManyToOne(() => BuyType, buyType => buyType.buys)
@@ -46,12 +38,6 @@ class Buy {
     @ManyToOne(() => User, user => user.buysReceiver)
     @JoinColumn({ name: 'receiver_id' })
     receiver: User;
-
-    constructor() {
-        if(!this.id) {
-            this.id = uuid()
-        }
-    }
 }
 
 export { Buy };

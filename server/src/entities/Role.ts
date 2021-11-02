@@ -1,25 +1,17 @@
-import { Entity, PrimaryColumn, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, JoinTable, JoinColumn } from "typeorm";
+import { Entity, Column, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { Permission } from "./Permission";
 import { User } from "./User";
-import { v4 as uuid } from "uuid";
+
+import { BaseEntity } from "./BaseEntity";
 
 @Entity("roles")
-class Role {
-
-    @PrimaryColumn()
-    readonly id: string;
+class Role extends BaseEntity {
 
     @Column({ unique: true })
     name: string;
 
     @Column({ unique: true })
     label: string;
-
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
 
     @OneToMany(() => User, user => user.role)    
     users: User[];
@@ -37,12 +29,13 @@ class Role {
         }
     })
     permissions: Permission[];
-    
-    constructor() {
-        if(!this.id) {
-            this.id = uuid()
-        }
-    }
+    /*
+    @JoinTable({
+        name: "roles_permissions",
+        joinColumns: [{ name: "role_id" }],
+        inverseJoinColumns: [{ name: "permission_id" }]
+    })
+    */
 }
 
 export { Role };

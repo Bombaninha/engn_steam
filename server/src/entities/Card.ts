@@ -1,15 +1,12 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Exclude, Expose } from "class-transformer";
 import { User } from "./User";
-import { v4 as uuid } from "uuid";
 import { Buy } from "./Buy";
 
+import { BaseEntity } from "./BaseEntity";
+
 @Entity("cards")
-class Card {
-
-    @PrimaryColumn()
-    readonly id: string;
-
+class Card extends BaseEntity {
     @Column()
     name: string;
 
@@ -37,12 +34,6 @@ class Card {
     @Column()
     is_credit_card: boolean;
 
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
-
     @Column()
     user_id: string;
 
@@ -52,12 +43,6 @@ class Card {
 
     @OneToMany(() => Buy, buy => buy.card)    
     buys: Buy[];
-
-    constructor() {
-        if(!this.id) {
-            this.id = uuid()
-        }
-    }
 }
 
 export { Card };

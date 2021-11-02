@@ -13,6 +13,9 @@ import cors from "cors";
 
 import swaggerDocs from "./swagger.json";
 
+import { BlankFieldError } from './exceptions/BlankFieldError';
+import { DuplicatedRegisterError } from "./exceptions/DuplicatedRegisterError";
+
 const app = express();
 
 app.use(cors());
@@ -29,17 +32,27 @@ app.get("/terms", (request: Request, response: Response) => {
 
 app.use("/v1", router);
 
-app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
-    if(err instanceof Error) {
-        return response.status(400).json({
-            error: err.message
-        });
-    }
+app.use((err: Error | BlankFieldError | DuplicatedRegisterError, request: Request, response: Response, next: NextFunction) => {
 
-    return response.status(500).json({
-        status: "error",
-        message: "Internal Server Error"
-    });
+    switch (err.constructor) {
+        case BlankFieldError:
+            return response.status(400).json({
+                error: err.message
+            });
+        case DuplicatedRegisterError:
+            return response.status(422).json({
+                error: err.message
+            });            
+        case Error:
+            return response.status(400).json({
+                error: err.message
+            });
+        default:
+            return response.status(500).json({
+                status: "error",
+                message: "Internal Server Error"
+            });
+    }
 });
 
 app.listen(4000, () => console.log("Server started at http://localhost:4000"));

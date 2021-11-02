@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
-import { CheckPermission } from "./middlewares/ensureHasPermission";
+import { is, can } from "./middlewares/ensureHasPermission";
 
 import { CreateRoleController } from './controllers/CreateRoleController';
 import { CreateUserController } from './controllers/CreateUserController';
@@ -45,91 +45,61 @@ import { ForgotPasswordUserController } from "./controllers/ForgotPasswordUserCo
 
 import { ChangePasswordUserController } from "./controllers/ChangePasswordUserController";
 
+import { CreateRolePermissionController } from "./controllers/CreateRolePermissionController";
 //import { UpdateGameController } from "./controllers/UpdateGameController";
 
 const router = Router();
 
-const createRoleController = new CreateRoleController();
-const createUserController = new CreateUserController();
-const createCardController = new CreateCardController();
-const createPermissionController = new CreatePermissionController();
-const createCategoryController = new CreateCategoryController();
-const createGameController = new CreateGameController();
-const createBuyTypeController = new CreateBuyTypeController();
-const createBuyController = new CreateBuyController();
-
-const createTicketsController = new CreateTicketsController();
-const updateUserController = new UpdateUserController();
-
-const authenticateUserController = new AuthenticateUserController();
-const refreshTokenUserController = new RefreshTokenUserController();
-const forgotPasswordUserController = new ForgotPasswordUserController();
-const changePasswordUserController = new ChangePasswordUserController();
-
-const listCardsController = new ListCardsController();
-const listRolesController = new ListRolesController();
-const listUsersController = new ListUsersController();
-const listPermissionsController = new ListPermissionsController();
-const listCategoriesController = new ListCategoriesController();
-const listGamesController = new ListGamesController();
-const listBuyTypesController = new ListBuyTypesController();
-const listBuysController = new ListBuysController();
-const listUserFriendsController = new ListUserFriendsController();
-
-const listRequestsController = new ListRequestsController();
-
-const viewRoleController = new ViewRoleController();
-const viewUserController = new ViewUserController();
-
-const deleteGameController = new DeleteGameController();
-const deleteCardController = new DeleteCardController();
-
-const buyHistoryController = new BuyHistoryController();
-
-const listTicketsController = new ListTicketsController();
-
-router.get('/requests', listRequestsController.handle);
+router.get('/requests', new ListRequestsController().handle);
 //const updateGameController = new UpdateGameController();
-//router.get('/roles', ensureAuthenticated, CheckPermission.ensureHasPermission('can-list-roles'), listRolesController.handle);
-router.get('/roles', listRolesController.handle);
-router.get('/roles/:id', viewRoleController.handle);
-router.post('/roles', createRoleController.handle);
 
-router.get('/users', listUsersController.handle);
-router.get('/users/:id/buy-history', buyHistoryController.handle);
-router.get('/users/:id/friends', listUserFriendsController.handle);
-router.patch('/users/:id', updateUserController.handle);
-router.put('/users/:id', updateUserController.handle);
-router.post('/users', createUserController.handle);
-router.post('/users/view', viewUserController.handle);
-router.post('/forgot-password', forgotPasswordUserController.handle);
-router.post('/change-password', changePasswordUserController.handle);
-router.post('/authenticate', authenticateUserController.handle);
-router.post('/refresh-token', refreshTokenUserController.handle);
+router.get('/users', new ListUsersController().handle);
+router.get('/users/:id/buy-history', new BuyHistoryController().handle);
+router.get('/users/:id/friends', new ListUserFriendsController().handle);
+router.patch('/users/:id', new UpdateUserController().handle);
+router.put('/users/:id', new UpdateUserController().handle);
+router.post('/users', new CreateUserController().handle);
+router.post('/users/view', new ViewUserController().handle);
+router.post('/forgot-password', new ForgotPasswordUserController().handle);
+router.post('/change-password', new ChangePasswordUserController().handle);
+router.post('/authenticate', new AuthenticateUserController().handle);
+router.post('/refresh-token', new RefreshTokenUserController().handle);
 
-router.get('/categories', listCategoriesController.handle);
-router.post('/categories', createCategoryController.handle);
+router.get('/categories', new ListCategoriesController().handle);
+router.post('/categories', new CreateCategoryController().handle);
 
-router.get('/games', listGamesController.handle);
-router.post('/games', createGameController.handle);
+router.get('/games', new ListGamesController().handle);
+router.post('/games', new CreateGameController().handle);
 //router.patch('/games/:id', updateGameController.handle);
 //router.put('/games/:id', updateGameController.handle);
-router.delete('/games/:id', deleteGameController.handle);
+router.delete('/games/:id', new DeleteGameController().handle);
 
-router.get('/cards', listCardsController.handle);
-router.post('/cards', createCardController.handle);
-router.delete('/cards/:id', deleteCardController.handle);
+router.get('/cards', new ListCardsController().handle);
+router.post('/cards', new CreateCardController().handle);
+router.delete('/cards/:id', new DeleteCardController().handle);
 
-router.get('/permissions', listPermissionsController.handle);
-router.post('/permissions', createPermissionController.handle);
+router.get('/buy-types', new ListBuyTypesController().handle);
+router.post('/buy-types', new CreateBuyTypeController().handle);
 
-router.get('/buy-types', listBuyTypesController.handle);
-router.post('/buy-types', createBuyTypeController.handle);
+router.get('/buys', new ListBuysController().handle);
+router.post('/buys', new CreateBuyController().handle);
 
-router.get('/buys', listBuysController.handle);
-router.post('/buys', createBuyController.handle);
+router.get('/tickets', new ListTicketsController().handle);
+router.post('/tickets', new CreateTicketsController().handle);
 
-router.get('/tickets', listTicketsController.handle);
-router.post('/tickets', createTicketsController.handle);
+// ACL 
+router.get('/permissions', new ListPermissionsController().handle);
+router.post('/permissions', new CreatePermissionController().handle);
+
+router.get('/roles', new ListRolesController().handle);
+router.get('/roles/:id', new ViewRoleController().handle);
+
+router.post(
+    '/roles',
+    ensureAuthenticated,
+    new CreateRoleController().handle
+);
+
+router.post('/roles/:id', new CreateRolePermissionController().handle);
 
 export { router }

@@ -1,22 +1,27 @@
 import { getCustomRepository } from "typeorm";
 import { RolesRepositories } from "../repositories/RolesRepositories";
 
-interface ICreateRoleRequest {
+import { Role } from "../entities/Role";
+
+import { BlankFieldError } from "../exceptions/BlankFieldError";
+import { DuplicatedRegisterError } from "../exceptions/DuplicatedRegisterError";
+
+type RoleRequest = {
     name: string;
     label: string;
 }
 
 class CreateRoleService {
-    async execute({ name, label } : ICreateRoleRequest) {
+    async execute({ name, label } : RoleRequest): Promise<Role | Error>{
         const rolesRepository = getCustomRepository(RolesRepositories)
 
         // Validação: Verificando se todos os campos foram recebidos
         if(!name) {
-            throw new Error("Incorrect Name");
+            throw new BlankFieldError("Incorrect Name");
         }
 
         if(!label) {
-            throw new Error("Incorrect Label");
+            throw new BlankFieldError("Incorrect Label");
         }
 
         // Validação: Verificando se existe alguma role com o mesmo nome
@@ -25,16 +30,16 @@ class CreateRoleService {
         });
 
         if(roleAlreadyExistsName) {
-            throw new Error("Role already exists");
+            throw new DuplicatedRegisterError("Role already exists");
         }
 
-        // Validação: Verificando se existe alguma role com o mesmo nome
+        // Validação: Verificando se existe alguma role com o mesmo label
         const roleAlreadyExistsLabel = await rolesRepository.findOne({
             label
         });
 
         if(roleAlreadyExistsLabel) {
-            throw new Error("Role already exists");
+            throw new DuplicatedRegisterError("Role already exists");
         }
 
         const role = rolesRepository.create({

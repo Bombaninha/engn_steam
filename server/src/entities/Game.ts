@@ -1,16 +1,13 @@
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import { Entity, Column, OneToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { User } from "./User";
-import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
 import { Buy } from "./Buy";
 import { Request } from "./Request";
 
+import { BaseEntity } from "./BaseEntity";
+
 @Entity("games")
-class Game {
-
-    @PrimaryColumn()
-    readonly id: string;
-
+class Game extends BaseEntity {
     @Column()
     name: string;
 
@@ -25,12 +22,6 @@ class Game {
     
     @Column()
     release: Date 
-            
-    @CreateDateColumn()
-    created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
 
     @ManyToMany(() => Category, category => category.games)
     @JoinTable({
@@ -65,12 +56,6 @@ class Game {
 
     @OneToOne(() => Request, request => request.game) 
     request: Request;
-
-    constructor() {
-        if(!this.id) {
-            this.id = uuid()
-        }
-    }
 }
 
 export { Game };
