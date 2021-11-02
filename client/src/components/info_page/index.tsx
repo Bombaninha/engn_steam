@@ -5,18 +5,19 @@ import './styles.css'
 export interface InfoPageProps {
     infoText: string
     buttonText: string
-    onClick: (value: boolean) => void
+    cancelButton?: boolean
+    onClick: () => void
+    onCancel?: () => void
 }
 
-const InfoPage: React.FC<InfoPageProps> = ({infoText, buttonText, onClick}) => {
-    const handleClick = () => {
-        onClick(false)
-    }
-
+const InfoPage: React.FC<InfoPageProps> = ({ infoText, buttonText, cancelButton, onClick, onCancel }) => {
     return (
         <div className="info-wrapper">
             <p className="main-info">{infoText}</p>
-            <DefaultButton text={buttonText} colorClass="primary" onClick={handleClick}/>
+            <div className={`button-wrapper ${cancelButton ? 'with-cancel-button' : ''}`}>
+                {cancelButton ? <DefaultButton text='Cancelar' colorClass="secondary" onClick={onCancel ? onCancel : () => { }} /> : <></>}
+                <DefaultButton text={buttonText} colorClass="primary" onClick={onClick} />
+            </div>
         </div>
     )
 }

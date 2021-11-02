@@ -14,19 +14,33 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
-    font-family: "Roboto" sans-serif;
 }
 
 body {
     background-color: var(--dark-gray);
     color: var(--base-font-color);
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
 }
 
 .app {
     display: flex;
 }
 
+.page {
+    padding: 1rem 1.5rem;
+    width: 70vw;
+}
+
 .page-title {
-    font-size: 2rem;
-    margin: 2rem 0 1rem;
+    font-size: 3rem;
+    margin: 1rem 0;
+}
+
+.page-subtitle {
+    font-size: 1.875rem;
+    margin: 1.5rem 0 1rem;
 }

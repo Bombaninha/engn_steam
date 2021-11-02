@@ -1,0 +1,14 @@
+.add-edit-game {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-edit-game .textarea-wrapper,
+.add-edit-game .text-input-wrapper {
+    margin: 0.5rem 0;
+}
+
+.add-edit-game .button {
+    align-self: center;
+    margin: 1.5rem 0;
+}
