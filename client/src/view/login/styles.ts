@@ -40,4 +40,4 @@ export const LoginButton = styled.button`
     color: var(--black);
     border: none;
     margin: 0.5rem 1rem;
-`; 
+`;
