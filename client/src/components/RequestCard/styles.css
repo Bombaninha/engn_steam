@@ -1,0 +1,15 @@
+.request-card {
+    border: 1px solid var(--base-font-color);
+    border-radius: 0.3rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 1.2rem;
+}
+
+.request-card__info-wrapper p {
+    font-size: 1.8rem;
+}
+
+.request-card__info-wrapper span {
+    color: var(--light-gray);
+}
