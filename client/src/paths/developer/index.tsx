@@ -9,6 +9,7 @@ import Support from '../../view/support'
 import PermissionsEnum from '../../types/PermissionEnum'
 import Account from '../../view/account'
 import Login from '../../view/login'
+
 const DeveloperPath: React.FC = () => {
 	return (
 		<>

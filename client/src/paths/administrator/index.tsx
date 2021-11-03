@@ -11,15 +11,19 @@ import Requests from '../../view/requests'
 import Login from '../../view/login'
 import { Context } from '../../contexts/AuthContext'
 
-interface ICustomRouteType {
+type CustomRouteType = {
 	isPrivate?: boolean;
 	exact?: boolean;
 	path: string;
 	component: React.FC
 }
 
-function CustomRoute({ isPrivate, ...rest } : ICustomRouteType) {
-	const { authenticated } = useContext(Context);
+function CustomRoute({ isPrivate, ...rest } : CustomRouteType) {
+	const { loading, authenticated } = useContext(Context);
+
+    if(loading) {
+        return <h1>Loading...</h1>;
+    }
 
 	if (isPrivate && !authenticated) {
 		return <Redirect to="/login" />
@@ -44,5 +48,6 @@ const AdministratorPath: React.FC = () => {
 		</>
 	)
 }
+
 
 export default AdministratorPath

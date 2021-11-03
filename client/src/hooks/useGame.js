@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import GameItem from '../components/GameItem';
 
 import axios from "axios";
 
@@ -29,11 +28,12 @@ export function useGame() {
         fecthData();
     }, []);
 
-    return (
+    return games; 
+    /*(
         <div>
             { games.map((game) => (
                 <GameItem key={game.id} game={game}></GameItem>
             ))}
         </div>
-    );
+    );*/
 }

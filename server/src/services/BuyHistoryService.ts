@@ -2,13 +2,13 @@ import { getCustomRepository } from 'typeorm';
 import { BuysRepositories } from '../repositories/BuysRepositories';
 import { classToPlain } from 'class-transformer';
 
-interface IBuyHistoryRequest {
+type BuyHistoryRequest = {
     id: string;
 }
 
 class BuyHistoryService {
 
-    async execute({ id } : IBuyHistoryRequest) {
+    async execute({ id } : BuyHistoryRequest) {
         const buysRepositories = getCustomRepository(BuysRepositories);
 
         const buys = await buysRepositories.find({

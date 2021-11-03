@@ -1,14 +1,36 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { Context } from '../../contexts/AuthContext'
 
+import HistoryService from '../../services/history/HistoryService'
+
 const SignIn: React.FC = () => {
-    const { authenticated, handleLogin, handleLogout } = useContext(Context);
-  
+    const { userEmail, setUserEmail, userPassword, setUserPassword, user, authenticated, handleLogin, handleLogout } = useContext(Context);
+
+    if(authenticated) {
+        console.log("Usuário já está logado!");
+        HistoryService.push('/menu');
+    }
+
     return (
         <div>
-            <button type="button" onClick={ handleLogin }>Entrar</button>
-            <button type="button" onClick={ handleLogout }>Sair</button>
+            <form onSubmit={ handleLogin }>
+                <input 
+                    type="text"
+                    placeholder="Digite o seu e-mail"
+                    onChange={ event => setUserEmail(event.target.value) }
+                    value={ userEmail }
+                />
+                <input 
+                    type="password"
+                    placeholder="Digite a sua senha"
+                    onChange={ event => setUserPassword(event.target.value) }
+                    value={ userPassword }
+                />
+                <button type="submit">
+                    Entrar
+                </button>
+            </form>
         </div>
     )
 }

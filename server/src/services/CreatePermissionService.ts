@@ -1,20 +1,22 @@
 import { getCustomRepository } from "typeorm";
 import { PermissionsRepositories } from "../repositories/PermissionsRepositories";
 
-interface ICreatePermissionRequest {
+import { Permission } from "../entities/Permission";
+
+type PermissionRequest = {
     name: string;
 }
 
 class CreatePermissionService {
-    async execute({ name } : ICreatePermissionRequest) {
+    async execute({ name } : PermissionRequest): Promise<Permission | Error> {
         const permissionsRepository = getCustomRepository(PermissionsRepositories)
 
-        // Validação: Verificando se todos os campos foram recebidos
+        // Verificando se foi recebido o campo: Name
         if(!name) {
             throw new Error("Incorrect Name");
         }
 
-        // Validação: Verificando se existe alguma role com o mesmo nome
+        // Verificando se existe alguma permissão com o mesmo nome
         const permissionAlreadyExists = await permissionsRepository.findOne({
             name
         });

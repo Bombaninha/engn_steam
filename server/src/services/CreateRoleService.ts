@@ -15,16 +15,17 @@ class CreateRoleService {
     async execute({ name, label } : RoleRequest): Promise<Role | Error>{
         const rolesRepository = getCustomRepository(RolesRepositories)
 
-        // Validação: Verificando se todos os campos foram recebidos
+        // Verificando se foi recebido o campo: Name
         if(!name) {
             throw new BlankFieldError("Incorrect Name");
         }
 
+        // Verificando se foi recebido o campo: Label
         if(!label) {
             throw new BlankFieldError("Incorrect Label");
         }
 
-        // Validação: Verificando se existe alguma role com o mesmo nome
+        // Verificando se existe alguma role com o mesmo nome
         const roleAlreadyExistsName = await rolesRepository.findOne({
             name
         });
@@ -33,7 +34,7 @@ class CreateRoleService {
             throw new DuplicatedRegisterError("Role already exists");
         }
 
-        // Validação: Verificando se existe alguma role com o mesmo label
+        // Verificando se existe alguma role com o mesmo label
         const roleAlreadyExistsLabel = await rolesRepository.findOne({
             label
         });

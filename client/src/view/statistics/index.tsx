@@ -1,8 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Modal } from '../../components/Modal/modal';
 
+import { Context } from '../../contexts/AuthContext'
+
 import { useGame } from '../../hooks/useGame';
+
+import GameItem from '../../components/GameItem';
+
+import { useAuth } from '../../hooks/useAuth';
+
+import HistoryService from '../../services/history/HistoryService';
 
 const Container = styled.div`
     display: flex;
@@ -24,9 +32,16 @@ const Button = styled.button`
 
 const Statistics: React.FC = () => {
     const [ showModal, setShowModal ] = useState(false);
+    const { user, authenticated } = useAuth();
+
+    const { handleLogin, handleLogout } = useContext(Context);
+
+    if(!authenticated) {
+        console.log("Usuário não está autenticado!");
+        HistoryService.push('/');
+    }
 
     const games = useGame();
-    console.log(games);
 
     const openModal = () => {
         setShowModal(prev => !prev);
@@ -34,8 +49,11 @@ const Statistics: React.FC = () => {
 
     return (
         <>
+        <button type="button" onClick={ handleLogout }>Sair</button>
         <div>
-            { games }
+            { games.map((game: any) => (
+                <GameItem key={game.id} game={game}></GameItem>
+            ))}
         </div>
             <Container>
                 <Button onClick={openModal}>I'm a modal</Button>

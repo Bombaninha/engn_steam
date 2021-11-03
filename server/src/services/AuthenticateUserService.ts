@@ -9,14 +9,14 @@ import { GenerateRefreshTokenProvider } from '../providers/GenerateRefreshTokenP
 import { GenerateTokenProvider } from '../providers/GenerateTokenProvider';
 
 
-interface IAuthenticateUserRequest {
+type AuthenticateUserRequest  = {
     email: string;
     password: string;
 }
 
 class AuthenticateUserService {
 
-    async execute({ email, password } : IAuthenticateUserRequest) {
+    async execute({ email, password } : AuthenticateUserRequest) {
         const refreshTokenRepository = getCustomRepository(RefreshTokenRepositories);
         const usersRepositories = getCustomRepository(UsersRepositories)
 
@@ -47,11 +47,7 @@ class AuthenticateUserService {
         const generateRefreshToken = new GenerateRefreshTokenProvider();
         const refreshToken = await generateRefreshToken.execute(user.id);
 
-        const role = await usersRepositories.findOne({
-            id: user.id 
-        }, { relations: ["role"] });
-
-        return { token, refreshToken, role : role.role.label };
+        return { token, refreshToken };
     }
 }
 

@@ -2,21 +2,21 @@ import { getCustomRepository } from 'typeorm';
 import { UsersRepositories } from '../repositories/UsersRepositories';
 import { classToPlain } from 'class-transformer';
 
-interface IViewUserRequest {
-    user_id: string;
+interface UserRequest {
+    id: string;
 }
 
-class ViewUserService {
+class GetUserService {
 
-    async execute({ user_id } : IViewUserRequest) {
+    async execute({ id } : UserRequest) {
         const usersRepository = getCustomRepository(UsersRepositories);
 
         const user = await usersRepository.findOne({
-            id: user_id
+            id
         }, { relations: ["role"] });
 
         return classToPlain(user);
     }
 }
 
-export { ViewUserService }
+export { GetUserService }
