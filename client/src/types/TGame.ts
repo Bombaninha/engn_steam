@@ -1,5 +1,5 @@
 export type TGame = {
-    id: string;
+    id: string,
     name: string;
     categories: string[],
     description: string;
