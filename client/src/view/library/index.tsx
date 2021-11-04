@@ -1,19 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FilterByCategory from '../../components/filter_by_category'
 import GameItem from '../../components/GameItem';
 import Sorter from '../../components/sort_by';
 import SortEnum from '../../types/SortByEnum';
-import { TPurchasedGame } from '../../types/TGame';
+import { TGameArrayFromJSON, TPurchasedGame, TPurchasedGameArrayFromJSON } from '../../types/TGame';
 import { LibraryContainer, ToolsContainer } from './styles';
-
-function loadGamesBoughtFromLocalStorage(): TPurchasedGame[] {
-    const gamesBoughtFromStorage = localStorage.getItem('games-bought')
-    let gamesBought = [];
-    if (gamesBoughtFromStorage)
-        gamesBought = JSON.parse(gamesBoughtFromStorage);
-    return gamesBought;
-}
-
+import api from '../../api';
 function getCategoriesFromGames(games: TPurchasedGame[]): string[] {
     let categories = new Set<string>();
     for (let game of games)
@@ -22,10 +14,34 @@ function getCategoriesFromGames(games: TPurchasedGame[]): string[] {
 }
 
 const Library: React.FC = () => {
-    const [games] = useState<TPurchasedGame[]>(loadGamesBoughtFromLocalStorage());
-    const [categories] = useState<string[]>(getCategoriesFromGames(games))
+    const [games, setGames] = useState<TPurchasedGame[]>([]);
+    const [categories, setCategories] = useState<string[]>(getCategoriesFromGames(games))
     const [selectedCategories, setSelectedCategories] = useState<string[]>([])
     const [sort, setSelectedSort] = useState<SortEnum>(SortEnum.ALPHABETICAL_ASC)
+
+    async function loadGamesBoughtFromBackend() {
+        let games: TPurchasedGame[] = []
+        try {
+            const gamesJSON = await api.get('/games');
+            console.log(gamesJSON);
+            const gamesArray = TGameArrayFromJSON(gamesJSON.data as Array<any>);
+
+            const res = await api.get('/buys');
+            console.log(res);
+            const purchasedGames = TPurchasedGameArrayFromJSON(gamesArray, res.data as Array<any>);
+            setCategories(getCategoriesFromGames(purchasedGames));
+            games = purchasedGames;
+        } catch (err: any) {
+            const status = err.response.status;
+            const errorMsg = err.response.data.error;
+            alert("Erro " + status + "\n" + errorMsg);
+        }
+        setGames(games);
+    }
+
+    useEffect(() => {
+        loadGamesBoughtFromBackend();
+    }, [])
 
     function filterCategories(categories: string[], games: TPurchasedGame[]) {
         if (categories.length === 0)

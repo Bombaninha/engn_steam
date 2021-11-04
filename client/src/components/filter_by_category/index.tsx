@@ -26,7 +26,7 @@ const FilterByCategory: React.FC<FilterByCategoryProps> = ({ categories, onChang
             <form className="">
                 {categories.map((item) => {
                     return (
-                        <div className="input-wrapper">
+                        <div className="input-wrapper" key={item}>
                             <input
                                 type="checkbox"
                                 name={item}

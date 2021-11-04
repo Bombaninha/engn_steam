@@ -7,37 +7,26 @@ import HistoryService from '../../services/history/HistoryService'
 import { InputBox, LoginButton, LoginContainer, LoginView } from './styles';
 
 const SignIn: React.FC = () => {
-    const { user, userEmail, setUserEmail, userPassword, setUserPassword, authenticated, handleLogin } = useContext(Context);
-    const [ path, setPath ] = useState('');
-    //console.log(user);
+    const { userEmail, setUserEmail, userPassword, setUserPassword, authenticated, handleLogin } = useContext(Context);
 
-    useEffect(() => {
-        if(authenticated) {
-            if (user
-                && Object.keys(user).length === 0
-                && Object.getPrototypeOf(user) === Object.prototype) {
-                console.log('nao faca nada');
-            } else {
-                switch(user.role.label) {
-                    case 'admin':
-                    case 'staff':
-                        setPath(Path.STATISTICS);
-                    break;
-                    case 'dev':
-                        setPath(Path.GAME_MANAGEMENT);
-                    break;
-                    case 'user':
-                        setPath(Path.STORE);
-                    break;
-                    default:
-                        break;
-                
-                console.log("Usuário já está logado!");
-                HistoryService.push(path);
-                }
-            }
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    if(authenticated) {
+        let path = '';
+        switch(user.role.label) {
+            case 'user':
+                path = Path.LIBRARY;
+            break;
+            case 'dev':
+                path = Path.GAME_MANAGEMENT;
+            break;
+            case 'staff':
+            case 'admin':
+                path = Path.STATISTICS;
+            break;
         }
-      }, [user]);
+        HistoryService.push(path);
+    }
 
     return (
             <form onSubmit={ handleLogin }>

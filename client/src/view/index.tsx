@@ -1,5 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 
+//import { ToastContainer, toast } from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css';
+
 import PermissionsEnum from '../types/PermissionEnum'
 import StaffLateralMenu from '../components/lateral_menu/staff_lateral_menu'
 import { Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -36,7 +39,7 @@ type CustomRouteType = {
 }
 
 function CustomRoute({ isPrivate, isUser, isDev, isStaff, isAdmin, ...rest } : CustomRouteType) {
-	const { user, loading, authenticated } = useContext(Context);
+	const { loading, authenticated } = useContext(Context);
 
     if(loading) {
         return <h1>Loading...</h1>;
@@ -46,8 +49,8 @@ function CustomRoute({ isPrivate, isUser, isDev, isStaff, isAdmin, ...rest } : C
 		return <Redirect to="/" />
 	}
 	
-	// Deve estar logado
-	if(isPrivate) {
+	if(isPrivate && authenticated) {
+		const user = JSON.parse(localStorage.getItem('user') || '{}');
 		const role = user.role.label;
 
 		if(isUser && role === 'user') {
@@ -66,14 +69,15 @@ function CustomRoute({ isPrivate, isUser, isDev, isStaff, isAdmin, ...rest } : C
 			return <Route {...rest} />	
 		}
 
-		const route = window.location.href;
-		return <Redirect to={route} /> 
+		return <Redirect to={'/'} /> 
 	}
-
+	
 	return <Route {...rest} />
 }
 
 const Main: React.FC = () => {
+	const { loading, authenticated } = useContext(Context);
+	const user = JSON.parse(localStorage.getItem('user') || '{}');
 
 	return (	
 		<AuthProvider>

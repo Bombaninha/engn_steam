@@ -10,7 +10,6 @@ import api from "../api";
 const Context = createContext();
 
 function AuthProvider({ children }) {
-    const [ user, setUser ] = useState({});
     const [ authenticated, setAuthenticated ] = useState(false);
     const [ loading, setLoading ] = useState(true);
 
@@ -29,34 +28,6 @@ function AuthProvider({ children }) {
         setLoading(false);
     }, []);
 
-    useEffect(() => {
-        if (user && Object.keys(user).length === 0 && Object.getPrototypeOf(user) === Object.prototype) {
-            console.log('nao faca nada');
-        } else {
-            console.log("super teste");
-            console.log(user);
-            let path = '';
-            switch(user.role.label) {
-                case 'admin':
-                case 'staff':
-                    path = Path.STATISTICS;
-                break;
-                case 'dev':
-                    path = Path.GAME_MANAGEMENT;
-                break;
-                case 'user':
-                    path = Path.STORE;
-                break;
-                default:
-                    break;
-            }
-            HistoryService.push(path);
-            console.log(path);
-            console.log("Logado com sucesso!");
-        } 
-
-    }, [user]);
-
     async function handleLogin(event) {
         event.preventDefault();
 
@@ -71,14 +42,14 @@ function AuthProvider({ children }) {
                 //setUserPassword('');
 
                 localStorage.setItem('token', JSON.stringify(token));
-
+                
                 const userId = refreshToken.user_id;
 
                 const { data } = await api.get(`/users/${userId}`);
 
+                localStorage.setItem('user', JSON.stringify(data));
                 api.defaults.headers.Authorization = `Bearer ${token}`;
 
-                setUser(data);
                 setAuthenticated(true);
             } else {
                 HistoryService.push('/');
@@ -92,8 +63,8 @@ function AuthProvider({ children }) {
     function handleLogout() {
         if(authenticated) {
             setAuthenticated(false); 
-            setUser({});
             localStorage.removeItem('token');
+            localStorage.removeItem('user');
             api.defaults.headers.Authorization = undefined;
             console.log("Deslogado com sucesso!");
             HistoryService.push('/');
@@ -103,7 +74,7 @@ function AuthProvider({ children }) {
     }
 
     return (
-        <Context.Provider value={{ userEmail, setUserEmail, userPassword, setUserPassword, loading, user, authenticated, handleLogin, handleLogout }}>
+        <Context.Provider value={{ userEmail, setUserEmail, userPassword, setUserPassword, loading, authenticated, handleLogin, handleLogout }}>
             { children }
         </Context.Provider>
     );
