@@ -1,0 +1,16 @@
+.statistics {
+    display: flex;
+    flex-direction: column;
+}
+
+.statistics .button {
+    margin: 1rem auto;
+}
+
+.statistics .text-input-wrapper {
+    margin: 0.5rem auto;
+}
+
+.statistics .select-box-wrapper {
+    margin: 0.5rem auto;
+}
