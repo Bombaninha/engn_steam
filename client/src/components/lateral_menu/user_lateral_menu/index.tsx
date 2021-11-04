@@ -19,7 +19,7 @@ const UserLateralMenu: React.FC<LateralMenuProps> = ({role}) => {
         <div className="lateral-menu">
             {role === PermissionsEnum.USER ?
             <>
-                <button onClick={() => handleClick(Path.MENU)}>
+                <button onClick={() => handleClick(Path.STORE)}>
                     Loja
                 </button>
                 <button onClick={() => handleClick(Path.LIBRARY)}>
@@ -31,7 +31,7 @@ const UserLateralMenu: React.FC<LateralMenuProps> = ({role}) => {
             </>
             :
             <>
-                <button onClick={() => handleClick(Path.MENU)}>
+                <button onClick={() => handleClick(Path.GAME_MANAGEMENT)}>
                     Meus jogos
                 </button>
             </>

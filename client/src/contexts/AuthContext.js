@@ -13,6 +13,7 @@ function AuthProvider({ children }) {
     const [ user, setUser ] = useState({});
     const [ authenticated, setAuthenticated ] = useState(false);
     const [ loading, setLoading ] = useState(true);
+
     // Setando dados por padrão para ajudar no debug
     const [ userEmail, setUserEmail ] = useState('admin@gmail.com');
     const [ userPassword, setUserPassword ] = useState('pikachu$5');
@@ -28,6 +29,34 @@ function AuthProvider({ children }) {
         setLoading(false);
     }, []);
 
+    useEffect(() => {
+        if (user && Object.keys(user).length === 0 && Object.getPrototypeOf(user) === Object.prototype) {
+            console.log('nao faca nada');
+        } else {
+            console.log("super teste");
+            console.log(user);
+            let path = '';
+            switch(user.role.label) {
+                case 'admin':
+                case 'staff':
+                    path = Path.STATISTICS;
+                break;
+                case 'dev':
+                    path = Path.GAME_MANAGEMENT;
+                break;
+                case 'user':
+                    path = Path.STORE;
+                break;
+                default:
+                    break;
+            }
+            HistoryService.push(path);
+            console.log(path);
+            console.log("Logado com sucesso!");
+        } 
+
+    }, [user]);
+
     async function handleLogin(event) {
         event.preventDefault();
 
@@ -38,6 +67,9 @@ function AuthProvider({ children }) {
                     password: userPassword
                 });
 
+                //setUserEmail('');
+                //setUserPassword('');
+
                 localStorage.setItem('token', JSON.stringify(token));
 
                 const userId = refreshToken.user_id;
@@ -45,13 +77,11 @@ function AuthProvider({ children }) {
                 const { data } = await api.get(`/users/${userId}`);
 
                 api.defaults.headers.Authorization = `Bearer ${token}`;
-        
-                setAuthenticated(true);
+
                 setUser(data);
-                HistoryService.push(Path.MENU);
-                console.log("Logado com sucesso!");
+                setAuthenticated(true);
             } else {
-                HistoryService.push(Path.MENU);
+                HistoryService.push('/');
                 console.log("Usuário já está logado!");
             }
         } catch(error) {

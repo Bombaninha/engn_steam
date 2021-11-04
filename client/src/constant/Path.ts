@@ -3,8 +3,10 @@ class Path {
 
 	LOGIN = `/`
 	REGISTER = `/register`
-	
-	MENU = `/menu`
+	GAME_MANAGEMENT = `/game-management`;
+	STORE = `/store`;
+	//MENU = `/menu`;
+	STATISTICS = `/statistics`
 	LIBRARY = `/library`
 	ACCOUNT = '/account'
 	FRIENDS = `/friends`

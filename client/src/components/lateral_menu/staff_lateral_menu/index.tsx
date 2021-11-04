@@ -17,7 +17,7 @@ const StaffLateralMenu: React.FC<LateralMenuProps> = ({role}) => {
     
     return (
         <div className="lateral-menu">
-            <button onClick={() => handleClick(Path.MENU)}>
+            <button onClick={() => handleClick(Path.STATISTICS)}>
                 Estatísticas
             </button>
             <button onClick={() => handleClick(Path.TICKETS)}>
