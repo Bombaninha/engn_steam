@@ -1,8 +1,5 @@
 import React, { useContext } from 'react'
 
-//import { ToastContainer, toast } from 'react-toastify';
-//import 'react-toastify/dist/ReactToastify.css';
-
 import PermissionsEnum from '../types/PermissionEnum'
 import StaffLateralMenu from '../components/lateral_menu/staff_lateral_menu'
 import { Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -23,18 +20,8 @@ import Friends from '../view/friends'
 import Library from '../view/library'
 
 import Store from '../view/store'
+import ForgetPassword from '../view/forget_password'
 
-// function loadRoleFromLocalStorage(): PermissionsEnum {
-// 	const userRole = localStorage.getItem('role');
-
-// 	if (userRole === 'admin')
-// 		return PermissionsEnum.ADMINISTRATOR;
-// 	if (userRole === 'dev')
-// 		return PermissionsEnum.DEVELOPER;
-// 	if (userRole === 'staff')
-// 		return PermissionsEnum.STAFF;
-// 	return PermissionsEnum.USER;
-// };
 //import GameManagement from '../../view/game_management'
 
 type CustomRouteType = {
@@ -94,6 +81,7 @@ const Main: React.FC = () => {
 			<Router history={HistoryService}>
 				<Switch>
 					<CustomRoute exact path={Path.LOGIN} component={Login} />
+					<CustomRoute exact path={Path.FORGET_PASSWORD} component={ForgetPassword} />
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.STATISTICS} component={Statistics} />
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.TICKETS} component={Tickets} />
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.REQUEST} component={Requests} />

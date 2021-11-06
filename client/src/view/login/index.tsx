@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import Path from '../../constant/Path'
 import { Context } from '../../contexts/AuthContext'
-import { InputBox, LoginButton, LoginContainer, LoginView } from './styles';
+import { InputBox, LoginButton, LoginContainer, LoginView, LoginMessageContainer, ForgetPassword, WithoutAccountContainer, CreateAccountButton, Separator, LoginErrors } from './styles';
 
 import HistoryService from '../../services/history/HistoryService'
 
@@ -32,21 +32,41 @@ const SignIn: React.FC = () => {
             <LoginView>
                 <LoginContainer>
 
+                    <LoginMessageContainer>
+                        <h1>Bem-vindo à loja</h1>
+                    </LoginMessageContainer>
+
                     <InputBox
                         type="text"
-                        placeholder="Digite o seu e-mail"
+                        placeholder="Email"
                         onChange={event => setUserEmail(event.target.value)}
                         value={userEmail}
                     />
                     <InputBox
                         type="password"
-                        placeholder="Digite a sua senha"
+                        placeholder="Senha"
                         onChange={event => setUserPassword(event.target.value)}
                         value={userPassword}
                     />
 
-                    <LoginButton type="submit"> Entrar </LoginButton>
+                    <LoginErrors>
+                        Login ou senha incorretos!
+                    </LoginErrors>
 
+                    <LoginButton type="submit"> Iniciar Sessão </LoginButton>
+
+                    <ForgetPassword>
+                        <a href="/forget-password">Esqueceu sua senha?</a>
+                    </ForgetPassword>
+
+                    <WithoutAccountContainer>
+                        <Separator>Ainda não tem uma conta?</Separator>
+                        <a href="/">
+                            <CreateAccountButton>
+                                Cadastrar-se
+                            </CreateAccountButton>
+                        </a>
+                    </WithoutAccountContainer>
                 </LoginContainer>
             </LoginView>
         </form>

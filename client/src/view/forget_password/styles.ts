@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
-
-export const LoginView = styled.div`
+export const ForgetPasswordView = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -11,11 +9,15 @@ export const LoginView = styled.div`
     height: 100vh;
 `;
 
-export const LoginMessageContainer = styled.div`
+export const ForgetPasswordMessageContainer = styled.div`
     margin: 1rem;
+
+    &.success {
+        color: #4BB543;
+    }
 `;
 
-export const LoginContainer = styled.div`
+export const ForgetPasswordContainer = styled.div`
     max-width: 500px;
     padding: 20px;
     margin: 0;
@@ -38,9 +40,14 @@ export const InputBox = styled.input`
     &.error {
       border: solid 1px #ff3333;  
     }
+
+    &.success {
+        border: solid 1px #4BB543;
+        color: #4BB543;
+    }
 `;
 
-export const LoginButton = styled.button`
+export const ForgetPasswordButton = styled.button`
     border: solid var(--yellow) 1px;
     background-color: transparent;
     color: var(--yellow);
@@ -54,6 +61,10 @@ export const LoginButton = styled.button`
     border: none;
     margin: 1rem;
     width: -webkit-fill-available;
+
+    &.success {
+        display: none;
+    }
 `;
 
 export const ForgetPassword = styled.div`
@@ -62,10 +73,6 @@ export const ForgetPassword = styled.div`
     a {
         color: var(--yellow);
     }
-`;
-
-export const WithoutAccountContainer = styled.div`
-
 `;
 
 export const CreateAccountButton = styled.button`
@@ -84,36 +91,13 @@ export const CreateAccountButton = styled.button`
     width: -webkit-fill-available;
 `;
 
-export const Separator = styled.div`
-    width: -webkit-fill-available;
-    font-size: 1rem;
-    color: #FFF;
-
-    margin: 1.5rem 1rem 1rem 1rem;
-    display: flex;
-    align-items: center;
-
-    &::before {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: #a8a8b3;
-        margin-right: 16px;
-    }
-
-    &::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: #a8a8b3;
-        margin-left: 16px;
-    }
-`;
-
-export const LoginErrors = styled.div`
-    display: flex;
-    margin-left: 1rem;
-    flex-direction: flex-start;
-    color: #ff3333;
+export const ForgetPasswordErrors = styled.div`
     display : none;
+
+    &.error {
+        display: flex;
+        margin-left: 1rem;
+        flex-direction: flex-start;
+        color: #ff3333;
+    }
 `;
