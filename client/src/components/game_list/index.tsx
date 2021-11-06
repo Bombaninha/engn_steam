@@ -5,11 +5,8 @@ import { TGame, TGameArrayFromJSON } from '../../types/TGame'
 import './styles.css'
 import axios from 'axios'
 import { API_URL } from '../../constant/api'
-
-// const getGamesBought = () => {
-//     const gamesBought = localStorage.getItem('games-bought')
-//     return gamesBought ? JSON.parse(gamesBought) : []
-// }
+import { isDevMode } from '../../api'
+import { gamesListPopulate } from '../../constant/content'
 
 interface GameListProps {
     onClick: (value: TGame | null) => void
@@ -17,8 +14,7 @@ interface GameListProps {
 
 const GameList: React.FC<GameListProps> = ({ onClick }) => {
     const [searchText, setSearchText] = useState<string>('')
-    // const gamesBought: string[] = getGamesBought()
-    const [games, setGames] = useState<TGame[]>([]); // gamesListPopulate.filter(game => !gamesBought.includes(game.name)
+    const [games, setGames] = useState<TGame[]>([]);
 
     async function loadGamesFromBackend() {
         let games: TGame[] = []
@@ -35,7 +31,8 @@ const GameList: React.FC<GameListProps> = ({ onClick }) => {
     }
 
     useEffect(() => {
-        loadGamesFromBackend();
+        if (isDevMode) setGames(gamesListPopulate);
+        else loadGamesFromBackend();
     }, [])
 
     const handleClick = (gameInfo: TGame | null) => {

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 //import { ToastContainer, toast } from 'react-toastify';
 //import 'react-toastify/dist/ReactToastify.css';
@@ -24,17 +24,17 @@ import Library from '../view/library'
 
 import Store from '../view/store'
 
-function loadRoleFromLocalStorage(): PermissionsEnum {
-	const userRole = localStorage.getItem('role');
+// function loadRoleFromLocalStorage(): PermissionsEnum {
+// 	const userRole = localStorage.getItem('role');
 
-	if (userRole === 'admin')
-		return PermissionsEnum.ADMINISTRATOR;
-	if (userRole === 'dev')
-		return PermissionsEnum.DEVELOPER;
-	if (userRole === 'staff')
-		return PermissionsEnum.STAFF;
-	return PermissionsEnum.USER;
-};
+// 	if (userRole === 'admin')
+// 		return PermissionsEnum.ADMINISTRATOR;
+// 	if (userRole === 'dev')
+// 		return PermissionsEnum.DEVELOPER;
+// 	if (userRole === 'staff')
+// 		return PermissionsEnum.STAFF;
+// 	return PermissionsEnum.USER;
+// };
 //import GameManagement from '../../view/game_management'
 
 type CustomRouteType = {
@@ -86,8 +86,8 @@ function CustomRoute({ isPrivate, isUser, isDev, isStaff, isAdmin, ...rest }: Cu
 }
 
 const Main: React.FC = () => {
-	const { loading, authenticated } = useContext(Context);
-	const user = JSON.parse(localStorage.getItem('user') || '{}');
+	// const { loading, authenticated } = useContext(Context);
+	// const user = JSON.parse(localStorage.getItem('user') || '{}');
 
 	return (
 		<AuthProvider>
