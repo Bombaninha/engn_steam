@@ -1,11 +1,21 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import FilterByCategory from '../../components/filter_by_category'
 import GameItem from '../../components/GameItem';
 import Sorter from '../../components/sort_by';
+import { API_URL } from '../../constant/api';
 import SortEnum from '../../types/SortByEnum';
 import { TGameArrayFromJSON, TPurchasedGame, TPurchasedGameArrayFromJSON } from '../../types/TGame';
 import { LibraryContainer, ToolsContainer } from './styles';
-import api from '../../api';
+
+// function loadGamesBoughtFromLocalStorage(): TPurchasedGame[] {
+//     const gamesBoughtFromStorage = localStorage.getItem('games-bought')
+//     let gamesBought = [];
+//     if (gamesBoughtFromStorage)
+//         gamesBought = JSON.parse(gamesBoughtFromStorage);
+//     return gamesBought;
+// }
+
 function getCategoriesFromGames(games: TPurchasedGame[]): string[] {
     let categories = new Set<string>();
     for (let game of games)
@@ -22,11 +32,11 @@ const Library: React.FC = () => {
     async function loadGamesBoughtFromBackend() {
         let games: TPurchasedGame[] = []
         try {
-            const gamesJSON = await api.get('/games');
+            const gamesJSON = await axios.get(API_URL + '/v1/games');
             console.log(gamesJSON);
             const gamesArray = TGameArrayFromJSON(gamesJSON.data as Array<any>);
 
-            const res = await api.get('/buys');
+            const res = await axios.get(API_URL + '/v1/buys');
             console.log(res);
             const purchasedGames = TPurchasedGameArrayFromJSON(gamesArray, res.data as Array<any>);
             setCategories(getCategoriesFromGames(purchasedGames));

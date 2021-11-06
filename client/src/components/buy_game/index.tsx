@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SelectInput from '../../components/select_input'
 import TextInput from '../../components/textInput'
 import CheckboxInput from '../../components/checkbox_input'
@@ -6,19 +6,67 @@ import DefaultButton from '../default_button'
 import GameItem from '../GameItem'
 import { TGame, TPurchasedGame } from '../../types/TGame'
 import './styles.css'
+import api, { isDevMode } from '../../api'
 
 
 interface BuyGameProps {
+    userID: string;
     gameInfo: TGame
     onCancel: (value: TGame | null) => void
-    onGameBought: () => void
+    onGameBought: (buyTypeID: string, cardID: string) => void
 }
 
-const BuyGame: React.FC<BuyGameProps> = ({ gameInfo, onCancel, onGameBought }) => {
+const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBought }) => {
+    const [user] = useState(userID);
     const [input, setInput] = useState('')
     const [isWrongInput, setIsWrongInput] = useState(false)
     const [checkbox, setCheckbox] = useState(false)
-    const [select, setSelect] = useState('manga')
+
+    const [selectedBuyType, setSelectedBuyType] = useState('carregando...')
+    const [buyTypes, setBuyTypes] = useState<Array<any>>([]);
+
+    const [selectedCard, setSelectedCard] = useState('carregando...')
+    const [cards, setCards] = useState<Array<any>>([]);
+
+
+    useEffect(() => {
+        async function getBuyTypes() {
+            console.log("buy game");
+            const buy_types_res: any = await api.get('/buy-types')
+            console.log(buy_types_res);
+            if (buy_types_res.status === 200) {
+                let buy_types: Array<any> = buy_types_res.data;
+                console.log(buy_types);
+
+                buy_types = buy_types.map(b => { return { key: b.id, value: b.id, label: b.name } });
+                console.log(buy_types);
+
+                setBuyTypes(buy_types);
+                setSelectedBuyType(buy_types[0].key);
+            }
+        }
+
+        async function getUserCards() {
+            const cards_res: any = await api.get('/cards?user_id=' + user)
+            console.log(cards_res);
+            if (cards_res.status === 200) {
+                let cards: Array<any> = cards_res.data;
+                console.log(cards);
+
+                cards = cards.map(b => { return { key: b.id, value: b.id, label: b.number_custom } });
+                console.log(cards);
+
+                setCards(cards);
+                setSelectedCard(cards[0].key);
+            }
+        }
+
+        if (!isDevMode) {
+            getBuyTypes();
+            getUserCards();
+        }
+
+    }, [user]);
 
     const isValidUsername = () => {
         if (!input) {
@@ -52,7 +100,6 @@ const BuyGame: React.FC<BuyGameProps> = ({ gameInfo, onCancel, onGameBought }) =
 
         const purchasedGame: TPurchasedGame = ({ game: gameInfo, purchasedAt: new Date() })
         gamesBought.push(purchasedGame)
-
         localStorage.setItem('games-bought', JSON.stringify(gamesBought))
     }
 
@@ -61,20 +108,34 @@ const BuyGame: React.FC<BuyGameProps> = ({ gameInfo, onCancel, onGameBought }) =
     }
 
     const handleBuyGame = () => {
-        checkbox ? handleBuyAsGift() : handleBuyToSelf()
-        onGameBought()
+        if (isDevMode) checkbox ? handleBuyAsGift() : handleBuyToSelf();
+        else onGameBought(selectedBuyType, selectedCard);
     }
 
     return (
         <div className="buy-game-wrapper">
             <h1 className="page-title">Comprar jogo</h1>
+
             <GameItem game={gameInfo} withButton={false} onClick={() => { }} />
+
             <form>
-                <div className="gift-to-friend-wrapper">
+                {/* <div className="gift-to-friend-wrapper">
                     <CheckboxInput textLabel='Comprar para um amigo' identification='test' onChange={checked => setCheckbox(checked)} />
                     {checkbox ? <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} /> : <></>}
-                </div>
-                <SelectInput value={select} label='Método de pagamento' identification='payment-method' options={[{ value: 'laranja', label: 'Laranja' }, { value: 'limao', label: 'Limão' }, { value: 'coco', label: 'Coco' }, { value: 'manga', label: 'Manga' }]} onChange={select => setSelect(select)} />
+                </div> */}
+
+                <SelectInput value={selectedBuyType} label='Tipo de compra' identification='payment-method'
+                    options={buyTypes}
+                    onChange={select => setSelectedBuyType(select)}
+                />
+                <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} />
+
+                <br />
+                <SelectInput value={selectedCard} label='Método de pagamento' identification='payment-method'
+                    options={cards}
+                    onChange={select => setSelectedCard(select)}
+                />
+
                 <div className="button-wrapper">
                     <DefaultButton text="Cancelar compra" colorClass="secondary" onClick={handleCancelPurchase} />
                     <DefaultButton text="Confirmar compra" colorClass="primary" onClick={handleBuyGame} />

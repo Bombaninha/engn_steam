@@ -7,7 +7,7 @@ class ListBuysService {
     async execute() {
         const buysRepositories = getCustomRepository(BuysRepositories);
 
-        const buys = await buysRepositories.find();
+        const buys = await buysRepositories.find({ relations: ["game", "card", "buyType", "buyer", "receiver"] });
 
         return classToPlain(buys);
     }

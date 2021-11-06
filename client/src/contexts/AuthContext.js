@@ -1,27 +1,23 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-
 import HistoryService from '../services/history/HistoryService'
-
-import Path from '../constant/Path';
-
 import api from "../api";
 
 const Context = createContext();
 
 function AuthProvider({ children }) {
-    const [ authenticated, setAuthenticated ] = useState(false);
-    const [ loading, setLoading ] = useState(true);
+    const [authenticated, setAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     // Setando dados por padrão para ajudar no debug
-    const [ userEmail, setUserEmail ] = useState('admin@gmail.com');
-    const [ userPassword, setUserPassword ] = useState('pikachu$5');
+    const [userEmail, setUserEmail] = useState('admin@gmail.com');
+    const [userPassword, setUserPassword] = useState('pikachu$5');
 
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        if(token) {
-            axios.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`; 
+        if (token) {
+            axios.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
             setAuthenticated(true);
         }
 
@@ -32,8 +28,8 @@ function AuthProvider({ children }) {
         event.preventDefault();
 
         try {
-            if(!authenticated) {
-                const { data : { token, refreshToken } } = await api.post('/authenticate', {
+            if (!authenticated) {
+                const { data: { token, refreshToken } } = await api.post('/authenticate', {
                     email: userEmail,
                     password: userPassword
                 });
@@ -42,7 +38,7 @@ function AuthProvider({ children }) {
                 //setUserPassword('');
 
                 localStorage.setItem('token', JSON.stringify(token));
-                
+
                 const userId = refreshToken.user_id;
 
                 const { data } = await api.get(`/users/${userId}`);
@@ -55,14 +51,14 @@ function AuthProvider({ children }) {
                 HistoryService.push('/');
                 console.log("Usuário já está logado!");
             }
-        } catch(error) {
+        } catch (error) {
             console.log(error.response.data.error)
         }
     }
 
     function handleLogout() {
-        if(authenticated) {
-            setAuthenticated(false); 
+        if (authenticated) {
+            setAuthenticated(false);
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             api.defaults.headers.Authorization = undefined;
@@ -75,7 +71,7 @@ function AuthProvider({ children }) {
 
     return (
         <Context.Provider value={{ userEmail, setUserEmail, userPassword, setUserPassword, loading, authenticated, handleLogin, handleLogout }}>
-            { children }
+            {children}
         </Context.Provider>
     );
 }

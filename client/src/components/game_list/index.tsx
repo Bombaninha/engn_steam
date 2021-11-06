@@ -3,7 +3,10 @@ import SearchBar from '../search_bar'
 import GameItem from '../GameItem'
 import { TGame, TGameArrayFromJSON } from '../../types/TGame'
 import './styles.css'
-import api from '../../api';
+import axios from 'axios'
+import { API_URL } from '../../constant/api'
+import { isDevMode } from '../../api'
+import { gamesListPopulate } from '../../constant/content'
 
 interface GameListProps {
     onClick: (value: TGame | null) => void
@@ -11,12 +14,12 @@ interface GameListProps {
 
 const GameList: React.FC<GameListProps> = ({ onClick }) => {
     const [searchText, setSearchText] = useState<string>('')
-    const [games, setGames] = useState<TGame[]>([]); // gamesListPopulate.filter(game => !gamesBought.includes(game.name)
+    const [games, setGames] = useState<TGame[]>([]);
 
     async function loadGamesFromBackend() {
         let games: TGame[] = []
         try {
-            const res = await api.get('/games');
+            const res = await axios.get(API_URL + '/v1/games');
             console.log(res);
             games = TGameArrayFromJSON(res.data as Array<any>);
         } catch (err: any) {
@@ -28,7 +31,8 @@ const GameList: React.FC<GameListProps> = ({ onClick }) => {
     }
 
     useEffect(() => {
-        loadGamesFromBackend();
+        if (isDevMode) setGames(gamesListPopulate);
+        else loadGamesFromBackend();
     }, [])
 
     const handleClick = (gameInfo: TGame | null) => {
@@ -42,7 +46,7 @@ const GameList: React.FC<GameListProps> = ({ onClick }) => {
                 <SearchBar placeholder="Busque jogos..." onChange={value => setSearchText(value.toLowerCase())} />
             </div>
             <div>
-            {games.filter(game => game.name.toLowerCase().includes(searchText)).map(game => <GameItem key={game.id} game={game} withButton onClick={handleClick} />)}
+                {games.filter(game => game.name.toLowerCase().includes(searchText)).map(game => <GameItem key={game.id} game={game} withButton onClick={handleClick} />)}
             </div>
         </div >
     )
