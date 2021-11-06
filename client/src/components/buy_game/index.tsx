@@ -55,7 +55,7 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
                     return { key: item.id, value: item.id, label: item.number_custom } 
                 });
 
-                setCards(cards);
+                setCards(cardsWithKey);
 
                 const selectedCardValue = (cards.length === 0) ? '' : cards[0].key;
                 setSelectedCard(selectedCardValue); 
