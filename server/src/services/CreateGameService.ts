@@ -12,10 +12,11 @@ interface ICreateGameRequest {
     release: Date;
     categories: any;
     developers: any;
+    is_pending?: boolean;
 }
 
 class CreateGameService {
-    async execute({ name, price, description, release, categories, developers } : ICreateGameRequest) {
+    async execute({ name, price, description, release, categories, developers, is_pending } : ICreateGameRequest) {
         const gamesRepositories = getCustomRepository(GamesRepositories)
         const categoriesRepositories = getCustomRepository(CategoriesRepositories)
         const usersRepositories = getCustomRepository(UsersRepositories)
@@ -57,7 +58,8 @@ class CreateGameService {
             name,
             price,
             description,
-            release
+            release,
+            is_pending
         });
 
         const categoriesEntities = await Promise.all<Category>(categories.map(async (category) => {

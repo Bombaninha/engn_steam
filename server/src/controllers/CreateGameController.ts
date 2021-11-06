@@ -8,14 +8,14 @@ import { RequestTypesRepositories } from '../repositories/RequestTypesRepositori
 
 class CreateGameController {
     async handle(request: Request, response: Response) {
-        const { name, price, description, release, categories, developers } = request.body
+        const { name, price, description, release, categories, developers, is_pending } = request.body
 
         const createGameService = new CreateGameService();
         const createRequestService = new CreateRequestService();
 
         const requestTypesRepositories = getCustomRepository(RequestTypesRepositories);
 
-        const game = await createGameService.execute({ name, price, description, release, categories, developers });
+        const game = await createGameService.execute({ name, price, description, release, categories, developers, is_pending });
 
         const requestType = await requestTypesRepositories.findOne({
             name: 'Adição'
