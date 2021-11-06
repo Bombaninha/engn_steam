@@ -2,8 +2,6 @@ import { getCustomRepository } from "typeorm";
 import { CategoriesRepositories } from "../repositories/CategoriesRepositories";
 import { GamesRepositories } from "../repositories/GamesRepositories";
 import { UsersRepositories } from "../repositories/UsersRepositories";
-import { Category } from "../entities/Category";
-import { User } from "../entities/User";
 import { Game } from "../entities/Game";
 
 import { BlankFieldError } from "../exceptions/BlankFieldError";
