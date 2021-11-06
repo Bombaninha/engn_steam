@@ -4,8 +4,12 @@ import { GamesRepositories } from "../repositories/GamesRepositories";
 import { UsersRepositories } from "../repositories/UsersRepositories";
 import { Category } from "../entities/Category";
 import { User } from "../entities/User";
+import { Game } from "../entities/Game";
 
-interface ICreateGameRequest {
+import { BlankFieldError } from "../exceptions/BlankFieldError";
+import { DuplicatedRegisterError } from "../exceptions/DuplicatedRegisterError";
+
+type GameRequest = {
     name: string;
     price: number;
     description: string;
@@ -14,36 +18,36 @@ interface ICreateGameRequest {
     developers: any;
     is_pending?: boolean;
 }
-
+ 
 class CreateGameService {
-    async execute({ name, price, description, release, categories, developers, is_pending } : ICreateGameRequest) {
+    async execute({ name, price, description, release, categories, developers, is_pending } : GameRequest) : Promise<Game | Error> {
         const gamesRepositories = getCustomRepository(GamesRepositories)
         const categoriesRepositories = getCustomRepository(CategoriesRepositories)
         const usersRepositories = getCustomRepository(UsersRepositories)
 
         // Validação: Verificando se todos os campos foram recebidos
         if(!name) {
-            throw new Error("Incorrect Name");
+            throw new BlankFieldError("Incorrect Name");
         }
 
         if(!price) {
-            throw new Error("Incorrect Price");
+            throw new BlankFieldError("Incorrect Price");
         }
 
         if(!description) {
-            throw new Error("Incorrect description");
+            throw new BlankFieldError("Incorrect description");
         }
 
         if(!release) {
-            throw new Error("Incorrect release");
+            throw new BlankFieldError("Incorrect release");
         }
 
         if(!categories) {
-            throw new Error("Incorrect categories");
+            throw new BlankFieldError("Incorrect categories");
         }
 
         if(!developers) {
-            throw new Error("Incorrect developers"); 
+            throw new BlankFieldError("Incorrect developers"); 
         }
 
         const gameAlreadyExists = await gamesRepositories.findOne({
@@ -51,7 +55,7 @@ class CreateGameService {
         });
 
         if(gameAlreadyExists) {
-            throw new Error("Game already exists");
+            throw new DuplicatedRegisterError("Game already exists");
         }
 
         const game = gamesRepositories.create({
