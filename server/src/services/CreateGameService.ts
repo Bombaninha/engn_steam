@@ -7,13 +7,21 @@ import { Game } from "../entities/Game";
 import { BlankFieldError } from "../exceptions/BlankFieldError";
 import { DuplicatedRegisterError } from "../exceptions/DuplicatedRegisterError";
 
+type CategoryRequest = {
+    id: string;
+}
+
+type DeveloperRequest = {
+    id: string;
+}
+
 type GameRequest = {
     name: string;
     price: number;
     description: string;
     release: Date;
-    categories: any;
-    developers: any;
+    categories: CategoryRequest[];
+    developers: DeveloperRequest[];
     is_pending?: boolean;
 }
  
