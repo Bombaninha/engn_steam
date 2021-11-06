@@ -66,32 +66,11 @@ class CreateGameService {
             is_pending
         });
 
-        const categoriesEntities = await Promise.all<Category>(categories.map(async (category) => {
-            const categoryEntity = await categoriesRepositories.findOne({
-                id: category.id
-            })
+        const categoriesExists = await categoriesRepositories.findByIds(categories);
+        const developersExists = await usersRepositories.findByIds(developers);
 
-            if(!categoryEntity) {
-                throw new Error("Categoria não existe");
-            }
-
-            return categoryEntity;
-        }));
-
-        const developersEntities = await Promise.all<User>(developers.map(async (developer) => {
-            const developerEntity = await usersRepositories.findOne({
-                id: developer.id
-            })
-    
-            if(!developerEntity) {
-                throw new Error("Desenvolvedor não existe");
-            }
-
-            return developerEntity;
-        }));
-
-        game.categories = categoriesEntities;
-        game.users = developersEntities;
+        game.categories = categoriesExists;
+        game.users = developersExists;
 
         await gamesRepositories.save(game);
         
