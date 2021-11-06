@@ -8,7 +8,6 @@ import { TGame, TPurchasedGame } from '../../types/TGame'
 import './styles.css'
 import api, { isDevMode } from '../../api'
 
-
 interface BuyGameProps {
     userID: string;
     gameInfo: TGame
@@ -28,36 +27,38 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
     const [selectedCard, setSelectedCard] = useState('carregando...')
     const [cards, setCards] = useState<Array<any>>([]);
 
-
     useEffect(() => {
         async function getBuyTypes() {
-            console.log("buy game");
             const buy_types_res: any = await api.get('/buy-types')
-            console.log(buy_types_res);
+
             if (buy_types_res.status === 200) {
-                let buy_types: Array<any> = buy_types_res.data;
-                console.log(buy_types);
+                const buyTypes: Array<any> = buy_types_res.data;
 
-                buy_types = buy_types.map(b => { return { key: b.id, value: b.id, label: b.name } });
-                console.log(buy_types);
+                const buyTypesWithKey = buyTypes.map(item => { 
+                    return { key: item.id, value: item.id, label: item.name } 
+                });
+ 
+                setBuyTypes(buyTypesWithKey);
 
-                setBuyTypes(buy_types);
-                setSelectedBuyType(buy_types[0].key);
+                const selectedBuyTypeValue = (cards.length === 0) ? '' : buyTypesWithKey[0].key;
+                setSelectedBuyType(selectedBuyTypeValue);
             }
         }
 
         async function getUserCards() {
-            const cards_res: any = await api.get('/cards?user_id=' + user)
-            console.log(cards_res);
-            if (cards_res.status === 200) {
-                let cards: Array<any> = cards_res.data;
-                console.log(cards);
+            const cards_res: any = await api.get(`/cards?user_id=${user}`)
 
-                cards = cards.map(b => { return { key: b.id, value: b.id, label: b.number_custom } });
-                console.log(cards);
+            if (cards_res.status === 200) {
+                const cards: Array<any> = cards_res.data;
+               
+                const cardsWithKey = cards.map(item => { 
+                    return { key: item.id, value: item.id, label: item.number_custom } 
+                });
 
                 setCards(cards);
-                setSelectedCard(cards[0].key);
+
+                const selectedCardValue = (cards.length === 0) ? '' : cards[0].key;
+                setSelectedCard(selectedCardValue); 
             }
         }
 
@@ -124,9 +125,9 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
                     {checkbox ? <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} /> : <></>}
                 </div> */}
 
-                <SelectInput value={selectedBuyType} label='Tipo de compra' identification='payment-method'
-                    options={buyTypes}
-                    onChange={select => setSelectedBuyType(select)}
+                <SelectInput value={ selectedBuyType } label='Tipo de compra' identification='payment-method'
+                    options={ buyTypes }
+                    onChange={ select => setSelectedBuyType(select) }
                 />
                 <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} />
 
