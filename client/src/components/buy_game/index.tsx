@@ -6,7 +6,8 @@ import DefaultButton from '../default_button'
 import GameItem from '../GameItem'
 import { TGame, TPurchasedGame } from '../../types/TGame'
 import './styles.css'
-import api, { isDevMode } from '../../api'
+import api, { isDevMode, toastConfig } from '../../api'
+import { toast } from 'react-toastify'
 
 interface BuyGameProps {
     userID: string;
@@ -34,10 +35,10 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
             if (buy_types_res.status === 200) {
                 const buyTypes: Array<any> = buy_types_res.data;
 
-                const buyTypesWithKey = buyTypes.map(item => { 
-                    return { key: item.id, value: item.id, label: item.name } 
+                const buyTypesWithKey = buyTypes.map(item => {
+                    return { key: item.id, value: item.id, label: item.name }
                 });
- 
+
                 setBuyTypes(buyTypesWithKey);
 
                 const selectedBuyTypeValue = (cards.length === 0) ? '' : buyTypesWithKey[0].key;
@@ -50,15 +51,19 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
 
             if (cards_res.status === 200) {
                 const cards: Array<any> = cards_res.data;
-               
-                const cardsWithKey = cards.map(item => { 
-                    return { key: item.id, value: item.id, label: item.number_custom } 
+
+                const cardsWithKey = cards.map(item => {
+                    return { key: item.id, value: item.id, label: item.number_custom }
                 });
 
                 setCards(cardsWithKey);
 
                 const selectedCardValue = (cards.length === 0) ? '' : cards[0].key;
-                setSelectedCard(selectedCardValue); 
+                setSelectedCard(selectedCardValue);
+            } else {
+                const errorMsg: string = "Error getting user cards.";
+                console.error(errorMsg, cards_res);
+                toast.error(errorMsg, toastConfig);
             }
         }
 
@@ -67,7 +72,7 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
             getUserCards();
         }
 
-    }, [user]);
+    }, [cards.length, user]);
 
     const isValidUsername = () => {
         if (!input) {
@@ -125,9 +130,9 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
                     {checkbox ? <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} /> : <></>}
                 </div> */}
 
-                <SelectInput value={ selectedBuyType } label='Tipo de compra' identification='payment-method'
-                    options={ buyTypes }
-                    onChange={ select => setSelectedBuyType(select) }
+                <SelectInput value={selectedBuyType} label='Tipo de compra' identification='payment-method'
+                    options={buyTypes}
+                    onChange={select => setSelectedBuyType(select)}
                 />
                 <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} />
 

@@ -23,6 +23,10 @@ import Store from '../view/store'
 import ForgetPassword from '../view/forget_password'
 import ChangePassword from '../view/change_password'
 import SignUp from './sign_up';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UserLateralMenu from '../components/lateral_menu/user_lateral_menu';
+import { AppContainer } from './styles';
 //import GameManagement from '../../view/game_management'
 
 type CustomRouteType = {
@@ -51,21 +55,12 @@ function CustomRoute({ isPrivate, isUser, isDev, isStaff, isAdmin, ...rest }: Cu
 		const user = JSON.parse(localStorage.getItem('user') || '{}');
 		const role = user.role.label;
 
-		if (isUser && role === 'user') {
-			return <Route {...rest} />
-		}
-
-		if (isDev && role === 'dev') {
-			return <Route {...rest} />
-		}
-
-		if (isStaff && role === 'staff') {
-			return <Route {...rest} />
-		}
-
-		if (isAdmin && role === 'admin') {
-			return <Route {...rest} />
-		}
+		if ((isUser && role === 'user') || (isDev && role === 'dev') || (isStaff && role === 'staff') || (isAdmin && role === 'admin'))
+			return (
+				<AppContainer>
+					<UserLateralMenu role={role} />
+					<Route {...rest} />
+				</AppContainer>);
 
 		return <Redirect to={'/'} />
 	}
@@ -85,6 +80,7 @@ const Main: React.FC = () => {
 					<CustomRoute exact path={Path.REGISTER} component={SignUp} />
 					<CustomRoute exact path={Path.FORGET_PASSWORD} component={ForgetPassword} />
 					<CustomRoute path={Path.CHANGE_PASSWORD} component={ChangePassword} />
+
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.STATISTICS} component={Statistics} />
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.TICKETS} component={Tickets} />
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.REQUEST} component={Requests} />
@@ -99,6 +95,7 @@ const Main: React.FC = () => {
 					<CustomRoute path={'/'} component={NotFound} />
 				</Switch>
 			</Router>
+			<ToastContainer />
 		</AuthProvider>
 	)
 }

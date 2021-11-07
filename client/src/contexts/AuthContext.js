@@ -1,7 +1,8 @@
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import HistoryService from '../services/history/HistoryService'
-import api from "../api";
+import { toast } from 'react-toastify';
+import api, { toastConfig } from '../api';
 
 const Context = createContext();
 
@@ -47,12 +48,17 @@ function AuthProvider({ children }) {
                 api.defaults.headers.Authorization = `Bearer ${token}`;
 
                 setAuthenticated(true);
+                toast.success('Login realizado com sucesso!', toastConfig);
             } else {
                 HistoryService.push('/');
-                console.log("Usuário já está logado!");
+                const warnMsg = "Usuário já está logado!"
+                console.log(warnMsg);
+                toast.warn(warnMsg, toastConfig);
             }
         } catch (error) {
-            console.log(error.response.data.error)
+            const errorMsg = error.response.data.error;
+            console.error(errorMsg)
+            toast.error(errorMsg, toastConfig);
         }
     }
 
@@ -62,10 +68,14 @@ function AuthProvider({ children }) {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             api.defaults.headers.Authorization = undefined;
-            console.log("Deslogado com sucesso!");
+            const msg = "Deslogado com sucesso!";
+            console.log(msg);
+            toast.success(msg, toastConfig);
             HistoryService.push('/');
         } else {
-            console.log("Usuário não está logado!");
+            const warnMsg = "Usuário não está logado!";
+            console.warn(warnMsg);
+            toast.warn(warnMsg, toastConfig);
         }
     }
 

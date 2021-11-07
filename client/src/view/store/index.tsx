@@ -1,7 +1,5 @@
-import axios from 'axios'
-import { userInfo } from 'os'
 import React, { useState } from 'react'
-import api, { isDevMode } from '../../api'
+import api from '../../api'
 import BuyGame from '../../components/buy_game'
 import GameList from '../../components/game_list'
 import InfoPage from '../../components/info_page'

@@ -16,7 +16,7 @@ const SignUp: React.FC = () => {
     const [validateEmail, setValidateEmail] = useState('')
     const [validatePassword, setValidatePassword] = useState('')
     const [validateConfirmPassword, setValidateConfirmPassword] = useState('')
-    
+
     const handleClickNameInput = () => {
         setValidateName('')
     }
@@ -44,24 +44,24 @@ const SignUp: React.FC = () => {
 
         try {
 
-            if(format.test(name) || name === '') 
+            if (format.test(name) || name === '')
                 setValidateName('error');
-            
+
             const res = await api.get(`/users?email=${email}`);
             const data = res.data as Array<any>;
-            
-            if(data.length > 0)
-                setValidateEmail('error'); 
 
-            if(password.length < 5)
+            if (data.length > 0)
+                setValidateEmail('error');
+
+            if (password.length < 5)
                 setValidatePassword('error');
-    
-            if(password !== confirmPassword)
+
+            if (password !== confirmPassword)
                 setValidateConfirmPassword('error');
 
             const result = await api.get(`/roles?label=dev`);
             const dataRole = result.data as Array<any>;
-            
+
             const roleId = (dataRole.length > 0) ? dataRole[0].id : '';
 
             const signUpRequest = await api.post('/users', {
@@ -77,7 +77,7 @@ const SignUp: React.FC = () => {
             const status = err.response.status;
             const errorMsg = err.response.data.error;
 
-            alert("Erro " + status + "\n" + errorMsg);            
+            alert("Erro " + status + "\n" + errorMsg);
         }
     }
 
@@ -85,9 +85,9 @@ const SignUp: React.FC = () => {
         <form onSubmit={handleSignIn}>
             <ForgetPasswordView>
                 <ForgetPasswordContainer>
-                    
+
                     <ForgetPasswordMessageContainer>
-                        <h1>Preencha seus dados</h1>  
+                        <h1>Preencha seus dados</h1>
                     </ForgetPasswordMessageContainer>
 
                     <InputBox
@@ -141,9 +141,9 @@ const SignUp: React.FC = () => {
                     <ForgetPasswordErrors className={validateConfirmPassword}>
                         Senha deve ser idêntica ao campo anterior.
                     </ForgetPasswordErrors>
-                    
+
                     <CheckboxContainer>
-                        <InputCheckbox id="checkbox-role" type="checkbox" checked={isDev} onChange={handleCheckboxClick} /> 
+                        <InputCheckbox id="checkbox-role" type="checkbox" checked={isDev} onChange={handleCheckboxClick} />
                         <label htmlFor="checkbox-role"> sou desenvolvedor de jogos</label>
                     </CheckboxContainer>
 

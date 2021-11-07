@@ -62,7 +62,7 @@ const SignIn: React.FC = () => {
                     <WithoutAccountContainer>
                         <Separator>Ainda não tem uma conta?</Separator>
                         <a href="/register">
-                            <CreateAccountButton>
+                            <CreateAccountButton type='button'>
                                 Cadastrar-se
                             </CreateAccountButton>
                         </a>
