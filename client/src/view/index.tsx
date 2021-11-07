@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 
 import PermissionsEnum from '../types/PermissionEnum'
-import StaffLateralMenu from '../components/lateral_menu/staff_lateral_menu'
 import { Router, Switch, Route, Redirect } from 'react-router-dom'
 import { AuthProvider, Context } from '../contexts/AuthContext';
 import HistoryService from '../services/history/HistoryService'
@@ -25,22 +24,18 @@ import ChangePassword from '../view/change_password'
 import SignUp from './sign_up';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UserLateralMenu from '../components/lateral_menu/user_lateral_menu';
 import { AppContainer } from './styles';
-//import GameManagement from '../../view/game_management'
+import LateralMenu from '../components/lateral_menu';
 
 type CustomRouteType = {
-	isPrivate?: boolean;
-	isUser?: boolean;
-	isDev?: boolean;
-	isStaff?: boolean;
-	isAdmin?: boolean;
+	isPrivate?: boolean
+	allowed?: Array<PermissionsEnum>;
 	exact?: boolean;
 	path: string;
 	component: React.FC
 }
 
-function CustomRoute({ isPrivate, isUser, isDev, isStaff, isAdmin, ...rest }: CustomRouteType) {
+function CustomRoute({ isPrivate, allowed, ...rest }: CustomRouteType) {
 	const { loading, authenticated } = useContext(Context);
 
 	if (loading) {
@@ -53,12 +48,12 @@ function CustomRoute({ isPrivate, isUser, isDev, isStaff, isAdmin, ...rest }: Cu
 
 	if (isPrivate && authenticated) {
 		const user = JSON.parse(localStorage.getItem('user') || '{}');
-		const role = user.role.label;
+		const role: PermissionsEnum = user.role.label as PermissionsEnum;
 
-		if ((isUser && role === 'user') || (isDev && role === 'dev') || (isStaff && role === 'staff') || (isAdmin && role === 'admin'))
+		if (allowed?.includes(role))
 			return (
 				<AppContainer>
-					<UserLateralMenu role={role} />
+					<LateralMenu role={role} />
 					<Route {...rest} />
 				</AppContainer>);
 
@@ -69,8 +64,6 @@ function CustomRoute({ isPrivate, isUser, isDev, isStaff, isAdmin, ...rest }: Cu
 }
 
 const Main: React.FC = () => {
-	// const { loading, authenticated } = useContext(Context);
-	// const user = JSON.parse(localStorage.getItem('user') || '{}');
 
 	return (
 		<AuthProvider>
@@ -81,17 +74,44 @@ const Main: React.FC = () => {
 					<CustomRoute exact path={Path.FORGET_PASSWORD} component={ForgetPassword} />
 					<CustomRoute path={Path.CHANGE_PASSWORD} component={ChangePassword} />
 
-					<CustomRoute isPrivate isStaff isAdmin exact path={Path.STATISTICS} component={Statistics} />
-					<CustomRoute isPrivate isStaff isAdmin exact path={Path.TICKETS} component={Tickets} />
-					<CustomRoute isPrivate isStaff isAdmin exact path={Path.REQUEST} component={Requests} />
+					<CustomRoute exact path={Path.STATISTICS}
+						isPrivate allowed={[PermissionsEnum.STAFF, PermissionsEnum.ADMINISTRATOR]}
+						component={Statistics}
+					/>
+					<CustomRoute exact path={Path.TICKETS}
+						isPrivate allowed={[PermissionsEnum.STAFF, PermissionsEnum.ADMINISTRATOR]}
+						component={Tickets}
+					/>
+					<CustomRoute exact path={Path.REQUEST}
+						isPrivate allowed={[PermissionsEnum.STAFF, PermissionsEnum.ADMINISTRATOR]}
+						component={Requests}
+					/>
 
-					<CustomRoute isPrivate isDev exact path={Path.GAME_MANAGEMENT} component={GameManagement} />
-					<CustomRoute isPrivate isUser isDev exact path={Path.ACCOUNT} component={Account} />
-					<CustomRoute isPrivate isUser isDev exact path={Path.SUPPORT} component={Support} />
+					<CustomRoute exact path={Path.GAME_MANAGEMENT}
+						isPrivate allowed={[PermissionsEnum.DEVELOPER]}
+						component={GameManagement}
+					/>
+					<CustomRoute exact path={Path.ACCOUNT}
+						isPrivate allowed={[PermissionsEnum.USER]}
+						component={Account}
+					/>
+					<CustomRoute exact path={Path.SUPPORT}
+						isPrivate allowed={[PermissionsEnum.USER, PermissionsEnum.DEVELOPER]}
+						component={Support}
+					/>
 
-					<CustomRoute isPrivate isUser exact path={Path.STORE} component={Store} />
-					<CustomRoute isPrivate isUser exact path={Path.LIBRARY} component={Library} />
-					<CustomRoute isPrivate isUser exact path={Path.FRIENDS} component={Friends} />
+					<CustomRoute exact path={Path.STORE}
+						isPrivate allowed={[PermissionsEnum.USER]}
+						component={Store}
+					/>
+					<CustomRoute exact path={Path.LIBRARY}
+						isPrivate allowed={[PermissionsEnum.USER]}
+						component={Library}
+					/>
+					<CustomRoute exact path={Path.FRIENDS}
+						isPrivate allowed={[PermissionsEnum.USER]}
+						component={Friends}
+					/>
 					<CustomRoute path={'/'} component={NotFound} />
 				</Switch>
 			</Router>

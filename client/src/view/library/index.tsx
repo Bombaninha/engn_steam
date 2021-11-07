@@ -77,7 +77,7 @@ const Library: React.FC = () => {
 
     return (
         <div>
-            <h1 className="page-title">Library</h1>
+            <h1 className="page-title">Biblioteca</h1>
 
             <LibraryContainer>
                 <ToolsContainer>
