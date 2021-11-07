@@ -4,6 +4,7 @@ class Path {
 	LOGIN = `/`
 	REGISTER = `/register`
 	GAME_MANAGEMENT = `/game-management`;
+	CHANGE_PASSWORD = `/change-password`;
 	FORGET_PASSWORD = `/forget-password`;
 	STORE = `/store`;
 	//MENU = `/menu`;

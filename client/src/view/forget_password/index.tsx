@@ -1,8 +1,7 @@
 import React, { FormEvent, useState } from 'react'
 import { InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors } from './styles';
 
-import api
- from '../../api';
+import api from '../../api';
 const ForgetPassword: React.FC = () => {
     const [email, setEmail] = useState('adminobrabo@gmail.com')
     const [request, setRequest] = useState('')

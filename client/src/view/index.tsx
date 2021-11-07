@@ -21,7 +21,8 @@ import Library from '../view/library'
 
 import Store from '../view/store'
 import ForgetPassword from '../view/forget_password'
-
+import ChangePassword from '../view/change_password'
+import SignUp from './sign_up';
 //import GameManagement from '../../view/game_management'
 
 type CustomRouteType = {
@@ -81,7 +82,9 @@ const Main: React.FC = () => {
 			<Router history={HistoryService}>
 				<Switch>
 					<CustomRoute exact path={Path.LOGIN} component={Login} />
+					<CustomRoute exact path={Path.REGISTER} component={SignUp} />
 					<CustomRoute exact path={Path.FORGET_PASSWORD} component={ForgetPassword} />
+					<CustomRoute path={Path.CHANGE_PASSWORD} component={ChangePassword} />
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.STATISTICS} component={Statistics} />
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.TICKETS} component={Tickets} />
 					<CustomRoute isPrivate isStaff isAdmin exact path={Path.REQUEST} component={Requests} />
