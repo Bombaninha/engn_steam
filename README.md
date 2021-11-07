@@ -27,7 +27,7 @@
 - Typescript
 - NodeJS
 - TypeORM
-- 
+
 ### How to build
     // run postgres
 
