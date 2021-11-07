@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SelectInput from '../../components/select_input'
 import TextInput from '../../components/textInput'
-// import CheckboxInput from '../../components/checkbox_input'
+import CheckboxInput from '../../components/checkbox_input'
 import DefaultButton from '../default_button'
 import GameItem from '../GameItem'
 import { TGame, TPurchasedGame } from '../../types/TGame'
@@ -20,9 +20,7 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
     const [user] = useState(userID);
     const [input, setInput] = useState('')
     const [isWrongInput, setIsWrongInput] = useState(false)
-    const [checkbox] = useState(false)
-
-    const [selectedBuyType, setSelectedBuyType] = useState('carregando...')
+    const [isGiftBuy, setIsGiftBuy] = useState(false)
     const [buyTypes, setBuyTypes] = useState<Array<any>>([]);
 
     const [selectedCard, setSelectedCard] = useState('carregando...')
@@ -36,13 +34,14 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
                 const buyTypes: Array<any> = buy_types_res.data;
 
                 const buyTypesWithKey = buyTypes.map(item => {
-                    return { key: item.id, value: item.id, label: item.name }
+                    let isGift = false;
+                    if (item.name === 'Compra para amigo') isGift = true;
+
+                    return { key: item.id, value: item.id, label: item.name, isGift: isGift }
                 });
+                console.log('buyTypesWithKey', buyTypesWithKey)
 
                 setBuyTypes(buyTypesWithKey);
-
-                const selectedBuyTypeValue = (cards.length === 0) ? '' : buyTypesWithKey[0].key;
-                setSelectedBuyType(selectedBuyTypeValue);
             }
         }
 
@@ -115,8 +114,13 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
     }
 
     const handleBuyGame = () => {
-        if (isDevMode) checkbox ? handleBuyAsGift() : handleBuyToSelf();
-        else onGameBought(selectedBuyType, selectedCard);
+        if (isDevMode)
+            isGiftBuy ? handleBuyAsGift() : handleBuyToSelf();
+        else {
+            let preSelectedBuyType = buyTypes.filter(b => ((isGiftBuy && b.isGift) || (!isGiftBuy && !b.isGift)));
+            let selectedBuyType = preSelectedBuyType[0].key;
+            onGameBought(selectedBuyType, selectedCard);
+        }
     }
 
     return (
@@ -126,16 +130,10 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
             <GameItem game={gameInfo} withButton={false} onClick={() => { }} />
 
             <form>
-                {/* <div className="gift-to-friend-wrapper">
-                    <CheckboxInput textLabel='Comprar para um amigo' identification='test' onChange={checked => setCheckbox(checked)} />
-                    {checkbox ? <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} /> : <></>}
-                </div> */}
-
-                <SelectInput value={selectedBuyType} label='Tipo de compra' identification='payment-method'
-                    options={buyTypes}
-                    onChange={select => setSelectedBuyType(select)}
-                />
-                <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} />
+                <div className="gift-to-friend-wrapper">
+                    <CheckboxInput textLabel='Comprar para um amigo' identification='test' onChange={checked => setIsGiftBuy(checked)} />
+                    {isGiftBuy ? <TextInput text='Informe o usuário do amigo' value={input} wrongInput={isWrongInput} onChange={input => { setIsWrongInput(false); setInput(input) }} /> : <></>}
+                </div>
 
                 <br />
                 <SelectInput value={selectedCard} label='Método de pagamento' identification='payment-method'

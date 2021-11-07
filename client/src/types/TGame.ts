@@ -20,7 +20,7 @@ export type TPurchasedGame = {
 export function TPurchasedGameArrayFromJSON(gamesJSON: Array<any>, purchJSON: Array<any>): TPurchasedGame[] {
     const purchasedGames: TPurchasedGame[] = [];
 
-    const purchGamesID: string[] = purchJSON.map(g => g.game_id);
+    const purchGamesID: string[] = purchJSON.filter(g => !(g.receiver_id)).map(g => g.game_id);
     gamesJSON = gamesJSON.filter(g => purchGamesID.includes(g.id));
 
     gamesJSON.forEach(g => {

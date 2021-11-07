@@ -22,7 +22,7 @@ const Store: React.FC = () => {
     const [userID] = useState(getUserIDFromLocalStorage());
 
     const handleGamePurchase = async (buyTypeID: string, cardID: string) => {
-        // only reaches here if is prod modes
+        // only reaches here if is prod mode
         try {
             const res = await api.post('/buys', {
                 card_id: cardID,
