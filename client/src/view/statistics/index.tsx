@@ -31,12 +31,11 @@ const Button = styled.button`
 `;
 
 const Statistics: React.FC = () => {
-    const [ showModal, setShowModal ] = useState(false);
-    const { user, authenticated } = useAuth();
+    const [showModal, setShowModal] = useState(false);
+    const { authenticated } = useAuth();
+    const { handleLogout } = useContext(Context);
 
-    const { handleLogin, handleLogout } = useContext(Context);
-
-    if(!authenticated) {
+    if (!authenticated) {
         console.log("Usuário não está autenticado!");
         HistoryService.push('/');
     }
@@ -49,15 +48,15 @@ const Statistics: React.FC = () => {
 
     return (
         <>
-        <button type="button" onClick={ handleLogout }>Sair</button>
-        <div>
-            { games.map((game: any) => (
-                <GameItem key={game.id} game={game}></GameItem>
-            ))}
-        </div>
+            <button type="button" onClick={handleLogout}>Sair</button>
+            <div>
+                {games.map((game: any) => (
+                    <GameItem key={game.id} game={game}></GameItem>
+                ))}
+            </div>
             <Container>
                 <Button onClick={openModal}>I'm a modal</Button>
-                <Modal showModal={showModal} setShowModal={setShowModal}/>
+                <Modal showModal={showModal} setShowModal={setShowModal} />
             </Container>
         </>
     )

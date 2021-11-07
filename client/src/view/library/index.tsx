@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify';
+import api, { toastConfig } from '../../api';
 import FilterByCategory from '../../components/filter_by_category'
 import GameItem from '../../components/GameItem';
 import Sorter from '../../components/sort_by';
-import { API_URL } from '../../constant/api';
 import SortEnum from '../../types/SortByEnum';
 import { TGameArrayFromJSON, TPurchasedGame, TPurchasedGameArrayFromJSON } from '../../types/TGame';
 import { LibraryContainer, ToolsContainer } from './styles';
@@ -32,11 +32,11 @@ const Library: React.FC = () => {
     async function loadGamesBoughtFromBackend() {
         let games: TPurchasedGame[] = []
         try {
-            const gamesJSON = await axios.get(API_URL + '/v1/games');
+            const gamesJSON = await api.get('/games');
             console.log(gamesJSON);
             const gamesArray = TGameArrayFromJSON(gamesJSON.data as Array<any>);
 
-            const res = await axios.get(API_URL + '/v1/buys');
+            const res = await api.get('/buys');
             console.log(res);
             const purchasedGames = TPurchasedGameArrayFromJSON(gamesArray, res.data as Array<any>);
             setCategories(getCategoriesFromGames(purchasedGames));
@@ -44,7 +44,7 @@ const Library: React.FC = () => {
         } catch (err: any) {
             const status = err.response.status;
             const errorMsg = err.response.data.error;
-            alert("Erro " + status + "\n" + errorMsg);
+            toast.error("Erro " + status + "\n" + errorMsg, toastConfig);
         }
         setGames(games);
     }

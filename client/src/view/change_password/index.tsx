@@ -1,31 +1,32 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import { InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors } from './styles';
 
-import api from '../../api';
+import api, { toastConfig } from '../../api';
 
 import queryString from 'query-string'
 import HistoryService from '../../services/history/HistoryService'
+import { toast } from 'react-toastify';
 
 const ChangePassword: React.FC = () => {
     const [email, setEmail] = useState('adminobrabo@gmail.com')
     const [password, setPassword] = useState('teste')
-    const [userToken, setuserToken] = useState<String | String[]>('');
+    const [userToken, setUserToken] = useState<String | String[]>('');
     const [request, setRequest] = useState('')
 
     useEffect(() => {
         const value = queryString.parse(window.location.search);
         const token = value.token;
 
-        if(!token) {
-            alert('Você não deveria estar aqui!')
+        if (!token) {
+            toast.error("Token inválido", toastConfig);
             HistoryService.push('/');
         } else {
-            setuserToken(token);
+            setUserToken(token);
         }
     }, [userToken]);
 
     const handleClickInput = () => {
-        if(request !== 'success') {
+        if (request !== 'success') {
             setRequest('');
         }
     }
@@ -34,13 +35,13 @@ const ChangePassword: React.FC = () => {
         event.preventDefault();
 
         try {
-            const res = await api.post('/change-password', {
+            await api.post('/change-password', {
                 email: email,
                 password: password,
                 redefine_password_token: userToken
             });
 
-            alert("Senha alterada com sucesso!");
+            toast.success("Senha alterada com sucesso!", toastConfig);
             HistoryService.push('/');
 
             setRequest('success');
@@ -49,7 +50,7 @@ const ChangePassword: React.FC = () => {
             const errorMsg = err.response.data.error;
 
             setRequest('error');
-            alert("Erro " + status + "\n" + errorMsg);
+            toast.error("Erro " + status + "\n" + errorMsg, toastConfig);
         }
     }
 
@@ -59,7 +60,7 @@ const ChangePassword: React.FC = () => {
                 <ForgetPasswordContainer>
 
                     <ForgetPasswordMessageContainer className={request}>
-                        <h1>Informe seu endereço de email atual e sua nova senha</h1>  
+                        <h1>Informe seu endereço de email atual e sua nova senha</h1>
                     </ForgetPasswordMessageContainer>
 
                     <InputBox
@@ -81,7 +82,7 @@ const ChangePassword: React.FC = () => {
                     <ForgetPasswordErrors className={request}>
                         Email ou Token inválido!
                     </ForgetPasswordErrors>
-                    
+
                     <ForgetPasswordButton className={request} type="submit"> Trocar senha </ForgetPasswordButton>
                 </ForgetPasswordContainer>
             </ForgetPasswordView>

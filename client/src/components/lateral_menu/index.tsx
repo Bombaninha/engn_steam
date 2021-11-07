@@ -1,7 +1,6 @@
 import React from 'react'
 import Path from '../../constant/Path'
 import HistoryService from '../../services/history/HistoryService'
-import { suspend } from '../../util/AsyncUtils'
 import PermissionsEnum from '../../types/PermissionEnum'
 // import '../styles.css'
 import { LateralMenuButton, LateralMenuContainer } from './styles'

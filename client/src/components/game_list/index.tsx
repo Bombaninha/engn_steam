@@ -7,6 +7,7 @@ import axios from 'axios'
 import { API_URL } from '../../constant/api'
 import { isDevMode } from '../../api'
 import { gamesListPopulate } from '../../constant/content'
+import { toast } from 'react-toastify'
 
 interface GameListProps {
     onClick: (value: TGame | null) => void
@@ -25,7 +26,7 @@ const GameList: React.FC<GameListProps> = ({ onClick }) => {
         } catch (err: any) {
             const status = err.response.status;
             const errorMsg = err.response.data.error;
-            alert("Erro " + status + "\n" + errorMsg);
+            toast.error("Erro " + status + "\n" + errorMsg);
         }
         setGames(games);
     }

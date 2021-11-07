@@ -30,8 +30,6 @@ function HasPermissionProvider({ children }) {
         localStorage.setItem('role_enum', JSON.stringify(valor));
 
         setHasPermission(valor);
-        //history.push('/');
-        //console.log(history);
         console.log("Logado com sucesso!");
     }
 

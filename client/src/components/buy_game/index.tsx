@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SelectInput from '../../components/select_input'
 import TextInput from '../../components/textInput'
-import CheckboxInput from '../../components/checkbox_input'
+// import CheckboxInput from '../../components/checkbox_input'
 import DefaultButton from '../default_button'
 import GameItem from '../GameItem'
 import { TGame, TPurchasedGame } from '../../types/TGame'
@@ -20,7 +20,7 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
     const [user] = useState(userID);
     const [input, setInput] = useState('')
     const [isWrongInput, setIsWrongInput] = useState(false)
-    const [checkbox, setCheckbox] = useState(false)
+    const [checkbox] = useState(false)
 
     const [selectedBuyType, setSelectedBuyType] = useState('carregando...')
     const [buyTypes, setBuyTypes] = useState<Array<any>>([]);
@@ -58,7 +58,8 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
 
                 setCards(cardsWithKey);
 
-                const selectedCardValue = (cards.length === 0) ? '' : cards[0].key;
+                const selectedCardValue = (cards.length === 0) ? '' : cardsWithKey[0].key;
+                console.log('selectedCardValue', selectedCardValue)
                 setSelectedCard(selectedCardValue);
             } else {
                 const errorMsg: string = "Error getting user cards.";

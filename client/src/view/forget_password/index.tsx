@@ -1,12 +1,13 @@
 import React, { FormEvent, useState } from 'react'
 import { InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors } from './styles';
 
-import api from '../../api';
+import api, { toastConfig } from '../../api';
+import { toast } from 'react-toastify';
 const ForgetPassword: React.FC = () => {
     const [email, setEmail] = useState('adminobrabo@gmail.com')
     const [request, setRequest] = useState('')
     const [disabledButton, setDisabledButton] = useState(false)
-    
+
     const handleForgetPassword = async (event: FormEvent) => {
         event.preventDefault();
         try {
@@ -14,8 +15,7 @@ const ForgetPassword: React.FC = () => {
                 email: email
             });
 
-            alert("Email enviado com sucesso!");
-
+            toast.success("Email enviado!", toastConfig);
             setRequest('success');
             setDisabledButton(true);
         } catch (err: any) {
@@ -24,12 +24,12 @@ const ForgetPassword: React.FC = () => {
 
             setRequest('error');
             setDisabledButton(false);
-            alert("Erro " + status + "\n" + errorMsg);
+            toast.error("Erro " + status + "\n" + errorMsg, toastConfig);
         }
     }
 
     const handleClickInput = () => {
-        if(request !== 'success') {
+        if (request !== 'success') {
             setRequest('');
             setDisabledButton(false);
         }
@@ -42,7 +42,7 @@ const ForgetPassword: React.FC = () => {
                     <ForgetPasswordMessageContainer className={request}>
                         {(request === 'success'
                             ? <h1>E-mail de recuperação enviado para</h1>
-                            : <h1>Informe seu endereço de email</h1>     
+                            : <h1>Informe seu endereço de email</h1>
                         )}
                     </ForgetPasswordMessageContainer>
                     <InputBox
@@ -57,7 +57,7 @@ const ForgetPassword: React.FC = () => {
                     <ForgetPasswordErrors className={request}>
                         Login ou senha incorretos!
                     </ForgetPasswordErrors>
-                    
+
                     <ForgetPasswordButton className={request} type="submit"> Enviar e-mail de recuperação </ForgetPasswordButton>
                 </ForgetPasswordContainer>
             </ForgetPasswordView>

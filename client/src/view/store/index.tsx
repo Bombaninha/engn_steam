@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
-import api from '../../api'
+import { toast } from 'react-toastify'
+import api, { toastConfig } from '../../api'
 import BuyGame from '../../components/buy_game'
 import GameList from '../../components/game_list'
 import InfoPage from '../../components/info_page'
 import { TGame } from '../../types/TGame'
 
 function getUserIDFromLocalStorage(): string {
-    const userID = localStorage.getItem('user_id');
-
-    if (userID !== null) return userID
-    else return "";
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user !== {}) {
+        const userID = user.id;
+        if (userID !== null)
+            return userID
+    }
+    return '';
 }
 
 const Store: React.FC = () => {
@@ -28,11 +32,12 @@ const Store: React.FC = () => {
             });
             console.log(res);
 
+            toast.success("Compra realizada com sucesso!", toastConfig);
             setSuccessfulPurchase(true)
         } catch (err: any) {
             const status = err.response.status;
             const errorMsg = err.response.data.error;
-            alert("Erro " + status + "\n" + errorMsg);
+            toast.error("Erro " + status + "\n" + errorMsg, toastConfig);
         }
         setGameToBuy(null)
     }

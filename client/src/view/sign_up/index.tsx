@@ -1,9 +1,10 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors, InputCheckbox, CheckboxContainer } from './styles';
 
-import api from '../../api';
+import api, { toastConfig } from '../../api';
 
 import HistoryService from '../../services/history/HistoryService'
+import { toast } from 'react-toastify';
 
 const SignUp: React.FC = () => {
     const [name, setName] = useState('Lucas')
@@ -40,7 +41,7 @@ const SignUp: React.FC = () => {
     const handleSignIn = async (event: FormEvent) => {
         event.preventDefault();
 
-        const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        const format = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
 
         try {
 
@@ -64,20 +65,19 @@ const SignUp: React.FC = () => {
 
             const roleId = (dataRole.length > 0) ? dataRole[0].id : '';
 
-            const signUpRequest = await api.post('/users', {
+            await api.post('/users', {
                 name: name,
                 email: email,
                 password: password,
                 role_id: roleId
             });
 
-            alert("Conta criada com sucesso!");
+            toast.success("Conta criada com sucesso!", toastConfig);
             HistoryService.push('/');
         } catch (err: any) {
             const status = err.response.status;
             const errorMsg = err.response.data.error;
-
-            alert("Erro " + status + "\n" + errorMsg);
+            toast.error("Erro " + status + "\n" + errorMsg, toastConfig);
         }
     }
 

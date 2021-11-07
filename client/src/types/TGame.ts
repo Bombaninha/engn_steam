@@ -21,9 +21,6 @@ export function TPurchasedGameArrayFromJSON(gamesJSON: Array<any>, purchJSON: Ar
     const purchasedGames: TPurchasedGame[] = [];
 
     const purchGamesID: string[] = purchJSON.map(g => g.game_id);
-    console.log(purchGamesID);
-    console.log(gamesJSON);
-
     gamesJSON = gamesJSON.filter(g => purchGamesID.includes(g.id));
 
     gamesJSON.forEach(g => {
