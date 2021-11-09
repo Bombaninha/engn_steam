@@ -81,9 +81,9 @@ const Account: React.FC = () => {
             <button className="show-display-button" onClick={() => showDisplay()}>Alterar senha</button>
             {changePassword ?
                 <div>
-                    <TextInput wrongInput={!(definitivePassword === currentPassword)} onChange={newPassword => setCurrentPassword(newPassword)} value={currentPassword} text={'Senha atual: '} hasLabel password errorMessage={"A senha fornecida não bate com a atual"} />
-                    <TextInput wrongInput={!isValidPassword()} onChange={newPassword => setNewPassword(newPassword)} value={newPassword} text={'Nova senha: '} hasLabel password errorMessage={"A senha deve ter pelo menos 8 caracteres, 1 caracter numérico, q caracter minúsculo e 1 caracter maiúsculo"} />
-                    <TextInput wrongInput={!(newPassword === repeatNewPassword)} onChange={newPassword => setRepeatNewPassword(newPassword)} value={repeatNewPassword} text={'Repetir nova senha: '} hasLabel password errorMessage={"A senha fornacida não bate com a nova senha digitada"} />
+                    <TextInput wrongInput={!(definitivePassword === currentPassword)} onChange={newPassword => setCurrentPassword(newPassword)} value={currentPassword} text={'Senha atual: '} hasLabel isPassword errorMessage={"A senha fornecida não bate com a atual"} />
+                    <TextInput wrongInput={!isValidPassword()} onChange={newPassword => setNewPassword(newPassword)} value={newPassword} text={'Nova senha: '} hasLabel isPassword errorMessage={"A senha deve ter pelo menos 8 caracteres, 1 caracter numérico, q caracter minúsculo e 1 caracter maiúsculo"} />
+                    <TextInput wrongInput={!(newPassword === repeatNewPassword)} onChange={newPassword => setRepeatNewPassword(newPassword)} value={repeatNewPassword} text={'Repetir nova senha: '} hasLabel isPassword errorMessage={"A senha fornecida não bate com a nova senha digitada"} />
                 </div>
                 : <></>}
             <div className="button-wrapper">

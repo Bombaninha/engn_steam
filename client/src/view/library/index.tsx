@@ -32,9 +32,10 @@ const Library: React.FC = () => {
     async function loadGamesBoughtFromBackend() {
         let games: TPurchasedGame[] = []
         try {
-            const gamesJSON = await api.get('/games');
-            console.log(gamesJSON);
-            const gamesArray = TGameArrayFromJSON(gamesJSON.data as Array<any>);
+            const gamesRes = await api.get('/games');
+            console.log(gamesRes);
+            const gamesJSON = (gamesRes.data as Array<any>).filter(g => !g.is_pending)
+            const gamesArray = TGameArrayFromJSON(gamesJSON);
 
             const res = await api.get('/buys');
             console.log(res);
