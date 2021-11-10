@@ -37,15 +37,17 @@ import { GetUserController } from "./controllers/GetUserController";
 
 import { DeleteGameController } from "./controllers/DeleteGameController";
 import { DeleteCardController } from "./controllers/DeleteCardController";
+import { DeleteRequestController } from "./controllers/DeleteRequestController";
 
 import { BuyHistoryController } from "./controllers/BuyHistoryController";
 
-//import { UpdateGameController } from "./controllers/UpdateGameController";
+import { UpdateGameController } from "./controllers/UpdateGameController";
 
 const router = Router();
 
 router.get('/requests', new ListRequestsController().handle);
-//const updateGameController = new UpdateGameController();
+router.delete('/requests/:id', new DeleteRequestController().handle);
+
 
 router.get('/users', new ListUsersController().handle);
 router.get('/users/:id', new GetUserController().handle);
@@ -64,7 +66,7 @@ router.post('/categories', new CreateCategoryController().handle);
 
 router.get('/games', new ListGamesController().handle);
 router.post('/games', new CreateGameController().handle);
-//router.patch('/games/:id', updateGameController.handle);
+router.patch('/games/:id', new UpdateGameController().handle);
 //router.put('/games/:id', updateGameController.handle);
 router.delete('/games/:id', new DeleteGameController().handle);
 

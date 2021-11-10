@@ -1,5 +1,5 @@
 import { Entity, Column, OneToMany } from "typeorm";
-import { Request } from "./Request";
+import { RequestUser } from "./Request";
 
 import { BaseEntity } from "./BaseEntity";
 
@@ -9,8 +9,8 @@ class RequestType extends BaseEntity {
     @Column({ unique: true })
     name: string;
 
-    @OneToMany(() => Request, request => request.requestType)    
-    requests: Request[];
+    @OneToMany(() => RequestUser, request => request.requestType)    
+    requests: RequestUser[];
 
 }
 
