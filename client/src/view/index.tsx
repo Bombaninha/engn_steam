@@ -9,7 +9,7 @@ import Login from '../view/login'
 import Statistics from '../view/statistics'
 import GameManagement from '../view/game_management'
 import Tickets from '../view/tickets'
-import Requests from '../view/requests'
+import Request from './request'
 import NotFound from '../view/not_found'
 
 import Account from '../view/account'
@@ -84,7 +84,7 @@ const Main: React.FC = () => {
 					/>
 					<CustomRoute exact path={Path.REQUEST}
 						isPrivate allowed={[PermissionsEnum.STAFF, PermissionsEnum.ADMINISTRATOR]}
-						component={Requests}
+						component={Request}
 					/>
 
 					<CustomRoute exact path={Path.GAME_MANAGEMENT}

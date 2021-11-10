@@ -87,7 +87,7 @@ const Account: React.FC = () => {
                 </div>
                 : <></>}
             <div className="button-wrapper">
-                <DefaultButton text={'Cancelar alterções'} colorClass={'secondary'} onClick={() => resetInputs()} />
+                <DefaultButton text={'Cancelar alterações'} colorClass={'secondary'} onClick={() => resetInputs()} />
                 <DefaultButton text={'Salvar alterações'} colorClass={'primary'} onClick={() => updateAccount()} />
             </div>
         </div>

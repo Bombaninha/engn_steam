@@ -3,7 +3,7 @@ import './styles.css'
 
 export interface DefaultButtonProps {
 	text: string
-	colorClass?: 'primary' | 'secondary'
+	colorClass?: 'primary' | 'secondary' | 'tertiary'
     onClick: () => void
 }
 

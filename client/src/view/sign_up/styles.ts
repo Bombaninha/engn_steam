@@ -138,3 +138,7 @@ export const InputCheckbox = styled.input`
     padding: 0.8rem 0.8rem;
     margin: 0.8rem 1rem;
 `;
+
+export const WithoutAccountContainer = styled.div`
+
+`;

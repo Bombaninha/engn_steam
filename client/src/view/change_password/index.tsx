@@ -1,11 +1,13 @@
 import React, { FormEvent, useEffect, useState } from 'react'
-import { InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors } from './styles';
+import { WithoutAccountContainer, CreateAccountButton, InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors } from './styles';
 
 import api, { toastConfig } from '../../api';
 
 import queryString from 'query-string'
 import HistoryService from '../../services/history/HistoryService'
 import { toast } from 'react-toastify';
+
+import Path from '../../constant/Path';
 
 const ChangePassword: React.FC = () => {
     const [email, setEmail] = useState('adminobrabo@gmail.com')

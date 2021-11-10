@@ -1,8 +1,11 @@
 import React, { FormEvent, useState } from 'react'
-import { InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors } from './styles';
+import { WithoutAccountContainer, CreateAccountButton, InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors } from './styles';
 
 import api, { toastConfig } from '../../api';
 import { toast } from 'react-toastify';
+
+import Path from '../../constant/Path';
+
 const ForgetPassword: React.FC = () => {
     const [email, setEmail] = useState('adminobrabo@gmail.com')
     const [request, setRequest] = useState('')
@@ -59,6 +62,14 @@ const ForgetPassword: React.FC = () => {
                     </ForgetPasswordErrors>
 
                     <ForgetPasswordButton className={request} type="submit"> Enviar e-mail de recuperação </ForgetPasswordButton>
+
+                    <WithoutAccountContainer>
+                        <a href={ Path.LOGIN }>
+                            <CreateAccountButton type='button'>
+                                Voltar
+                            </CreateAccountButton>
+                        </a>
+                    </WithoutAccountContainer>
                 </ForgetPasswordContainer>
             </ForgetPasswordView>
         </form>

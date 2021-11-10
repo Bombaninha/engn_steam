@@ -1,0 +1,38 @@
+.buy-game-wrapper {
+    padding: 0 1.5rem 0 0.5rem;
+    width: 75vw;
+}
+
+.buy-game-wrapper .gift-to-friend-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50vw;
+    max-width: 800px;
+    min-height: 2rem;
+}
+
+.buy-game-wrapper .button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4rem;
+}
+
+.buy-game-wrapper .button-wrapper button {
+    margin-left: 1.5rem;
+}
+
+.informationContainer {
+    font-size: 1.3rem;
+}
+
+.info {
+    margin-bottom: 0.8rem;
+}
+
+
+.requestInfo {
+    padding: 1rem;
+    border: 1px solid #FFF;
+    max-width: 500px;
+}

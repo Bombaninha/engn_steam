@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Path from '../../constant/Path'
 import HistoryService from '../../services/history/HistoryService'
 import PermissionsEnum from '../../types/PermissionEnum'
+
+import { AuthProvider, Context } from '../../contexts/AuthContext';
+
 // import '../styles.css'
 import { LateralMenuButton, LateralMenuContainer } from './styles'
 
@@ -15,6 +18,7 @@ const handleClick = async (path: string) => {
 }
 
 const StaffLateralMenu: React.FC = () => {
+    const { handleLogout } = useContext(Context);
     return (
         <LateralMenuContainer>
             <LateralMenuButton onClick={() => handleClick(Path.STATISTICS)}>
@@ -23,11 +27,15 @@ const StaffLateralMenu: React.FC = () => {
             <LateralMenuButton onClick={() => handleClick(Path.TICKETS)}>
                 Tickets
             </LateralMenuButton>
+            <LateralMenuButton onClick={ handleLogout }>
+                Sair
+            </LateralMenuButton>
         </LateralMenuContainer>
     )
 }
 
 const AdmLateralMenu: React.FC = () => {
+    const { handleLogout } = useContext(Context);
     return (
         <LateralMenuContainer>
             <LateralMenuButton onClick={() => handleClick(Path.STATISTICS)}>
@@ -39,11 +47,15 @@ const AdmLateralMenu: React.FC = () => {
             <LateralMenuButton onClick={() => handleClick(Path.REQUEST)}>
                 Pedidos
             </LateralMenuButton>
+            <LateralMenuButton onClick={ handleLogout }>
+                Sair
+            </LateralMenuButton>
         </LateralMenuContainer>
     )
 }
 
 const UserLateralMenu: React.FC = () => {
+    const { handleLogout } = useContext(Context);
     return (
         <LateralMenuContainer>
             <LateralMenuButton onClick={() => handleClick(Path.STORE)}>
@@ -61,11 +73,15 @@ const UserLateralMenu: React.FC = () => {
             <LateralMenuButton onClick={() => handleClick(Path.SUPPORT)}>
                 Suporte
             </LateralMenuButton>
+            <LateralMenuButton onClick={ handleLogout }>
+                Sair
+            </LateralMenuButton>
         </LateralMenuContainer>
     )
 }
 
 const DevLateralMenu: React.FC = () => {
+    const { handleLogout } = useContext(Context);
     return (
         <LateralMenuContainer>
             <LateralMenuButton onClick={() => handleClick(Path.GAME_MANAGEMENT)}>
@@ -76,6 +92,9 @@ const DevLateralMenu: React.FC = () => {
             </LateralMenuButton>
             <LateralMenuButton onClick={() => handleClick(Path.SUPPORT)}>
                 Suporte
+            </LateralMenuButton>
+            <LateralMenuButton onClick={ handleLogout }>
+                Sair
             </LateralMenuButton>
         </LateralMenuContainer>
     )

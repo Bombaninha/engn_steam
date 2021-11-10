@@ -1,13 +1,13 @@
 class Path {
-	ROOT = 'localhost:3000'
+	ROOT = 'localhost:3000';
 
-	LOGIN = `/`
-	REGISTER = `/register`
+	LOGIN = `/`;
+	REGISTER = `/register`;
+	LOGOUT = `/logout`;
 	GAME_MANAGEMENT = `/game-management`;
 	CHANGE_PASSWORD = `/change-password`;
 	FORGET_PASSWORD = `/forget-password`;
 	STORE = `/store`;
-	//MENU = `/menu`;
 	STATISTICS = `/statistics`
 	LIBRARY = `/library`
 	ACCOUNT = '/account'

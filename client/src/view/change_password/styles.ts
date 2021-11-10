@@ -101,3 +101,7 @@ export const ForgetPasswordErrors = styled.div`
         color: #ff3333;
     }
 `;
+
+export const WithoutAccountContainer = styled.div`
+
+`;

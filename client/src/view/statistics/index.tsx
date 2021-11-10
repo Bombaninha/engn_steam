@@ -47,18 +47,10 @@ const Statistics: React.FC = () => {
     }
 
     return (
-        <>
-            <button type="button" onClick={handleLogout}>Sair</button>
-            <div>
-                {games.map((game: any) => (
-                    <GameItem key={game.id} game={game}></GameItem>
-                ))}
-            </div>
-            <Container>
-                <Button onClick={openModal}>I'm a modal</Button>
-                <Modal showModal={showModal} setShowModal={setShowModal} />
-            </Container>
-        </>
+        <Container>
+            <Button onClick={openModal}>I'm a modal</Button>
+            <Modal showModal={showModal} setShowModal={setShowModal} />
+        </Container>
     )
 }
 export default Statistics

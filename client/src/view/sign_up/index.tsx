@@ -1,10 +1,11 @@
 import React, { FormEvent, useState } from 'react'
-import { InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors, InputCheckbox, CheckboxContainer } from './styles';
+import { WithoutAccountContainer, CreateAccountButton, InputBox, ForgetPasswordButton, ForgetPasswordContainer, ForgetPasswordView, ForgetPasswordMessageContainer, ForgetPasswordErrors, InputCheckbox, CheckboxContainer } from './styles';
 
 import api, { toastConfig } from '../../api';
 
 import HistoryService from '../../services/history/HistoryService'
 import { toast } from 'react-toastify';
+import Path from '../../constant/Path';
 
 const SignUp: React.FC = () => {
     const [name, setName] = useState('Lucas')
@@ -148,6 +149,14 @@ const SignUp: React.FC = () => {
                     </CheckboxContainer>
 
                     <ForgetPasswordButton type="submit"> Cadastrar </ForgetPasswordButton>
+
+                    <WithoutAccountContainer>
+                        <a href={ Path.LOGIN }>
+                            <CreateAccountButton type='button'>
+                                Voltar
+                            </CreateAccountButton>
+                        </a>
+                    </WithoutAccountContainer>
                 </ForgetPasswordContainer>
             </ForgetPasswordView>
         </form>
