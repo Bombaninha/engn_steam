@@ -1,45 +1,81 @@
-import { useState } from 'react'
-import { TGame } from "../../types/TGame"
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import api, { toastConfig } from '../../api'
+import { emptyTGame, TGame } from "../../types/TGame"
 import DefaultButton from "../default_button"
 import InfoPage from '../info_page'
+import SelectInput from '../select_input'
 import TextInput from "../textInput"
 import TextArea from '../text_area'
 import './styles.css'
 
 interface AddEditGameProps {
     gameItem?: TGame
-    onEdit?: () => void
+    addRequest: (game: TGame) => Promise<void>
     onReturn: () => void
 }
 
-const AddEditGame: React.FC<AddEditGameProps> = ({gameItem, onEdit, onReturn}) => {
-    const [game, setGame] = useState(gameItem? gameItem : {
-        name: '',
-        description: '',
-        developer: '',
-        price: 0.00,
-        categories: []
-    })
-    const [isOperationFinnished, setIsOperationFinnished] = useState(false)
+const AddEditGame: React.FC<AddEditGameProps> = ({ gameItem, addRequest, onReturn }) => {
+    const [game, setGame] = useState(gameItem ? gameItem : emptyTGame)
+    const [categories, setCategories] = useState<Array<any>>([])
+    const [selectedCategory, setSelectedCategory] = useState<string>("")
+    const [isOperationFinished, setIsOperationFinished] = useState(false)
+
+    async function getCategories() {
+        console.log('getCategories')
+        try {
+            const res: any = await api.get('/categories')
+            console.log(res);
+            const cat: Array<any> = res.data;
+
+            const categoriesOptions = cat.map(item => {
+                return { key: item.id, value: item.id, label: item.name }
+            });
+            console.log(categoriesOptions);
+            setCategories(categoriesOptions);
+
+            const selectedCategory = (categories.length === 0) ? '' : categories[0].id;
+            console.log('selectedCategory', selectedCategory)
+            setSelectedCategory(selectedCategory);
+        } catch {
+            const errorMsg: string = "Error getting categories.";
+            toast.error(errorMsg, toastConfig);
+        }
+    }
+
+    useEffect(() => {
+        getCategories();
+    }, [])
 
     const handleAddEditGame = () => {
-        setIsOperationFinnished(true)
-        onEdit && onEdit()
+        setIsOperationFinished(true)
+        addRequest(game);
     }
-    
+
+    if (!categories)
+        return <></>;
+    console.log(categories);
+
     return (
         <>
-            {isOperationFinnished ?
+            {isOperationFinished ?
                 <InfoPage infoText='Sua solicitação foi enviada com sucesso' buttonText='Voltar ao menu principal' onClick={onReturn} />
                 :
                 <div className="add-edit-game page">
                     <h1 className="page-title">Adicionar jogo</h1>
                     <h2 className="page-subtitle">Informações do jogo</h2>
-                    <TextInput hasLabel text="Nome" value={game.name} onChange={newTitle => setGame({...game, name: newTitle})} />
-                    <TextInput hasLabel text="Preço" value={game.price.toString()} onChange={newPrice => setGame({...game, price: parseInt(newPrice)})} />
-                    <TextInput hasLabel text="Desenvolvedor" value={game.developer} onChange={newDeveloper => setGame({...game, developer: newDeveloper})} />
-                    <TextArea labelText="Descrição" value={game.description} onChange={newDescription => setGame({...game, description: newDescription})}/>
-                    <DefaultButton text="Fazer pedido de adição" colorClass="primary" onClick={() => handleAddEditGame()}/>
+                    <TextInput hasLabel text="Nome" value={game.name} onChange={newTitle => setGame({ ...game, name: newTitle })} />
+                    <TextInput hasLabel text="Preço" value={game.price.toString()} isNumber onChange={newPrice => setGame({ ...game, price: Number(newPrice) })} />
+
+                    <TextArea labelText="Descrição" value={game.description} onChange={newDescription => setGame({ ...game, description: newDescription })} />
+                    <br />
+                    <SelectInput isAdd value={selectedCategory} label='Categoria' identification='category'
+                        options={categories}
+                        onChange={(select: any) => { game.categories = [select.key] }}
+                    />
+                    <br />
+                    <DefaultButton text="Fazer pedido de adição" colorClass="primary" onClick={() => handleAddEditGame()} />
+
                 </div>
             }
         </>
