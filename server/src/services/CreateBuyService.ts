@@ -13,25 +13,25 @@ interface ICreateBuyRequest {
 }
 
 class CreateBuyService {
-    async execute({ buy_type_id, buyer_id, receiver_id, card_id, game_id } : ICreateBuyRequest) {
+    async execute({ buy_type_id, buyer_id, receiver_id, card_id, game_id }: ICreateBuyRequest) {
         const buysRepositories = getCustomRepository(BuysRepositories);
 
-        if(!buy_type_id) {
+        if (!buy_type_id) {
             throw new Error("Incorrect Buy Type");
         }
 
-        if(!buyer_id) {
+        if (!buyer_id) {
             throw new Error("Incorrect Buyer Id");
         }
 
-        if(!card_id) {
+        if (!card_id) {
             throw new Error("Incorrect Card Id");
         }
 
-        if(!game_id) {
+        if (!game_id) {
             throw new Error("Incorrect Game Id");
         }
-        
+
         const buy = buysRepositories.create({
             buy_type_id,
             buyer_id,
@@ -42,7 +42,9 @@ class CreateBuyService {
 
         await buysRepositories.save(buy);
 
-        return classToPlain(buy);
+        const returnBuy = await buysRepositories.findOne({ where: { id: buy.id }, relations: ["game", "card", "buyType", "buyer", "receiver"] })
+
+        return classToPlain(returnBuy);
 
     }
 }

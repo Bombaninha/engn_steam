@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import GameItem from '../components/GameItem';
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 
@@ -19,7 +18,7 @@ type QuestionType = {
 */
 
 export function useGame() {
-    const [ games, setGames ] = useState([]);
+    const [games, setGames] = useState([]);
 
     useEffect(() => {
         const fecthData = async () => {
@@ -29,11 +28,12 @@ export function useGame() {
         fecthData();
     }, []);
 
-    return (
+    return games;
+    /*(
         <div>
             { games.map((game) => (
                 <GameItem key={game.id} game={game}></GameItem>
             ))}
         </div>
-    );
+    );*/
 }

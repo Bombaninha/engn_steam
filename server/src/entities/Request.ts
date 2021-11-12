@@ -5,7 +5,7 @@ import { RequestType } from "./RequestType";
 import { BaseEntity } from "./BaseEntity";
 
 @Entity("requests")
-class Request extends BaseEntity {
+class RequestUser extends BaseEntity {
 
     @Column()
     request_type_id: string
@@ -22,4 +22,4 @@ class Request extends BaseEntity {
 
 }
 
-export { Request };
+export { RequestUser };

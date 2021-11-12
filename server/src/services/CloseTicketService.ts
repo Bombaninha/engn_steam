@@ -4,12 +4,12 @@ import { TicketsRepositories } from "../repositories/TicketsRepositories";
 
 import { hash } from "bcryptjs";
 
-interface ICloseTicketRequest {
+type CloseTicketRequest = {
     id: string;
 }
 
 class CloseTicketService {
-    async execute({ id } : ICloseTicketRequest) {
+    async execute({ id } : CloseTicketRequest) {
         const ticketsRepositories = getCustomRepository(TicketsRepositories)
 
         if(!id) {

@@ -2,16 +2,22 @@ import { getCustomRepository } from 'typeorm';
 import { UsersRepositories } from '../repositories/UsersRepositories';
 import { classToPlain } from 'class-transformer';
 
+type QueryParamsUserRequest = {
+    email?: string | any;
+}
+
 class ListUsersService {
 
-    async execute() {
+    async execute({ email } : QueryParamsUserRequest) {
         const usersRepositories = getCustomRepository(UsersRepositories);
 
-        //const questions = await questionRepository.find({ relations: ["categories"] });
-        //const users = await usersRepositories.find( { relations: ["role"] });
         const users = await usersRepositories.find();
 
-        return classToPlain(users);
+        const usersFilteredByEmail = email 
+            ? users.filter(user => user.email.includes(email))
+            : users;
+
+        return classToPlain(usersFilteredByEmail);
     }
 }
 

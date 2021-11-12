@@ -15,3 +15,24 @@
     font-size: 1rem;
     padding: 0.3rem 0.5rem;
 }
+
+.mgmt-select-box-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.mgmt-select-box-wrapper label {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 1rem;
+    text-align: right;
+    min-width: 10rem;
+}
+
+.mgmt-select-box {
+    background-color: var(--light-gray);
+    color: var(--base-font-color);
+    border: none;
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
+} 

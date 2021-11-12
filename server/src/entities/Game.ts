@@ -2,7 +2,7 @@ import { Entity, Column, OneToOne, ManyToMany, JoinTable, OneToMany } from "type
 import { User } from "./User";
 import { Category } from "./Category";
 import { Buy } from "./Buy";
-import { Request } from "./Request";
+import { RequestUser } from "./Request";
 
 import { BaseEntity } from "./BaseEntity";
 
@@ -54,8 +54,8 @@ class Game extends BaseEntity {
     @OneToMany(() => Buy, buy => buy.game)    
     buys: Buy[];
 
-    @OneToOne(() => Request, request => request.game) 
-    request: Request;
+    @OneToOne(() => RequestUser, request => request.game) 
+    request: RequestUser;
 }
 
 export { Game };

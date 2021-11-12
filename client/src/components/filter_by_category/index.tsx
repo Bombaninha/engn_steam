@@ -10,12 +10,7 @@ const FilterByCategory: React.FC<FilterByCategoryProps> = ({ categories, onChang
     const [selectedCheckbox, setSelectedCheckbox] = useState<string[]>([])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let newSelectedCheckbox;
-        if (event.target.checked) {
-            newSelectedCheckbox = [...selectedCheckbox, event.target.name];
-        } else {
-            newSelectedCheckbox = selectedCheckbox.filter(item => item !== event.target.name);
-        }
+        const newSelectedCheckbox = event.target.checked ? [...selectedCheckbox, event.target.name] : selectedCheckbox.filter(item => item !== event.target.name);
         setSelectedCheckbox(newSelectedCheckbox);
         onChange(newSelectedCheckbox);
     }
@@ -26,7 +21,7 @@ const FilterByCategory: React.FC<FilterByCategoryProps> = ({ categories, onChang
             <form className="">
                 {categories.map((item) => {
                     return (
-                        <div className="input-wrapper">
+                        <div className="input-wrapper" key={item}>
                             <input
                                 type="checkbox"
                                 name={item}

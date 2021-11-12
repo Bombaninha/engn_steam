@@ -6,7 +6,8 @@ export interface TextInputProps {
 	value: string
 	text: string
 	hasLabel?: boolean
-	password?: boolean
+	isPassword?: boolean
+	isNumber?: boolean
 	uniqueKey?: string
 	wrongInput?: boolean
 	errorMessage?: string
@@ -16,7 +17,8 @@ const TextInput: React.FC<TextInputProps> = ({
 	text,
 	value,
 	onChange,
-	password,
+	isPassword,
+	isNumber,
 	uniqueKey,
 	hasLabel,
 	wrongInput,
@@ -31,13 +33,13 @@ const TextInput: React.FC<TextInputProps> = ({
 			<div className="text-input-field">
 				{hasLabel ? <label>{text}</label> : <></>}
 				<input
-					type={password ? 'password' : 'text'}
+					type={isPassword ? 'password' : isNumber ? 'number' : 'text'}
 					id={`input-field-${uniqueKey ?? ''}`}
 					aria-labelledby={`input-label-${uniqueKey ?? ''}`}
 					onChange={handleOnChange}
 					value={value}
 					placeholder={hasLabel ? '' : text}
-					className={`default-text-input ${wrongInput? "wrong-input" : ""}`}
+					className={`default-text-input ${wrongInput ? "wrong-input" : ""}`}
 				/>
 			</div>
 			{wrongInput ? <span className="error-message">{errorMessage}</span> : <></>}

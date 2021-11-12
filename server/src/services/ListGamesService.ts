@@ -9,23 +9,20 @@ interface IQueryParamsGameRequest {
 
 class ListGamesService {
 
-    async execute({ name, category } : IQueryParamsGameRequest) {
+    async execute({ name, category }: IQueryParamsGameRequest) {
 
         const gamesRepositories = getCustomRepository(GamesRepositories);
 
-        const games = await gamesRepositories.find({ 
+        const games = await gamesRepositories.find({
             relations: ["categories", "users"],
-            where: {
-                is_pending: false
-            }
         });
 
-        const gamesFilteredByName = name 
+        const gamesFilteredByName = name
             ? games.filter(game => game.name.includes(name))
             : games;
 
         // Somente uma categoria foi fornecida
-        if(typeof category === 'string') {
+        if (typeof category === 'string') {
             category = [category];
         }
 

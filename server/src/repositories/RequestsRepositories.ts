@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from "typeorm";
-import { Request } from "../entities/Request"
+import { RequestUser } from "../entities/Request"
 
-@EntityRepository(Request)
-class RequestsRepositories extends Repository<Request>{}
+@EntityRepository(RequestUser)
+class RequestsRepositories extends Repository<RequestUser>{}
 
 export { RequestsRepositories };
