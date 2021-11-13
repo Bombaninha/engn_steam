@@ -5,7 +5,6 @@ import { ListRolesService } from '../services/ListRolesService';
 class ListRolesController {
     async handle(request: Request, response: Response) {
         const { label } = request.query;
-        //console.log(request.user_id);
 
         const listRolesService = new ListRolesService();
 

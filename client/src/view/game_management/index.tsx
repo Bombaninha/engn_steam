@@ -34,7 +34,6 @@ const GameManagement: React.FC = () => {
         let games: TGame[] = []
         try {
             const res = await api.get('/games');
-            console.log(res);
             let gamesJSON = res.data as Array<any>;
             setGamesOnRequest(gamesJSON.filter(g => g.is_pending).map(g => g.name));
             games = TGameArrayFromJSON(gamesJSON);
@@ -67,7 +66,6 @@ const GameManagement: React.FC = () => {
             else {
                 res = await api.put('/games/' + game.id, game);
             }
-            console.log(res);
         } catch (err: any) {
             const status = err.response.status;
             const errorMsg = err.response.data.error;
@@ -80,7 +78,6 @@ const GameManagement: React.FC = () => {
     const deleteGame = async () => {
         try {
             const res = await api.delete('/games/' + gameToHandle?.id);
-            console.log(res);
         } catch (err: any) {
             const status = err.response.status;
             const errorMsg = err.response.data.error;
@@ -95,7 +92,7 @@ const GameManagement: React.FC = () => {
     }
 
     const handleRenovateGame = () => {
-        console.log('Renovar jogo')
+        
     }
 
     return (

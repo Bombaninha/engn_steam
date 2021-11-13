@@ -1,5 +1,5 @@
 import { Entity, Column, OneToMany } from "typeorm";
-import { RequestUser } from "./Request";
+import { RequestUser } from "./RequestUser";
 
 import { BaseEntity } from "./BaseEntity";
 

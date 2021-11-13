@@ -22,15 +22,13 @@ const Store: React.FC = () => {
     const [userID] = useState(getUserIDFromLocalStorage());
 
     const handleGamePurchase = async (buyTypeID: string, cardID: string) => {
-        // only reaches here if is prod mode
         try {
             const res = await api.post('/buys', {
                 card_id: cardID,
                 game_id: gameToBuy?.id,
-                buy_type_id: buyTypeID, //"659d6b94-7503-41fb-882f-76480e5d49cd", // self
-                buyer_id: userID,
+                buy_type_id: buyTypeID, 
+                buyer_id: userID
             });
-            console.log(res);
 
             toast.success("Compra realizada com sucesso!", toastConfig);
             setSuccessfulPurchase(true)

@@ -2,7 +2,7 @@ import { Entity, Column, OneToOne, ManyToMany, JoinTable, OneToMany } from "type
 import { User } from "./User";
 import { Category } from "./Category";
 import { Buy } from "./Buy";
-import { RequestUser } from "./Request";
+import { RequestUser } from "./RequestUser";
 
 import { BaseEntity } from "./BaseEntity";
 

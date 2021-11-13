@@ -21,7 +21,6 @@ const GameList: React.FC<GameListProps> = ({ onClick }) => {
         let games: TGame[] = []
         try {
             const res = await axios.get(API_URL + '/v1/games');
-            console.log(res);
             games = TGameArrayFromJSON(res.data as Array<any>);
         } catch (err: any) {
             const status = err.response.status;

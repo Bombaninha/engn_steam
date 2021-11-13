@@ -78,7 +78,12 @@ router.get('/buy-types', new ListBuyTypesController().handle);
 router.post('/buy-types', new CreateBuyTypeController().handle);
 
 router.get('/buys', new ListBuysController().handle);
-router.post('/buys', new CreateBuyController().handle);
+
+router.post(
+    '/buys', 
+    ensureAuthenticated,
+    new CreateBuyController().handle
+);
 
 router.get('/tickets', new ListTicketsController().handle);
 router.post('/tickets', new CreateTicketsController().handle);

@@ -33,12 +33,10 @@ const Library: React.FC = () => {
         let games: TPurchasedGame[] = []
         try {
             const gamesRes = await api.get('/games');
-            console.log(gamesRes);
             const gamesJSON = (gamesRes.data as Array<any>).filter(g => !g.is_pending)
             const gamesArray = TGameArrayFromJSON(gamesJSON);
 
             const res = await api.get('/buys');
-            console.log(res);
             const purchasedGames = TPurchasedGameArrayFromJSON(gamesArray, res.data as Array<any>);
             setCategories(getCategoriesFromGames(purchasedGames));
             games = purchasedGames;
@@ -65,7 +63,6 @@ const Library: React.FC = () => {
     }
 
     function SortBy(sort: SortEnum, games: TPurchasedGame[]): TPurchasedGame[] {
-        console.log("SortBy= " + sort)
         if (sort === SortEnum.ALPHABETICAL_ASC)
             return games.sort((a, b) => a.game.name.localeCompare(b.game.name));
         if (sort === SortEnum.ALPHABETICAL_DESC)

@@ -52,7 +52,6 @@ function AuthProvider({ children }) {
             } else {
                 HistoryService.push('/');
                 const warnMsg = "Usuário já está logado!"
-                console.log(warnMsg);
                 toast.warn(warnMsg, toastConfig);
             }
         } catch (error) {
@@ -69,7 +68,6 @@ function AuthProvider({ children }) {
             localStorage.removeItem('user');
             api.defaults.headers.Authorization = undefined;
             const msg = "Deslogado com sucesso!";
-            console.log(msg);
             toast.success(msg, toastConfig);
             HistoryService.push('/');
         } else {

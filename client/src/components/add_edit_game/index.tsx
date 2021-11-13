@@ -22,20 +22,16 @@ const AddEditGame: React.FC<AddEditGameProps> = ({ gameItem, addRequest, onRetur
     const [isOperationFinished, setIsOperationFinished] = useState(false)
 
     async function getCategories() {
-        console.log('getCategories')
         try {
             const res: any = await api.get('/categories')
-            console.log(res);
             const cat: Array<any> = res.data;
 
             const categoriesOptions = cat.map(item => {
                 return { key: item.id, value: item.id, label: item.name }
             });
-            console.log(categoriesOptions);
             setCategories(categoriesOptions);
 
             const selectedCategory = (categories.length === 0) ? '' : categories[0].id;
-            console.log('selectedCategory', selectedCategory)
             setSelectedCategory(selectedCategory);
         } catch {
             const errorMsg: string = "Error getting categories.";
@@ -54,7 +50,6 @@ const AddEditGame: React.FC<AddEditGameProps> = ({ gameItem, addRequest, onRetur
 
     if (!categories)
         return <></>;
-    console.log(categories);
 
     return (
         <>

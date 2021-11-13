@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { RequestsRepositories } from "../repositories/RequestsRepositories";
 import { RequestTypesRepositories } from "../repositories/RequestTypesRepositories";
 
-import { Request } from '../entities/Request';
+import { RequestUser } from '../entities/RequestUser';
 
 interface ICreateRequestRequest {
     game_id: string;

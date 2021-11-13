@@ -38,7 +38,6 @@ export function TPurchasedGameArrayFromJSON(gamesJSON: Array<any>, purchJSON: Ar
         purchasedGames.push(purchasedGame);
     });
 
-    console.log(purchasedGames);
     return purchasedGames;
 }
 

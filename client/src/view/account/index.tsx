@@ -47,17 +47,14 @@ const Account: React.FC = () => {
 
     const canPasswordUpdate = () => {
         if (currentPassword !== definitivePassword) {
-            console.log('as senhas não batem')
             toast.error('As senhas são diferentes', toastConfig);
             return false
         }
         if (!isValidPassword()) {
-            console.log('senha nova invalida')
             toast.error('Nova senha inválida', toastConfig);
             return false
         }
         if (newPassword !== repeatNewPassword) {
-            console.log('as novas senhas não batem');
             toast.error('As senhas são diferentes', toastConfig);
             return false
         }

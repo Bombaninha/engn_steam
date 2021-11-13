@@ -39,7 +39,6 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
 
                     return { key: item.id, value: item.id, label: item.name, isGift: isGift }
                 });
-                console.log('buyTypesWithKey', buyTypesWithKey)
 
                 setBuyTypes(buyTypesWithKey);
             }
@@ -58,8 +57,8 @@ const BuyGame: React.FC<BuyGameProps> = ({ userID, gameInfo, onCancel, onGameBou
                 setCards(cardsWithKey);
 
                 const selectedCardValue = (cards.length === 0) ? '' : cardsWithKey[0].key;
-                console.log('selectedCardValue', selectedCardValue)
                 setSelectedCard(selectedCardValue);
+
             } else {
                 const errorMsg: string = "Error getting user cards.";
                 console.error(errorMsg, cards_res);
